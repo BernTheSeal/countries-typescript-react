@@ -13,11 +13,16 @@ const country: FunctionComponent<iCountryProps> = (props) => {
     const { country } = props
     const COUNTRY_NAME_URL: string = country.name.common.replace(/ /g, "-")
     return (
-        <p>
-            {props.index + 1} - <div onClick={() => {
-                navigate(COUNTRY_NAME_URL)
-            }}>{country.name.common}</div>
-        </p>
+        <div className="country-card" onClick={() => navigate(COUNTRY_NAME_URL)}>
+            <header>
+
+            </header>
+            <main>
+                <h1>{country.name.common} </h1>
+            </main>
+
+        </div>
+
 
     )
 }

@@ -7,6 +7,7 @@ import Loading from "../../components/utils/Loading"
 const Countries = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [searchValue, setSearchValue] = useState<string>('')
 
     const getCountries = async () => {
         setLoading(true)
@@ -21,6 +22,14 @@ const Countries = () => {
         }
     }
 
+    const handleSearch = (countries: any) => {
+        const value = searchValue.toLocaleLowerCase().replace(/\s+/g, '').trim()
+        return (
+            countries.name.common.toLowerCase().replace(/\s+/g, '').includes(value) ||
+            (countries.capital && countries.capital[0].toLowerCase().replace(/\s+/g, '').includes(value))
+        )
+    }
+
     useEffect(() => {
         getCountries()
     }, [])
@@ -28,11 +37,14 @@ const Countries = () => {
     return (
         <div>
             <Loading loading={loading}>
-                {countries.map((country, index) => {
-                    return (
-                        <Country index={index} key={country.name.common} country={country} />
-                    )
-                })}
+                <input type="search" onChange={(e) => setSearchValue(e.target.value)} />
+                {countries
+                    .filter(handleSearch)
+                    .map((country, index) => {
+                        return (
+                            <Country index={index} key={country.name.common} country={country} />
+                        )
+                    })}
             </Loading>
         </div>
     )
