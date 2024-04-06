@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Country from "./Country"
 import Loading from "../../components/utils/Loading"
 
-
 const Countries = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
@@ -26,7 +25,6 @@ const Countries = () => {
         getCountries()
     }, [])
 
-    console.log(countries)
     return (
         <div>
             <Loading loading={loading}>
