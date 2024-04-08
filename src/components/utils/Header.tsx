@@ -4,16 +4,19 @@ const Header = () => {
     const navigate: NavigateFunction = useNavigate()
 
     return (
-        <div className="header">
-            <div className="header-logo">
-                <h1>logo</h1>
+        <header className="header">
+            <div className="header-container">
+                <div className="header-container-logo">
+                    <h1>logo</h1>
+                </div>
+                <nav className="header-container-nav">
+                    <ul className="header-container-nav-ul">
+                        <li className="header-container-nav-ul-link" onClick={() => navigate('/countries')}>countries</li>
+                        <li className="header-container-nav-ul-link" >games</li>
+                    </ul>
+                </nav>
             </div>
-            <nav className="header-nav">
-                <ul className="header-nav-ul">
-                    <li className="header-nav-ul-link" onClick={() => navigate('/countries')}>countries</li>
-                </ul>
-            </nav>
-        </div>
+        </header>
     )
 }
 

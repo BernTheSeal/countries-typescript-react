@@ -1,0 +1,16 @@
+.header {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 70px;
+    top: 0;
+    background-color: red;
+
+    &-container {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 150px;
+    }
+}
