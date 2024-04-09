@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Country from "./Country"
 import Loading from "../../components/utils/Loading"
 
+
 interface sortingOptions {
     name: string,
     icon: string
@@ -13,8 +14,15 @@ const Countries = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('')
+
     const [sortingValue, setSortingValue] = useState<string>('Default Sorting')
     const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false)
+
+
+    const [isOpenRegions, setIsOpenRegions] = useState<boolean>(false)
+    const [regionsArray, setRegionsArray] = useState<string[]>([])
+    console.log(regionsArray)
+
 
     const sortingOptions: sortingOptions[] = [
         {
@@ -39,6 +47,18 @@ const Countries = () => {
         },
     ]
 
+    const getRegions = (): string[] => {
+        const uniqueRegions: Set<string> = new Set();
+        countries.forEach((country) => {
+            if (country.region) {
+                uniqueRegions.add(country.region);
+            }
+        })
+        return Array.from(uniqueRegions);
+    }
+    const regions = getRegions()
+
+
     const getCountries = async () => {
         setLoading(true)
         try {
@@ -60,17 +80,25 @@ const Countries = () => {
         )
     }
 
+    const handleRegionFilter = (countries: any) => {
+        if (regionsArray.length === 0) {
+            return true;
+        } else {
+            return regionsArray.some((region) => countries.region === region);
+        }
+    }
+
+    const handleSorting = (countries: any) => {
+
+    }
+
     useEffect(() => {
         getCountries()
     }, [])
 
-    console.log(sortingValue)
-
     return (
         <div className="countries">
             <Loading loading={loading}>
-
-
                 <div className="countries-inputs">
 
                     {/* searching input */}
@@ -85,11 +113,18 @@ const Countries = () => {
                     </div>
 
                     {/*sorting input */}
-                    <div onClick={() => setIsOpenSorting(!isOpenSorting)} className="countries-inputs-sorting">
+                    <div
+                        onClick={() => {
+                            setIsOpenSorting(!isOpenSorting)
+                            setIsOpenRegions(false)
+                        }}
+                        className="countries-inputs-sorting">
+
                         <div className="countries-inputs-sorting-current">
                             <i className="fa-solid fa-sort"></i>
                             <span>{sortingValue}</span>
                         </div>
+
                         {isOpenSorting ?
                             <ul className="countries-inputs-sorting-hidden">
                                 {sortingOptions.map((sorting) => (
@@ -101,6 +136,37 @@ const Countries = () => {
                                 ))}
                             </ul> : null}
                     </div>
+
+                    {/*regions sorting input */}
+                    <div onClick={() => {
+                        setIsOpenRegions(!isOpenRegions)
+                        setIsOpenSorting(false)
+                    }}
+                        className="countries-inputs-sorting">
+                        <div className="countries-inputs-sorting-current">
+                            <i className="fa-solid fa-earth-americas"></i>
+                            <span>Regions</span>
+                        </div>
+                        {isOpenRegions ?
+                            <ul className="countries-inputs-sorting-hidden">
+                                {regions.map((region) => (
+                                    <li
+                                        key={region}
+                                        onClick={() => {
+                                            if (!regionsArray.includes(region)) {
+                                                setRegionsArray((prev) => [...prev, region])
+                                            } else {
+                                                const updatedRegions = regionsArray.filter(item => item !== region);
+                                                setRegionsArray(updatedRegions);
+                                            }
+                                        }}>
+                                        <span> {region} </span>
+                                        {regionsArray.includes(region) ? <i className="fa-solid fa-check"></i> : null}
+                                    </li>
+                                ))}
+                            </ul> : null}
+                    </div>
+
                 </div>
 
                 {/*shown countries */}
@@ -121,6 +187,7 @@ const Countries = () => {
                                     return 0;
                             }
                         })
+                        .filter(handleRegionFilter)
                         .filter(handleSearch)
                         .map((country, index) => {
                             return (
@@ -129,8 +196,8 @@ const Countries = () => {
                         })}
                 </div>
 
-            </Loading>
-        </div>
+            </Loading >
+        </div >
     )
 }
 
