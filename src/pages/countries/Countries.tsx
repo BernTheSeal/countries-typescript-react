@@ -18,33 +18,19 @@ const Countries = () => {
     const [sortingValue, setSortingValue] = useState<string>('Default Sorting')
     const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false)
 
-
     const [isOpenRegions, setIsOpenRegions] = useState<boolean>(false)
     const [regionsArray, setRegionsArray] = useState<string[]>([])
-    console.log(regionsArray)
 
+    const [minPopulationValue, setMinPopulationValue] = useState<number>(0)
+    const [maxPopulationValue, setMaxPopulationValue] = useState<number>(0)
 
+    //!----------------------------//
     const sortingOptions: sortingOptions[] = [
-        {
-            name: 'Default Sorting',
-            icon: 'fa-solid fa-sort'
-        },
-        {
-            name: 'A to Z Order',
-            icon: 'fa-solid fa-arrow-down-a-z'
-        },
-        {
-            name: 'Z to A Order',
-            icon: 'fa-solid fa-arrow-down-z-a'
-        },
-        {
-            name: 'High to Low',
-            icon: 'fa-solid fa-person'
-        },
-        {
-            name: 'Low to High',
-            icon: 'fa-solid fa-person'
-        },
+        { name: 'Default Sorting', icon: 'fa-solid fa-sort' },
+        { name: 'A to Z Order', icon: 'fa-solid fa-arrow-down-a-z' },
+        { name: 'Z to A Order', icon: 'fa-solid fa-arrow-down-z-a' },
+        { name: 'High to Low', icon: 'fa-solid fa-person' },
+        { name: 'Low to High', icon: 'fa-solid fa-person' },
     ]
 
     const getRegions = (): string[] => {
@@ -57,7 +43,7 @@ const Countries = () => {
         return Array.from(uniqueRegions);
     }
     const regions = getRegions()
-
+    //!----------------------------//
 
     const getCountries = async () => {
         setLoading(true)
@@ -88,8 +74,37 @@ const Countries = () => {
         }
     }
 
-    const handleSorting = (countries: any) => {
+    const handleSorting = (a: any, b: any, sortingValue: any) => {
+        switch (sortingValue) {
+            case 'A to Z Order':
+                return a.name.common.localeCompare(b.name.common)
+            case 'Z to A Order':
+                return b.name.common.localeCompare(a.name.common)
+            case 'High to Low':
+                return b.population - a.population;
+            case 'Low to High':
+                return a.population - b.population;
+            default:
+                return 0;
+        }
+    }
 
+    const handlePopulationSorting = (countries: any, maxPopulation: number, minPopulation: number) => {
+        if (isNaN(maxPopulation) || isNaN(minPopulation)) {
+            return countries;
+        }
+        if (maxPopulation == 0 && minPopulation == 0) {
+            return countries
+        }
+        else if (maxPopulation == 0 && minPopulation > 0) {
+            return countries.population > minPopulation
+        }
+        else if (maxPopulation > 0 && minPopulation == 0) {
+            return countries.population < maxPopulation
+        }
+        else {
+            return countries.population >= minPopulation && countries.population <= maxPopulation
+        }
     }
 
     useEffect(() => {
@@ -100,7 +115,6 @@ const Countries = () => {
         <div className="countries">
             <Loading loading={loading}>
                 <div className="countries-inputs">
-
                     {/* searching input */}
                     <div className="countries-inputs-search" >
                         <i className="fa-solid fa-magnifying-glass"></i>
@@ -167,35 +181,27 @@ const Countries = () => {
                             </ul> : null}
                     </div>
 
+                    {/* population sorting input */}
+                    <div>
+                        <input type="text" placeholder="min" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
+                        <input type="text" placeholder="max" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                    </div>
                 </div>
 
                 {/*shown countries */}
                 <div className="countries-list">
                     {countries
                         .slice()
-                        .sort((a, b) => {
-                            switch (sortingValue) {
-                                case 'A to Z Order':
-                                    return a.name.common.localeCompare(b.name.common)
-                                case 'Z to A Order':
-                                    return b.name.common.localeCompare(a.name.common)
-                                case 'High to Low':
-                                    return b.population - a.population;
-                                case 'Low to High':
-                                    return a.population - b.population;
-                                default:
-                                    return 0;
-                            }
-                        })
+                        .sort((a, b) => handleSorting(a, b, sortingValue))
                         .filter(handleRegionFilter)
                         .filter(handleSearch)
+                        .filter((country) => handlePopulationSorting(country, maxPopulationValue, minPopulationValue))
                         .map((country, index) => {
                             return (
                                 <Country index={index} key={country.name.common} country={country} />
                             )
                         })}
                 </div>
-
             </Loading >
         </div >
     )
