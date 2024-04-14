@@ -21,8 +21,8 @@ const Countries = () => {
     const [isOpenRegions, setIsOpenRegions] = useState<boolean>(false)
     const [regionsArray, setRegionsArray] = useState<string[]>([])
 
-    const [minPopulationValue, setMinPopulationValue] = useState<number>(0)
-    const [maxPopulationValue, setMaxPopulationValue] = useState<number>(0)
+    const [minPopulationValue, setMinPopulationValue] = useState<number>(NaN)
+    const [maxPopulationValue, setMaxPopulationValue] = useState<number>(NaN)
 
     //!----------------------------//
     const sortingOptions: sortingOptions[] = [
@@ -90,16 +90,14 @@ const Countries = () => {
     }
 
     const handlePopulationSorting = (countries: any, maxPopulation: number, minPopulation: number) => {
-        if (isNaN(maxPopulation) || isNaN(minPopulation)) {
+        if (isNaN(maxPopulation) && isNaN(minPopulation)) {
+            console.log('evet is nan')
             return countries;
         }
-        if (maxPopulation == 0 && minPopulation == 0) {
-            return countries
-        }
-        else if (maxPopulation == 0 && minPopulation > 0) {
+        else if (isNaN(maxPopulation) && minPopulation > 0) {
             return countries.population > minPopulation
         }
-        else if (maxPopulation > 0 && minPopulation == 0) {
+        else if (maxPopulation > 0 && isNaN(minPopulation)) {
             return countries.population < maxPopulation
         }
         else {
@@ -114,6 +112,7 @@ const Countries = () => {
     return (
         <div className="countries">
             <Loading loading={loading}>
+                <h2 className="page-title"> Countries </h2>
                 <div className="countries-inputs">
                     {/* searching input */}
                     <div className="countries-inputs-search" >
@@ -156,35 +155,34 @@ const Countries = () => {
                         setIsOpenRegions(!isOpenRegions)
                         setIsOpenSorting(false)
                     }}
-                        className="countries-inputs-sorting">
-                        <div className="countries-inputs-sorting-current">
+                        className="countries-inputs-regions">
+                        <div className="countries-inputs-regions-current">
                             <i className="fa-solid fa-earth-americas"></i>
                             <span>Regions</span>
                         </div>
-                        {isOpenRegions ?
-                            <ul className="countries-inputs-sorting-hidden">
-                                {regions.map((region) => (
-                                    <li
-                                        key={region}
-                                        onClick={() => {
-                                            if (!regionsArray.includes(region)) {
-                                                setRegionsArray((prev) => [...prev, region])
-                                            } else {
-                                                const updatedRegions = regionsArray.filter(item => item !== region);
-                                                setRegionsArray(updatedRegions);
-                                            }
-                                        }}>
-                                        <span> {region} </span>
-                                        {regionsArray.includes(region) ? <i className="fa-solid fa-check"></i> : null}
-                                    </li>
-                                ))}
-                            </ul> : null}
+                        <ul className="countries-inputs-regions-hidden">
+                            {regions.map((region) => (
+                                <li
+                                    key={region}
+                                    onClick={() => {
+                                        if (!regionsArray.includes(region)) {
+                                            setRegionsArray((prev) => [...prev, region])
+                                        } else {
+                                            const updatedRegions = regionsArray.filter(item => item !== region);
+                                            setRegionsArray(updatedRegions);
+                                        }
+                                    }}>
+                                    <span> {region} </span>
+                                    {regionsArray.includes(region) ? <i className="fa-solid fa-check"></i> : null}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
                     {/* population sorting input */}
-                    <div>
-                        <input type="text" placeholder="min" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
-                        <input type="text" placeholder="max" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                    <div className="countries-inputs-population">
+                        <input type="number" placeholder="Min population" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
+                        <input type="number" placeholder="Max population" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
                     </div>
                 </div>
 
@@ -201,6 +199,9 @@ const Countries = () => {
                                 <Country index={index} key={country.name.common} country={country} />
                             )
                         })}
+                    {countries.length == 0 && (
+                        <div>There is no country.</div>
+                    )}
                 </div>
             </Loading >
         </div >

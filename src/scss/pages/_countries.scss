@@ -1,6 +1,23 @@
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $inputOutlineColor;
+    border-radius: 3px;
+}
+
+
 .countries {
     max-width: 1240px;
     margin: 0 auto;
+
+    .page-title {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
 }
 
 .countries-list {
@@ -49,11 +66,9 @@
 
 
 .countries-inputs {
-    margin-top: 40px;
     margin-bottom: 40px;
     display: flex;
     gap: 20px;
-
 
     &-search {
 
@@ -138,5 +153,86 @@
         }
     }
 
+    &-regions {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        width: 15%;
+        position: relative;
+        cursor: pointer;
+
+        &:hover .countries-inputs-regions-current {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+        }
+
+        &:hover .countries-inputs-regions-hidden {
+            display: block;
+            border-top: none;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+        }
+
+        i {
+            margin: 0 10px;
+        }
+
+        &-current {
+            background-color: #333;
+            height: 35px;
+            width: 100%;
+            border: 1px solid $inputOutlineColor;
+            color: $inputOutlineColor;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+
+        }
+
+        &-hidden {
+            display: none;
+            background-color: #333;
+            position: absolute;
+            top: 35px;
+            width: 100%;
+            border: 1px solid $inputOutlineColor;
+            color: $inputOutlineColor;
+
+            li {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                height: 35px;
+
+                span {
+                    margin: 0 9px;
+                }
+
+                &:hover {
+                    color: white;
+                    background-color: #444;
+                }
+            }
+        }
+    }
+
+    &-population {
+        border: 1px solid $inputOutlineColor;
+        border-radius: 5px;
+        background-color: #333;
+        display: flex;
+        gap: 10px;
+
+        input {
+            background-color: transparent;
+            color: white;
+            padding: 0 5px;
+        }
+    }
 
 }

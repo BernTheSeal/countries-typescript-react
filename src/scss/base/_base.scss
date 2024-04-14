@@ -13,6 +13,7 @@
     body {
         background-color: $bodyBackgroundColor;
         color: $textColor;
+        overflow-y: scroll;
     }
 }
 
@@ -20,4 +21,10 @@
 ::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
