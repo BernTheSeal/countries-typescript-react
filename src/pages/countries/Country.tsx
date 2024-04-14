@@ -19,9 +19,9 @@ const country: FunctionComponent<iCountryProps> = (props) => {
             </header>
             <main className="country-card-main">
                 <h1>{country.name.common} </h1>
-                <h2>capitatl : {country.capital}</h2>
-                <h2>population: {country.population.toLocaleString()}</h2>
-                <h2>region : {country.region}</h2>
+                <h2>capital:  {country.capital}</h2>
+                <h2>population:  {country.population.toLocaleString()}</h2>
+                <h2>region:  {country.region}</h2>
             </main>
         </div>
     )

@@ -3,6 +3,7 @@ import { CountryType } from "../../type"
 import { useState, useEffect } from "react"
 import Country from "./Country"
 import Loading from "../../components/utils/Loading"
+import Header from "../../components/utils/Header"
 
 
 interface sortingOptions {
@@ -110,101 +111,105 @@ const Countries = () => {
     }, [])
 
     return (
-        <div className="countries">
-            <Loading loading={loading}>
-                <h2 className="page-title"> Countries </h2>
-                <div className="countries-inputs">
-                    {/* searching input */}
-                    <div className="countries-inputs-search" >
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                        <input placeholder="search country, capital or region..." type="search"
-                            onChange={(e) => {
-                                setSearchValue(e.target.value)
-                                setIsOpenSorting(false)
-                            }}
-                        />
-                    </div>
-
-                    {/*sorting input */}
-                    <div
-                        onClick={() => {
-                            setIsOpenSorting(!isOpenSorting)
-                            setIsOpenRegions(false)
-                        }}
-                        className="countries-inputs-sorting">
-
-                        <div className="countries-inputs-sorting-current">
-                            <i className="fa-solid fa-sort"></i>
-                            <span>{sortingValue}</span>
+        <>
+            <Header onPage={'countries'} />
+            <div className="countries">
+                <Loading loading={loading}>
+                    <h2 className="page-title"> Countries </h2>
+                    <div className="countries-inputs">
+                        {/* searching input */}
+                        <div className="countries-inputs-search" >
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                            <input placeholder="search country, capital or region..." type="search"
+                                onChange={(e) => {
+                                    setSearchValue(e.target.value)
+                                    setIsOpenSorting(false)
+                                }}
+                            />
                         </div>
 
-                        {isOpenSorting ?
-                            <ul className="countries-inputs-sorting-hidden">
-                                {sortingOptions.map((sorting) => (
+                        {/*sorting input */}
+                        <div
+                            onClick={() => {
+                                setIsOpenSorting(!isOpenSorting)
+                                setIsOpenRegions(false)
+                            }}
+                            className="countries-inputs-sorting">
+
+                            <div className="countries-inputs-sorting-current">
+                                <i className="fa-solid fa-sort"></i>
+                                <span>{sortingValue}</span>
+                            </div>
+
+                            {isOpenSorting ?
+                                <ul className="countries-inputs-sorting-hidden">
+                                    {sortingOptions.map((sorting) => (
+                                        <li
+                                            onClick={() => setSortingValue(sorting.name)}>
+                                            <i className={sorting.icon}></i>
+                                            <span> {sorting.name}</span>
+                                        </li>
+                                    ))}
+                                </ul> : null}
+                        </div>
+
+                        {/*regions sorting input */}
+                        <div onClick={() => {
+                            setIsOpenRegions(!isOpenRegions)
+                            setIsOpenSorting(false)
+                        }}
+                            className="countries-inputs-regions">
+                            <div className="countries-inputs-regions-current">
+                                <i className="fa-solid fa-earth-americas"></i>
+                                <span>Regions</span>
+                            </div>
+                            <ul className="countries-inputs-regions-hidden">
+                                {regions.map((region) => (
                                     <li
-                                        onClick={() => setSortingValue(sorting.name)}>
-                                        <i className={sorting.icon}></i>
-                                        <span> {sorting.name}</span>
+                                        key={region}
+                                        onClick={() => {
+                                            if (!regionsArray.includes(region)) {
+                                                setRegionsArray((prev) => [...prev, region])
+                                            } else {
+                                                const updatedRegions = regionsArray.filter(item => item !== region);
+                                                setRegionsArray(updatedRegions);
+                                            }
+                                        }}>
+                                        <span> {region} </span>
+                                        {regionsArray.includes(region) ? <i className="fa-solid fa-check"></i> : null}
                                     </li>
                                 ))}
-                            </ul> : null}
-                    </div>
-
-                    {/*regions sorting input */}
-                    <div onClick={() => {
-                        setIsOpenRegions(!isOpenRegions)
-                        setIsOpenSorting(false)
-                    }}
-                        className="countries-inputs-regions">
-                        <div className="countries-inputs-regions-current">
-                            <i className="fa-solid fa-earth-americas"></i>
-                            <span>Regions</span>
+                            </ul>
                         </div>
-                        <ul className="countries-inputs-regions-hidden">
-                            {regions.map((region) => (
-                                <li
-                                    key={region}
-                                    onClick={() => {
-                                        if (!regionsArray.includes(region)) {
-                                            setRegionsArray((prev) => [...prev, region])
-                                        } else {
-                                            const updatedRegions = regionsArray.filter(item => item !== region);
-                                            setRegionsArray(updatedRegions);
-                                        }
-                                    }}>
-                                    <span> {region} </span>
-                                    {regionsArray.includes(region) ? <i className="fa-solid fa-check"></i> : null}
-                                </li>
-                            ))}
-                        </ul>
+
+                        {/* population sorting input */}
+                        <div className="countries-inputs-population">
+                            <input type="number" placeholder="Min population" className="countries-inputs-population-left" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
+                            <input type="number" placeholder="Max population" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                        </div>
                     </div>
 
-                    {/* population sorting input */}
-                    <div className="countries-inputs-population">
-                        <input type="number" placeholder="Min population" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
-                        <input type="number" placeholder="Max population" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                    {/*shown countries */}
+                    <div className="countries-list">
+                        {countries
+                            .slice()
+                            .sort((a, b) => handleSorting(a, b, sortingValue))
+                            .filter(handleRegionFilter)
+                            .filter(handleSearch)
+                            .filter((country) => handlePopulationSorting(country, maxPopulationValue, minPopulationValue))
+                            .map((country, index) => {
+                                return (
+                                    <Country index={index} key={country.name.common} country={country} />
+                                )
+                            })}
+                        {countries.length == 0 && (
+                            <div>There is no country.</div>
+                        )}
                     </div>
-                </div>
+                </Loading >
+            </div >
+        </>
 
-                {/*shown countries */}
-                <div className="countries-list">
-                    {countries
-                        .slice()
-                        .sort((a, b) => handleSorting(a, b, sortingValue))
-                        .filter(handleRegionFilter)
-                        .filter(handleSearch)
-                        .filter((country) => handlePopulationSorting(country, maxPopulationValue, minPopulationValue))
-                        .map((country, index) => {
-                            return (
-                                <Country index={index} key={country.name.common} country={country} />
-                            )
-                        })}
-                    {countries.length == 0 && (
-                        <div>There is no country.</div>
-                    )}
-                </div>
-            </Loading >
-        </div >
     )
 }
 

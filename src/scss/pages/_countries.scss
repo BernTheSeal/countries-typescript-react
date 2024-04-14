@@ -13,10 +13,12 @@
 .countries {
     max-width: 1240px;
     margin: 0 auto;
+    margin-top: 110px;
 
     .page-title {
-        font-size: 30px;
+        font-size: 20px;
         margin-bottom: 20px;
+        font-weight: 600;
     }
 }
 
@@ -227,6 +229,10 @@
         background-color: #333;
         display: flex;
         gap: 10px;
+
+        &-left {
+            border-right: 1px solid $inputOutlineColor;
+        }
 
         input {
             background-color: transparent;
