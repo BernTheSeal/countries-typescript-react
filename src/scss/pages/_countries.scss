@@ -34,7 +34,6 @@
     gap: 20px;
 
     &-search {
-
         width: 50%;
         background-color: #333;
         display: flex;
@@ -245,15 +244,21 @@
 @media only screen and (max-width: 600px) {
     .countries {
         margin-top: 130px;
-        max-width: 500px;
+        max-width: 400px;
     }
 
     .countries-inputs {
-        display: grid;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
         grid-template-columns: repeat(1, 1fr);
 
         &-search {
             width: 100%;
+
+            input {
+                width: 100%;
+            }
         }
 
         &-sorting {
@@ -265,14 +270,49 @@
         }
 
         &-population {
-            height: 40px;
+            width: 100%;
+            height: 35px;
 
+            input {
+                width: 100%;
+            }
         }
     }
 
     .countries-list {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 22px;
+    }
+}
+
+
+@media only screen and (max-width: 400px) {
+    .countries {
+        margin-top: 130px;
+        max-width: 350px;
+    }
+
+    .countries-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .countries {
+        margin-top: 130px;
+        max-width: 250px;
+    }
+
+    .countries-list {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 22px;
+    }
+
+    .country-card {
+        height: 230px;
     }
 }
