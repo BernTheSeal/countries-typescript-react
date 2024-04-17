@@ -1,5 +1,5 @@
 import { useNavigate, NavigateFunction } from "react-router-dom"
-import { FunctionComponent } from "react"
+import { FunctionComponent, useState } from "react"
 
 interface iHeaderProps {
     onPage: string
@@ -14,6 +14,8 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
     const { onPage } = props
     const navigate: NavigateFunction = useNavigate()
 
+    const [menuOpen, setMenuOpen] = useState<boolean>(false)
+
     const pageOptions: pageOptions[] = [
         { page: 'Home', onClick: () => navigate('/') },
         { page: 'Countries', onClick: () => navigate('/countries') },
@@ -27,8 +29,11 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                 <div className="header-container-logo">
                     <i className="fa-solid fa-map"></i>
                     <h1>World Master</h1>
+                    <div onClick={() => setMenuOpen(!menuOpen)} className="header-container-bars">
+                        <i className="fa-solid fa-bars"></i>
+                    </div>
                 </div>
-                <nav className="header-container-nav">
+                <nav className={`header-container-nav ${menuOpen ? 'menu-open' : 'menu-close'}`}>
                     <ul className="header-container-nav-ul">
                         {pageOptions.map((pages) => (
                             <li
@@ -37,9 +42,6 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                         ))}
                     </ul>
                 </nav>
-                <div className="header-container-login">
-                    <button>LOG IN</button>
-                </div>
             </div>
         </header>
     )

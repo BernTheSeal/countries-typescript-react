@@ -1,14 +1,14 @@
 .header {
     position: fixed;
     overflow: hidden;
-    width: 100vw;
+
     height: 80px;
     top: 0;
+    right: 0;
+    left: 0;
     background-color: $bodyBackgroundColor;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     z-index: 1000;
-    display: flex;
-    justify-content: center;
 
     h1 {
         font-weight: 800;
@@ -18,11 +18,11 @@
 
     &-container {
         height: 100%;
-        min-width: 1240px;
+        max-width: 1240px;
+        margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
-
 
         &-logo {
             display: flex;
@@ -36,8 +36,6 @@
         }
 
         &-nav {
-
-
             ul {
                 display: flex;
                 gap: 30px;
@@ -51,31 +49,15 @@
                     }
                 }
             }
-
         }
 
-        &-login {
-            button {
-                background-color: $textColor;
-                color: #333;
-                border-radius: 5px;
-                border: 1px solid $textColor;
-                padding: 10px 14px;
-                cursor: pointer;
-                font-weight: 600;
-
-                &:hover {
-                    border-color: white;
-                    background-color: transparent;
-                    color: white;
-                }
-            }
+        &-bars {
+            display: none;
         }
     }
 
 
 }
-
 
 .active-page {
     color: white;
@@ -83,4 +65,31 @@
 
 .inactive-page {
     color: $inputOutlineColor;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .header {
+        height: 100px;
+
+        h1 {
+
+            font-size: 20px;
+        }
+
+        i {
+
+            font-size: 20px
+        }
+
+        &-container {
+            max-width: 450px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+
+            &-nav {}
+        }
+    }
+
 }
