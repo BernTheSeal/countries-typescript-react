@@ -9,7 +9,6 @@
     border-radius: 3px;
 }
 
-
 .countries {
     max-width: 1240px;
     margin: 0 auto;
@@ -77,6 +76,23 @@
         position: relative;
         cursor: pointer;
 
+        &:hover .countries-inputs-sorting-current {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: white;
+
+        }
+
+        &:hover .countries-inputs-sorting-hidden {
+            display: block;
+            border-top: none;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-color: white;
+
+        }
+
         i {
             margin: 0 10px;
         }
@@ -85,27 +101,32 @@
             background-color: #333;
             height: 35px;
             width: 100%;
-            outline: 1px solid $inputOutlineColor;
+            border: 1px solid $inputOutlineColor;
             color: $inputOutlineColor;
             display: flex;
             align-items: center;
             border-radius: 5px;
+
         }
 
         &-hidden {
+            display: none;
             background-color: #333;
             position: absolute;
-            top: 50px;
+            top: 35px;
             width: 100%;
-            outline: 1px solid $inputOutlineColor;
+            border: 1px solid $inputOutlineColor;
             color: $inputOutlineColor;
-            border-radius: 5px;
 
             li {
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 height: 35px;
+
+                span {
+                    margin: 0 3px;
+                }
 
                 &:hover {
                     color: white;
@@ -127,6 +148,7 @@
             border-bottom: none;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
+            border-color: white;
 
         }
 
@@ -135,6 +157,7 @@
             border-top: none;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
+            border-color: white;
 
         }
 
@@ -188,16 +211,31 @@
         border-radius: 5px;
         background-color: #333;
         display: flex;
-        gap: 10px;
 
-        &-left {
+        .countries-inputs-population-left {
             border-right: 1px solid $inputOutlineColor;
         }
 
-        input {
-            background-color: transparent;
-            color: white;
-            padding: 0 5px;
+        div {
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+
+            i {
+                color: $inputOutlineColor;
+            }
+
+            &-left {
+                border-right: 1px solid $inputOutlineColor;
+                background-color: red;
+            }
+
+            input {
+                background-color: transparent;
+                color: white;
+                padding: 0 5px;
+                height: 100%;
+            }
         }
     }
 

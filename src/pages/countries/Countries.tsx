@@ -17,15 +17,11 @@ const Countries = () => {
     const [searchValue, setSearchValue] = useState<string>('')
 
     const [sortingValue, setSortingValue] = useState<string>('Default Sorting')
-    const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false)
-
-    const [isOpenRegions, setIsOpenRegions] = useState<boolean>(false)
     const [regionsArray, setRegionsArray] = useState<string[]>([])
 
     const [minPopulationValue, setMinPopulationValue] = useState<number>(NaN)
     const [maxPopulationValue, setMaxPopulationValue] = useState<number>(NaN)
 
-    //!----------------------------//
     const sortingOptions: sortingOptions[] = [
         { name: 'Default Sorting', icon: 'fa-solid fa-sort' },
         { name: 'A to Z Order', icon: 'fa-solid fa-arrow-down-a-z' },
@@ -44,7 +40,6 @@ const Countries = () => {
         return Array.from(uniqueRegions);
     }
     const regions = getRegions()
-    //!----------------------------//
 
     const getCountries = async () => {
         setLoading(true)
@@ -92,7 +87,6 @@ const Countries = () => {
 
     const handlePopulationSorting = (countries: any, maxPopulation: number, minPopulation: number) => {
         if (isNaN(maxPopulation) && isNaN(minPopulation)) {
-            console.log('evet is nan')
             return countries;
         }
         else if (isNaN(maxPopulation) && minPopulation > 0) {
@@ -123,42 +117,29 @@ const Countries = () => {
                             <input placeholder="search country, capital or region..." type="search"
                                 onChange={(e) => {
                                     setSearchValue(e.target.value)
-                                    setIsOpenSorting(false)
                                 }}
                             />
                         </div>
 
                         {/*sorting input */}
-                        <div
-                            onClick={() => {
-                                setIsOpenSorting(!isOpenSorting)
-                                setIsOpenRegions(false)
-                            }}
-                            className="countries-inputs-sorting">
-
+                        <div className="countries-inputs-sorting">
                             <div className="countries-inputs-sorting-current">
                                 <i className="fa-solid fa-sort"></i>
                                 <span>{sortingValue}</span>
                             </div>
-
-                            {isOpenSorting ?
-                                <ul className="countries-inputs-sorting-hidden">
-                                    {sortingOptions.map((sorting) => (
-                                        <li
-                                            onClick={() => setSortingValue(sorting.name)}>
-                                            <i className={sorting.icon}></i>
-                                            <span> {sorting.name}</span>
-                                        </li>
-                                    ))}
-                                </ul> : null}
+                            <ul className="countries-inputs-sorting-hidden">
+                                {sortingOptions.map((sorting) => (
+                                    <li
+                                        onClick={() => setSortingValue(sorting.name)}>
+                                        <i className={sorting.icon}></i>
+                                        <span> {sorting.name}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         {/*regions sorting input */}
-                        <div onClick={() => {
-                            setIsOpenRegions(!isOpenRegions)
-                            setIsOpenSorting(false)
-                        }}
-                            className="countries-inputs-regions">
+                        <div className="countries-inputs-regions">
                             <div className="countries-inputs-regions-current">
                                 <i className="fa-solid fa-earth-americas"></i>
                                 <span>Regions</span>
@@ -184,8 +165,14 @@ const Countries = () => {
 
                         {/* population sorting input */}
                         <div className="countries-inputs-population">
-                            <input type="number" placeholder="Min population" className="countries-inputs-population-left" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
-                            <input type="number" placeholder="Max population" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                            <div>
+                                <i className="fa-solid fa-person"></i>
+                                <input type="number" placeholder="Min population" className="countries-inputs-population-left" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
+                            </div>
+                            <div>
+                                <i className="fa-solid fa-person"></i>
+                                <input type="number" placeholder="Max population" onChange={(e) => setMaxPopulationValue(parseInt(e.target.value))} />
+                            </div>
                         </div>
                     </div>
 

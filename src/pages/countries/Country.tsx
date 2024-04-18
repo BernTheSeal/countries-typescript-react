@@ -11,17 +11,17 @@ interface iCountryProps {
 const country: FunctionComponent<iCountryProps> = (props) => {
     const navigate: NavigateFunction = useNavigate()
     const { country } = props
-    const COUNTRY_NAME_URL: string = country.name.common.replace(/ /g, "-")
+    // const COUNTRY_NAME_URL: string = country.name.common.replace(/ /g, "-")
     return (
-        <div className="country-card" onClick={() => navigate(COUNTRY_NAME_URL)}>
+        <div className="country-card" onClick={() => navigate(country.name.common)}>
             <header className="country-card-header">
                 <img src={country.flags.png} alt="" />
             </header>
             <main className="country-card-main">
                 <h1>{country.name.common} </h1>
-                <h2>capital:  {country.capital}</h2>
-                <h2>population:  {country.population.toLocaleString()}</h2>
-                <h2>region:  {country.region}</h2>
+                <h2>capital: {country.capital}</h2>
+                <h2>population: {country.population.toLocaleString()}</h2>
+                <h2>region: {country.region}</h2>
             </main>
         </div>
     )
