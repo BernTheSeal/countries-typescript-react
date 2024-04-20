@@ -106,7 +106,7 @@ const Details = () => {
                                 <h4>Languages</h4>
                             </div>
                             <ol>
-                                {languages.map((language: string, i: number) => (
+                                {languages.map((language: string) => (
                                     <li >
                                         <span>{language}</span>
                                     </li>)
@@ -241,10 +241,14 @@ const Details = () => {
                                 </ol>
                             </div>
                         </div>
-                        <div className="details-page-coa">
-                            <img src={currentCountry[0].coatOfArms.png} alt="" />
-                            <h4>Coat of Arms</h4>
-                        </div>
+                        {
+                            currentCountry[0].coatOfArms.png && (
+                                <div className="details-page-coa">
+                                    <img src={currentCountry[0].coatOfArms.png} alt="coatofarms" />
+                                    <h4>Coat of Arms</h4>
+                                </div>
+                            )
+                        }
                     </div>
                 </>)
             }
