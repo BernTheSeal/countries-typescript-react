@@ -5,13 +5,29 @@ import axios from "axios"
 import Loading from "../../components/utils/Loading"
 import Header from "../../components/utils/Header"
 
+type DayOfWeek = {
+    name: string;
+    abbreviation: string;
+};
+
 const Details = () => {
     const params = useParams<{ name: string }>()
     const { name } = params
     const [currentCountry, setCurrentCountry] = useState<CountryType[] | any>()
     const [loading, setLoading] = useState<boolean>(false)
     const [languages, setLanguages] = useState<string[] | any>([])
+    const [currencies, setCurrencies] = useState<string[] | any>([])
     const [rank, setRank] = useState<number | string>('')
+
+    const daysOfWeek: DayOfWeek[] = [
+        { name: "Sunday", abbreviation: "Sun" },
+        { name: "Monday", abbreviation: "Mon" },
+        { name: "Tuesday", abbreviation: "Tue" },
+        { name: "Wednesday", abbreviation: "Wed" },
+        { name: "Thursday", abbreviation: "Thu" },
+        { name: "Friday", abbreviation: "Fri" },
+        { name: "Saturday", abbreviation: "Sat" }
+    ];
 
     //* get current country
     useEffect(() => {
@@ -60,6 +76,16 @@ const Details = () => {
         }
     }, [currentCountry])
 
+    //*get currencies
+    useEffect(() => {
+        if (currentCountry && currentCountry.length > 0 && currentCountry[0].currencies) {
+            const currencies = currentCountry[0].currencies
+            const currenciesArray = Object.values(currencies)
+            setCurrencies(currenciesArray)
+        } else {
+            setCurrencies([{ name: '-', symbol: '-' }])
+        }
+    }, [currentCountry])
 
     return (
         <Loading loading={loading}>
@@ -79,14 +105,13 @@ const Details = () => {
                                 <i className="fa-solid fa-message"></i>
                                 <h4>Languages</h4>
                             </div>
-                            <ul>
+                            <ol>
                                 {languages.map((language: string, i: number) => (
-                                    <li>
-                                        <span>{i + 1}</span>
+                                    <li >
                                         <span>{language}</span>
                                     </li>)
                                 )}
-                            </ul>
+                            </ol>
                         </div>
                         <div className="details-page-population">
                             <div className="details-page-population-value">
@@ -94,18 +119,18 @@ const Details = () => {
                                     <i className="fa-solid fa-person"></i>
                                     <h4>Population</h4>
                                 </div>
-                                <div className="details-page-population-value-description">
+                                <p className="details-page-population-value-description">
                                     {currentCountry[0].population.toLocaleString()}
-                                </div>
+                                </p>
                             </div>
                             <div className="details-page-population-rank">
                                 <div className="details-page-population-rank-title">
                                     <i className="fa-solid fa-crown"></i>
                                     <h4>Rank</h4>
                                 </div>
-                                <div className="details-page-population-rank-description">
+                                <p className="details-page-population-rank-description">
                                     {rank}
-                                </div>
+                                </p>
                             </div>
                         </div>
                         <div className="details-page-regions">
@@ -114,18 +139,18 @@ const Details = () => {
                                     <i className="fa-solid fa-globe"></i>
                                     <h4>Region</h4>
                                 </div>
-                                <div className="details-page-regions-region-description">
+                                <p className="details-page-regions-region-description">
                                     {currentCountry[0].region}
-                                </div>
+                                </p>
                             </div>
                             <div className="details-page-regions-subregion">
                                 <div className="details-page-regions-subregion-title">
                                     <i className="fa-solid fa-location-dot"></i>
                                     <h4>Subregion</h4>
                                 </div>
-                                <div className="details-page-regions-subregion-description">
+                                <p className="details-page-regions-subregion-description">
                                     {currentCountry[0].subregion}
-                                </div>
+                                </p>
                             </div>
 
                         </div>
@@ -164,13 +189,64 @@ const Details = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className="details-page-startofweek">
+                            <div className="details-page-startofweek-title">
+                                <i className="fa-solid fa-calendar"></i>
+                                <h4>
+                                    Start Of Week
+                                </h4>
+                            </div>
+                            <div className="details-page-startofweek-description">
+                                <ol>
+                                    {daysOfWeek.map((day, index) => (
+                                        <div className="details-page-startofweek-description-calendar">
+                                            <p className="day">
+                                                {day.abbreviation}
+                                            </p>
+                                            <div className="day_decimal" >
+                                                <p key={index} className={day.name.toLowerCase() === currentCountry[0].startOfWeek ? 'day-active' : ''}>
+                                                    {index + 1}
+                                                </p>
+                                            </div>
+                                        </div>
 
+                                    ))}
+                                </ol>
+                            </div>
+                        </div>
+                        <div className="details-page-currencies">
+                            <div className="details-page-currencies-currency">
+                                <div className="details-page-currencies-currency-title">
+                                    <i className="fa-solid fa-coins"></i>
+                                    <h4>currency</h4>
+                                </div>
+                                <ol>
+                                    {currencies.map((currency: any) => (
+                                        <li style={{
+                                            listStyleType: "decimal",
+                                            marginLeft: "17px"
+                                        }}>{currency.name}</li>
+                                    ))}
+                                </ol>
+                            </div>
+                            <div className="details-page-currencies-currency">
+                                <div className="details-page-currencies-currency-title">
+                                    <i className="fa-solid fa-dollar-sign"></i>
+                                    <h4>Symbol</h4>
+                                </div>
+                                <ol>
+                                    {currencies.map((currency: any) => (
+                                        <li>{currency.symbol}</li>
+                                    ))}
+                                </ol>
+                            </div>
+                        </div>
+                        <div className="details-page-coa">
+                            <img src={currentCountry[0].coatOfArms.png} alt="" />
+                            <h4>Coat of Arms</h4>
                         </div>
                     </div>
-                </>
-
-            )
+                </>)
             }
         </Loading >
     )
