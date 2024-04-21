@@ -324,6 +324,59 @@
         }
     }
 
+    &-borders {
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        margin-top: 30px;
+        background-color: #333;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 10px;
+
+        &-title {
+            display: flex;
+            align-items: center;
+        }
+
+        &-description {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            color: gray;
+
+            &-country {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                width: 100%;
+
+
+
+                div {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-self: flex-start;
+                    height: 100%;
+
+                    img {
+                        height: 100%;
+                        width: 60px;
+                        border-radius: 3px;
+                    }
+
+                    p {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -334,18 +387,7 @@
         flex-direction: column;
         margin-bottom: 50px;
 
-        &-name {
-            margin-top: 130px;
-        }
 
-        &-startofweek {
-            align-items: start;
-            flex-direction: column;
-
-            &-description {
-                width: 100%;
-            }
-        }
 
         i {
             font-size: 12px;
@@ -363,6 +405,19 @@
             font-size: 12px;
         }
 
+        &-name {
+            margin-top: 130px;
+        }
+
+        &-startofweek {
+            align-items: start;
+            flex-direction: column;
+
+            &-description {
+                width: 100%;
+            }
+        }
+
         &-flag {
             margin-top: 10px;
             height: 170px;
@@ -372,6 +427,33 @@
             img {
                 height: 100%;
                 width: 100%;
+            }
+        }
+
+        &-borders {
+            &-description {
+
+
+                &-country {
+                    margin-bottom: 5px;
+
+                    .hidden {
+                        display: none;
+                    }
+
+                    div {
+                        margin-bottom: 8px;
+
+                        p {
+                            font-size: 14px;
+                        }
+
+                        img {
+                            width: 40px;
+                            height: 25px;
+                        }
+                    }
+                }
             }
         }
     }

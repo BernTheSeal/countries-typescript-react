@@ -18,6 +18,7 @@ const Details = () => {
     const [languages, setLanguages] = useState<string[] | any>([])
     const [currencies, setCurrencies] = useState<string[] | any>([])
     const [rank, setRank] = useState<number | string>('')
+    const [borders, setBorders] = useState<string[] | any>([])
 
     const daysOfWeek: DayOfWeek[] = [
         { name: "Sunday", abbreviation: "Sun" },
@@ -87,11 +88,29 @@ const Details = () => {
         }
     }, [currentCountry])
 
+    //*get borders
+    useEffect(() => {
+        if (currentCountry && currentCountry.length > 0) {
+            const getCountry = async () => {
+                try {
+                    const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all');
+                    const borders = data.filter((country) => currentCountry[0].borders.includes(country.cca3))
+                    setBorders(borders)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            getCountry()
+        }
+
+    }, [currentCountry])
+
     return (
-        <Loading loading={loading}>
-            {currentCountry && currentCountry.length > 0 && (
-                <>
-                    <Header onPage="countries" />
+        <>
+            <Header onPage="countries" />
+            <Loading loading={loading}>
+                {currentCountry && currentCountry.length > 0 && (
+
                     <div className="details-page">
                         <div className="details-page-name">
                             <h2>{currentCountry[0].name.common}</h2>
@@ -218,7 +237,7 @@ const Details = () => {
                             <div className="details-page-currencies-currency">
                                 <div className="details-page-currencies-currency-title">
                                     <i className="fa-solid fa-coins"></i>
-                                    <h4>currency</h4>
+                                    <h4>Currency</h4>
                                 </div>
                                 <ol>
                                     {currencies.map((currency: any) => (
@@ -249,10 +268,43 @@ const Details = () => {
                                 </div>
                             )
                         }
+
+                        <div className="details-page-borders">
+                            <div className="details-page-borders-title">
+                                <i className="fa-solid fa-border-all"></i>
+                                <h4>Borders</h4>
+                            </div>
+                            {
+
+                                <ul className="details-page-borders-description">
+                                    {borders.length > 0 ? borders.map((border: any, index: number) => (
+                                        <li className="details-page-borders-description-country">
+                                            <div>
+                                                <img src={border.flags.png} alt="" />
+                                                <p> {border.name.common} </p>
+                                            </div>
+                                            <div className="hidden">
+                                                <i className="fa-solid fa-person"></i>
+                                                <p>{border.population.toLocaleString()}</p>
+                                            </div>
+                                            <div className="hidden">
+                                                <i className="fa-solid fa-globe"></i>
+                                                <p>{border.region}</p> ,
+                                                <p>{border.subregion}</p>
+                                            </div>
+                                        </li>
+                                    )) : 'This country has no neighboring nations!'}
+                                </ul>
+
+                            }
+
+                        </div>
                     </div>
-                </>)
-            }
-        </Loading >
+                )
+                }
+            </Loading >
+        </>
+
     )
 }
 

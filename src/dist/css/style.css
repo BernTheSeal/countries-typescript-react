@@ -680,6 +680,50 @@ input::-webkit-inner-spin-button {
 .details-page-coa img {
   height: 250px;
 }
+.details-page-borders {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  margin-top: 30px;
+  background-color: #333;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px;
+}
+.details-page-borders-title {
+  display: flex;
+  align-items: center;
+}
+.details-page-borders-description {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: gray;
+}
+.details-page-borders-description-country {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.details-page-borders-description-country div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-self: flex-start;
+  height: 100%;
+}
+.details-page-borders-description-country div img {
+  height: 100%;
+  width: 60px;
+  border-radius: 3px;
+}
+.details-page-borders-description-country div p {
+  margin-left: 10px;
+}
 
 @media only screen and (max-width: 600px) {
   .details-page {
@@ -688,16 +732,6 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
-  }
-  .details-page-name {
-    margin-top: 130px;
-  }
-  .details-page-startofweek {
-    align-items: start;
-    flex-direction: column;
-  }
-  .details-page-startofweek-description {
-    width: 100%;
   }
   .details-page i {
     font-size: 12px;
@@ -711,6 +745,16 @@ input::-webkit-inner-spin-button {
   .details-page p {
     font-size: 12px;
   }
+  .details-page-name {
+    margin-top: 130px;
+  }
+  .details-page-startofweek {
+    align-items: start;
+    flex-direction: column;
+  }
+  .details-page-startofweek-description {
+    width: 100%;
+  }
   .details-page-flag {
     margin-top: 10px;
     height: 170px;
@@ -720,6 +764,22 @@ input::-webkit-inner-spin-button {
   .details-page-flag img {
     height: 100%;
     width: 100%;
+  }
+  .details-page-borders-description-country {
+    margin-bottom: 5px;
+  }
+  .details-page-borders-description-country .hidden {
+    display: none;
+  }
+  .details-page-borders-description-country div {
+    margin-bottom: 8px;
+  }
+  .details-page-borders-description-country div p {
+    font-size: 14px;
+  }
+  .details-page-borders-description-country div img {
+    width: 40px;
+    height: 25px;
   }
 }
 @media only screen and (max-width: 400px) {
