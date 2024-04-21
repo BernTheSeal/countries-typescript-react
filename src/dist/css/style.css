@@ -415,6 +415,10 @@ input::-webkit-inner-spin-button {
     height: 230px;
   }
 }
+.leaflet-container {
+  height: 500px;
+}
+
 .details-page {
   max-width: 1240px;
   margin: 0 auto;
@@ -723,6 +727,11 @@ input::-webkit-inner-spin-button {
 }
 .details-page-borders-description-country div p {
   margin-left: 10px;
+}
+.details-page-map {
+  margin-top: 30px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 600px) {

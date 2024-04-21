@@ -4,6 +4,9 @@ import { CountryType } from "../../type"
 import axios from "axios"
 import Loading from "../../components/utils/Loading"
 import Header from "../../components/utils/Header"
+import 'leaflet/dist/leaflet.css'
+import Map from './Map';
+
 
 type DayOfWeek = {
     name: string;
@@ -19,6 +22,8 @@ const Details = () => {
     const [currencies, setCurrencies] = useState<string[] | any>([])
     const [rank, setRank] = useState<number | string>('')
     const [borders, setBorders] = useState<string[] | any>([])
+
+    // var map = L.map('map').setView([51.505, -0.09], 13);
 
     const daysOfWeek: DayOfWeek[] = [
         { name: "Sunday", abbreviation: "Sun" },
@@ -268,7 +273,6 @@ const Details = () => {
                                 </div>
                             )
                         }
-
                         <div className="details-page-borders">
                             <div className="details-page-borders-title">
                                 <i className="fa-solid fa-border-all"></i>
@@ -277,8 +281,8 @@ const Details = () => {
                             {
 
                                 <ul className="details-page-borders-description">
-                                    {borders.length > 0 ? borders.map((border: any, index: number) => (
-                                        <li className="details-page-borders-description-country">
+                                    {borders.length > 0 ? borders.map((border: any, index: any) => (
+                                        <li key={index} className="details-page-borders-description-country">
                                             <div>
                                                 <img src={border.flags.png} alt="" />
                                                 <p> {border.name.common} </p>
@@ -298,6 +302,9 @@ const Details = () => {
 
                             }
 
+                        </div>
+                        <div className="details-page-map">
+                            <Map currentCountry={currentCountry} />
                         </div>
                     </div>
                 )

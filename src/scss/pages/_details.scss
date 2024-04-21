@@ -1,9 +1,15 @@
+.leaflet-container {
+    height: 500px;
+}
+
+
 .details-page {
     max-width: 1240px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
+
 
     i {
         font-size: 14px;
@@ -375,6 +381,12 @@
                 }
             }
         }
+    }
+
+    &-map {
+        margin-top: 30px;
+        border-radius: 5px;
+        overflow: hidden;
     }
 
 }
