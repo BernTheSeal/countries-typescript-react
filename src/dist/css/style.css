@@ -40,6 +40,7 @@ input::-webkit-inner-spin-button {
   font-weight: 800;
   font-size: 25px;
   color: #d0d0d0;
+  letter-spacing: 2px;
 }
 .header-container {
   height: 100%;
@@ -54,7 +55,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 .header-container-logo i {
-  font-size: 20px;
+  font-size: 25px;
   margin-right: 15px;
   color: #d0d0d0;
 }
@@ -220,6 +221,7 @@ input::-webkit-inner-spin-button {
   display: none;
   background-color: #333;
   position: absolute;
+  z-index: 1000;
   top: 35px;
   width: 100%;
   border: 1px solid #6f6f6f;
@@ -276,6 +278,7 @@ input::-webkit-inner-spin-button {
   display: none;
   background-color: #333;
   position: absolute;
+  z-index: 1000;
   top: 35px;
   width: 100%;
   border: 1px solid #6f6f6f;
@@ -649,6 +652,19 @@ input::-webkit-inner-spin-button {
   color: black;
   background-color: white;
 }
+.details-page-weather {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  margin-top: 30px;
+  background-color: #333;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+.details-page-weather img {
+  height: 100px;
+}
 .details-page-currencies {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin-top: 30px;
@@ -721,7 +737,7 @@ input::-webkit-inner-spin-button {
   height: 100%;
 }
 .details-page-borders-description-country div img {
-  height: 100%;
+  height: 40px;
   width: 60px;
   border-radius: 3px;
 }
@@ -732,6 +748,26 @@ input::-webkit-inner-spin-button {
   margin-top: 30px;
   border-radius: 5px;
   overflow: hidden;
+}
+.details-page-area {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  margin-top: 30px;
+  background-color: #333;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+.details-page-area span {
+  color: white;
+  font-style: italic;
+}
+.details-page-area p {
+  color: gray;
+}
+.details-page-area i {
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 600px) {

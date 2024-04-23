@@ -196,7 +196,6 @@ const Countries = () => {
                 </Loading >
             </div >
         </>
-
     )
 }
 

@@ -27,8 +27,8 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
         <header className="header">
             <div className="header-container">
                 <div className="header-container-logo">
-                    <i className="fa-solid fa-map"></i>
-                    <h1>World Master</h1>
+                    <i className="fa-solid fa-earth-europe"></i>
+                    <h1>Earth  Explorer</h1>
                     <div onClick={() => setMenuOpen(!menuOpen)} className="header-container-bars">
                         <i className="fa-solid fa-bars"></i>
                     </div>

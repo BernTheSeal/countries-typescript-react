@@ -7,7 +7,6 @@ import Header from "../../components/utils/Header"
 import 'leaflet/dist/leaflet.css'
 import Map from './Map';
 
-
 type DayOfWeek = {
     name: string;
     abbreviation: string;
@@ -21,9 +20,11 @@ const Details = () => {
     const [languages, setLanguages] = useState<string[] | any>([])
     const [currencies, setCurrencies] = useState<string[] | any>([])
     const [rank, setRank] = useState<number | string>('')
+    const [areaRank, setAreaRank] = useState<number | string>('')
     const [borders, setBorders] = useState<string[] | any>([])
+    const [weatherData, setWeatherData] = useState<any>(null)
 
-    // var map = L.map('map').setView([51.505, -0.09], 13);
+    console.log(weatherData)
 
     const daysOfWeek: DayOfWeek[] = [
         { name: "Sunday", abbreviation: "Sun" },
@@ -35,7 +36,6 @@ const Details = () => {
         { name: "Saturday", abbreviation: "Sat" }
     ];
 
-    //* get current country
     useEffect(() => {
         const getCountry = async () => {
             setLoading(true)
@@ -54,60 +54,57 @@ const Details = () => {
         getCountry()
     }, [])
 
-    //* get languages
     useEffect(() => {
         if (currentCountry && currentCountry.length > 0) {
-            const languages = currentCountry[0].languages
-            const languagesArray = Object.values(languages)
-            setLanguages(languagesArray)
-        }
-    }, [currentCountry])
-
-    //*get rank
-    useEffect(() => {
-        if (currentCountry && currentCountry.length > 0) {
-            const getCountry = async () => {
+            const fetchData = async () => {
                 try {
                     const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all');
+
+                    //* Set languages
+                    const languages = currentCountry[0].languages;
+                    const languagesArray = Object.values(languages);
+                    setLanguages(languagesArray);
+
+                    //* Set population rank
                     data.sort((a, b) => b.population - a.population).find((country, index) => {
                         if (country.name.common === currentCountry[0].name.common) {
                             setRank(index + 1)
                         }
                     })
+
+                    //*Set area rank
+                    data.sort((a, b) => b.area - a.area).find((country, index) => {
+                        if (country.area === currentCountry[0].area) {
+                            setAreaRank(index + 1)
+                        }
+                    })
+
+                    //* Set currencies
+                    const currencies = currentCountry[0].currencies || [{ name: '-', symbol: '-' }];
+                    const currenciesArray = Object.values(currencies);
+                    setCurrencies(currenciesArray);
+
+                    //* Set borders
+                    const borders = data.filter(country => currentCountry[0].borders.includes(country.cca3));
+                    setBorders(borders);
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
                 }
-            }
-            getCountry()
+            };
+            fetchData();
         }
-    }, [currentCountry])
+    }, [currentCountry]);
 
-    //*get currencies
     useEffect(() => {
-        if (currentCountry && currentCountry.length > 0 && currentCountry[0].currencies) {
-            const currencies = currentCountry[0].currencies
-            const currenciesArray = Object.values(currencies)
-            setCurrencies(currenciesArray)
-        } else {
-            setCurrencies([{ name: '-', symbol: '-' }])
-        }
-    }, [currentCountry])
-
-    //*get borders
-    useEffect(() => {
-        if (currentCountry && currentCountry.length > 0) {
-            const getCountry = async () => {
-                try {
-                    const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all');
-                    const borders = data.filter((country) => currentCountry[0].borders.includes(country.cca3))
-                    setBorders(borders)
-                } catch (error) {
-                    console.log(error)
-                }
+        const getWeatherData = async () => {
+            try {
+                const data = await axios.get<any>(`http://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API}&q=${currentCountry[0].capital}&days=1&aqi=yes&alerts=yes`)
+                setWeatherData(data)
+            } catch (error) {
+                console.log(error)
             }
-            getCountry()
         }
-
+        getWeatherData()
     }, [currentCountry])
 
     return (
@@ -178,6 +175,68 @@ const Details = () => {
                             </div>
 
                         </div>
+                        <div className="details-page-currencies">
+                            <div className="details-page-currencies-currency">
+                                <div className="details-page-currencies-currency-title">
+                                    <i className="fa-solid fa-coins"></i>
+                                    <h4>Currency</h4>
+                                </div>
+                                <ol>
+                                    {currencies.map((currency: any) => (
+                                        <li style={{
+                                            listStyleType: "decimal",
+                                            marginLeft: "17px"
+                                        }}>{currency.name}</li>
+                                    ))}
+                                </ol>
+                            </div>
+                            <div className="details-page-currencies-currency">
+                                <div className="details-page-currencies-currency-title">
+                                    <i className="fa-solid fa-dollar-sign"></i>
+                                    <h4>Symbol</h4>
+                                </div>
+                                <ol>
+                                    {currencies.map((currency: any) => (
+                                        <li>{currency.symbol}</li>
+                                    ))}
+                                </ol>
+                            </div>
+                        </div>
+                        {
+                            weatherData && (
+                                <div className="details-page-weather">
+                                    <img src={weatherData.data.current.condition.icon} alt="aa" />
+                                    <p> {weatherData.data.forecast.forecastday[0].day.avgtemp_c} C</p>
+                                    <p> {weatherData.data.forecast.forecastday[0].day.condition.text}</p>
+                                </div>
+                            )
+                        }
+
+                        <div className="details-page-startofweek">
+                            <div className="details-page-startofweek-title">
+                                <i className="fa-solid fa-calendar"></i>
+                                <h4>
+                                    Start Of Week
+                                </h4>
+                            </div>
+                            <div className="details-page-startofweek-description">
+                                <ol>
+                                    {daysOfWeek.map((day, index) => (
+                                        <div className="details-page-startofweek-description-calendar">
+                                            <p className="day">
+                                                {day.abbreviation}
+                                            </p>
+                                            <div className="day_decimal" >
+                                                <p key={index} className={day.name.toLowerCase() === currentCountry[0].startOfWeek ? 'day-active' : ''}>
+                                                    {index + 1}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    ))}
+                                </ol>
+                            </div>
+                        </div>
                         <div className="details-page-check">
                             <div className="details-page-check-independent">
                                 <div className="details-page-check-independent-title">
@@ -213,58 +272,6 @@ const Details = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="details-page-startofweek">
-                            <div className="details-page-startofweek-title">
-                                <i className="fa-solid fa-calendar"></i>
-                                <h4>
-                                    Start Of Week
-                                </h4>
-                            </div>
-                            <div className="details-page-startofweek-description">
-                                <ol>
-                                    {daysOfWeek.map((day, index) => (
-                                        <div className="details-page-startofweek-description-calendar">
-                                            <p className="day">
-                                                {day.abbreviation}
-                                            </p>
-                                            <div className="day_decimal" >
-                                                <p key={index} className={day.name.toLowerCase() === currentCountry[0].startOfWeek ? 'day-active' : ''}>
-                                                    {index + 1}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                    ))}
-                                </ol>
-                            </div>
-                        </div>
-                        <div className="details-page-currencies">
-                            <div className="details-page-currencies-currency">
-                                <div className="details-page-currencies-currency-title">
-                                    <i className="fa-solid fa-coins"></i>
-                                    <h4>Currency</h4>
-                                </div>
-                                <ol>
-                                    {currencies.map((currency: any) => (
-                                        <li style={{
-                                            listStyleType: "decimal",
-                                            marginLeft: "17px"
-                                        }}>{currency.name}</li>
-                                    ))}
-                                </ol>
-                            </div>
-                            <div className="details-page-currencies-currency">
-                                <div className="details-page-currencies-currency-title">
-                                    <i className="fa-solid fa-dollar-sign"></i>
-                                    <h4>Symbol</h4>
-                                </div>
-                                <ol>
-                                    {currencies.map((currency: any) => (
-                                        <li>{currency.symbol}</li>
-                                    ))}
-                                </ol>
-                            </div>
-                        </div>
                         {
                             currentCountry[0].coatOfArms.png && (
                                 <div className="details-page-coa">
@@ -273,13 +280,16 @@ const Details = () => {
                                 </div>
                             )
                         }
+                        <div className="details-page-area">
+                            <i className="fa-solid fa-mountain-sun"></i>
+                            <p> <span>{currentCountry[0].name.common}</span>, with an area of <span>{currentCountry[0].area.toLocaleString()}</span> square kilometers, ranks as the <span>{areaRank}th</span> largest country in the world.</p>
+                        </div>
                         <div className="details-page-borders">
                             <div className="details-page-borders-title">
                                 <i className="fa-solid fa-border-all"></i>
                                 <h4>Borders</h4>
                             </div>
                             {
-
                                 <ul className="details-page-borders-description">
                                     {borders.length > 0 ? borders.map((border: any, index: any) => (
                                         <li key={index} className="details-page-borders-description-country">
@@ -288,8 +298,8 @@ const Details = () => {
                                                 <p> {border.name.common} </p>
                                             </div>
                                             <div className="hidden">
-                                                <i className="fa-solid fa-person"></i>
-                                                <p>{border.population.toLocaleString()}</p>
+                                                <i className="fa-solid fa-mountain-sun"></i>
+                                                <p>{border.area.toLocaleString()} km<sup>2</sup></p>
                                             </div>
                                             <div className="hidden">
                                                 <i className="fa-solid fa-globe"></i>
@@ -299,10 +309,9 @@ const Details = () => {
                                         </li>
                                     )) : 'This country has no neighboring nations!'}
                                 </ul>
-
                             }
-
                         </div>
+
                         <div className="details-page-map">
                             <Map currentCountry={currentCountry} />
                         </div>
@@ -311,7 +320,6 @@ const Details = () => {
                 }
             </Loading >
         </>
-
     )
 }
 

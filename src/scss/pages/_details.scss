@@ -286,6 +286,20 @@
 
     }
 
+    &-weather {
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        margin-top: 30px;
+        background-color: #333;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+
+        img {
+            height: 100px;
+        }
+    }
 
     &-currencies {
         box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -370,7 +384,7 @@
                     height: 100%;
 
                     img {
-                        height: 100%;
+                        height: 40px;
                         width: 60px;
                         border-radius: 3px;
                     }
@@ -388,6 +402,31 @@
         border-radius: 5px;
         overflow: hidden;
     }
+
+    &-area {
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        margin-top: 30px;
+        background-color: #333;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        letter-spacing: 1px;
+
+        span {
+            color: white;
+            font-style: italic;
+        }
+
+        p {
+            color: gray;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    }
+
 
 }
 
