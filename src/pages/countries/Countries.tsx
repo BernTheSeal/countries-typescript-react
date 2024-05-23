@@ -167,7 +167,7 @@ const Countries = () => {
                         <div className="countries-inputs-population">
                             <div>
                                 <i className="fa-solid fa-person"></i>
-                                <input type="number" placeholder="Min population" className="countries-inputs-population-left" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
+                                <input value={minPopulationValue} type="number" placeholder="Min population" className="countries-inputs-population-left" onChange={(e) => setMinPopulationValue(parseInt(e.target.value))} />
                             </div>
                             <div>
                                 <i className="fa-solid fa-person"></i>

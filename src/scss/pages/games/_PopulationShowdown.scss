@@ -1,0 +1,273 @@
+.ps-container {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+
+    &-game {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &-info {
+            position: absolute;
+            top: 25px;
+            width: 100vw;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+
+
+            &-container {
+                width: 400px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+
+
+                &-title {
+
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    letter-spacing: 3px;
+                    color: #777;
+
+                    i {
+                        font-size: 20px;
+                    }
+
+                    h2 {
+                        margin: 0 10px;
+                    }
+                }
+
+                &-details {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    &-score {
+                        text-align: center;
+                        width: 50%;
+                        margin-left: 10px;
+                        border-right: 2px solid gray;
+                    }
+
+                    &-highScore {
+                        margin-right: 10px;
+                        width: 50%;
+                        text-align: center;
+                    }
+                }
+
+                h4 {
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: #777;
+                }
+
+                p {
+                    color: white;
+                    font-weight: 600;
+                    font-size: 18px;
+                    font-style: italic;
+
+                }
+            }
+        }
+
+        &-circle {
+            position: relative;
+            left: 50%;
+            border-radius: 50%;
+            transition: all .3s;
+            transform: translate(-50%, 0%);
+            width: 95px;
+            height: 95px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+
+
+            &-time {
+                transition: all 0.3s;
+                font-size: 42px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                background-color: #333;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+        }
+
+        &-card {
+            position: absolute;
+            height: 350px;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+
+            &-info {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 25px;
+
+                &-firts-div {
+                    margin-bottom: 20px;
+                }
+
+                &-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+
+                    button {
+                        cursor: pointer;
+                        height: 50px;
+                        width: 150px;
+                        font-size: 16px;
+                        color: #fff989;
+                        background-color: transparent;
+                        border: 1px solid white;
+                        border-radius: 25px;
+                        transition: all .2s;
+                    }
+
+                    button:hover {
+                        border: 1px solid white;
+                        background-color: white;
+                        color: black
+                    }
+                }
+
+                p {
+                    font-size: 14px;
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                h3 {
+                    font-weight: 200;
+                    text-align: center;
+                }
+
+                h4 {
+                    font-size: 50px;
+                    font-style: italic;
+                    font-weight: 500;
+                    color: #fff989;
+                }
+
+                img {
+                    width: 260px;
+                    height: 150px;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+                }
+            }
+        }
+    }
+}
+
+
+.firts-div-animation {
+    animation-name: first-div;
+    animation-duration: 0.5s;
+}
+
+
+.second-div-animation {
+    animation-name: second-div;
+    animation-duration: 0.5s;
+}
+
+
+.third-div-animation {
+    animation-name: third-div;
+    animation-duration: 0.5s;
+}
+
+.circle-time-animation {
+    transition: all 1s;
+    height: 0px;
+    width: 0px;
+}
+
+.circle-animation {
+    transition: all 0.3s;
+    height: 0px;
+    width: 0px;
+}
+
+.circle-true-animation {
+    animation: bounce;
+    animation-duration: 0.5s;
+}
+
+.circle-false-animation {}
+
+@keyframes first-div {
+    0% {
+        left: 0%;
+    }
+
+    100% {
+        left: -50%;
+    }
+}
+
+@keyframes second-div {
+    0% {
+        left: 50%;
+    }
+
+    100% {
+        left: 0%;
+    }
+}
+
+@keyframes third-div {
+    0% {
+        left: 100%;
+    }
+
+    100% {
+        left: 50%;
+    }
+}
+
+
+.first-div {
+    left: 0%;
+}
+
+.second-div {
+    left: 50%;
+}
+
+.third-div {
+    left: 100%;
+}

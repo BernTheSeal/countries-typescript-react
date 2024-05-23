@@ -17,6 +17,16 @@
     }
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $inputOutlineColor;
+    border-radius: 3px;
+}
 
 ::-webkit-search-cancel-button {
     -webkit-appearance: none;

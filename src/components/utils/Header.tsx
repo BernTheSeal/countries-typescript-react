@@ -19,7 +19,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
     const pageOptions: pageOptions[] = [
         { page: 'Home', onClick: () => navigate('/') },
         { page: 'Countries', onClick: () => navigate('/countries') },
-        { page: 'Games', onClick: () => navigate('/') },
+        { page: 'Games', onClick: () => navigate('/games') },
         { page: 'About me', onClick: () => navigate('/') },
     ]
 
