@@ -202,16 +202,6 @@ const Details = () => {
                                 </ol>
                             </div>
                         </div>
-                        {
-                            weatherData && (
-                                <div className="details-page-weather">
-                                    <img src={weatherData.data.current.condition.icon} alt="aa" />
-                                    <p> {weatherData.data.forecast.forecastday[0].day.avgtemp_c} C</p>
-                                    <p> {weatherData.data.forecast.forecastday[0].day.condition.text}</p>
-                                </div>
-                            )
-                        }
-
                         <div className="details-page-startofweek">
                             <div className="details-page-startofweek-title">
                                 <i className="fa-solid fa-calendar"></i>
@@ -245,8 +235,8 @@ const Details = () => {
                                 </div>
                                 <div className="details-page-check-independent-description">
                                     {currentCountry[0].independent
-                                        ? <i style={{ color: "green", fontSize: "18px" }} className="fa-solid fa-check">  </i>
-                                        : <i style={{ color: "red", fontSize: "18px" }} className="fa-solid fa-xmark"></i>}
+                                        ? <i style={{ color: "#248939", fontSize: "18px" }} className="fa-solid fa-check">  </i>
+                                        : <i style={{ color: "#b03535", fontSize: "18px" }} className="fa-solid fa-xmark"></i>}
                                 </div>
                             </div>
                             <div className="details-page-check-UN">
@@ -256,8 +246,8 @@ const Details = () => {
                                 </div>
                                 <div className="details-page-check-independent-description">
                                     {currentCountry[0].unMember
-                                        ? <i style={{ color: "green", fontSize: "18px" }} className="fa-solid fa-check">  </i>
-                                        : <i style={{ color: "red", fontSize: "18px" }} className="fa-solid fa-xmark"></i>}
+                                        ? <i style={{ color: "#248939", fontSize: "18px" }} className="fa-solid fa-check">  </i>
+                                        : <i style={{ color: "#b03535", fontSize: "18px" }} className="fa-solid fa-xmark"></i>}
                                 </div>
                             </div>
                             <div className="details-page-check-sea">
@@ -267,8 +257,8 @@ const Details = () => {
                                 </div>
                                 <div className="details-page-check-independent-description">
                                     {currentCountry[0].landlocked
-                                        ? <i style={{ color: "red", fontSize: "18px" }} className="fa-solid fa-xmark">  </i>
-                                        : <i style={{ color: "green", fontSize: "18px" }} className="fa-solid fa-check"></i>}
+                                        ? <i style={{ color: "#b03535", fontSize: "18px" }} className="fa-solid fa-xmark">  </i>
+                                        : <i style={{ color: "#248939", fontSize: "18px" }} className="fa-solid fa-check"></i>}
                                 </div>
                             </div>
                         </div>

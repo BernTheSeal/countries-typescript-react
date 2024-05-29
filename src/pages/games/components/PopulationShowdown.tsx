@@ -13,11 +13,19 @@ const PopulationShowdown = () => {
     const [hasSwitchAnimation, setHasSwitchAnimation] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false)
     const [isVisibleCircle, setIsVisibleCircle] = useState<boolean>(true)
+
+    const [isAnswerTrue, setIsAnswerTrue] = useState<any>(true)
+    const [positionCircle, setPositionCircle] = useState<string>('100px')
+
     const [populationValue, setPopulationValue] = useState<any>(0)
     const [time, setTime] = useState<number>(10)
     const [degValue, setDegValue] = useState<number>(0)
     const [intervalId, setIntervalId] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
+
+    //todo : avarage puan hesaplamasi icin algoritma yaz. bu puan game over bolumunde olacak. puana gore iyi ilerledin veya kotuydun gibi
+    //todo : seyler yazsin
+    //! algoritma : her zaman alinan puan + olarak daha once alinan puanlarin ustune eklensin. daha sonra total puan oynanma sayisina bolunsun.
 
     if (isClick) {
         clearInterval(intervalId)
@@ -34,7 +42,7 @@ const PopulationShowdown = () => {
     }
 
     const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("populationGamesInfo") || '{"highScore": 0, "playedTime": 0}')
+        const gameInfo = JSON.parse(localStorage.getItem("populationGamesInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
 
@@ -51,12 +59,28 @@ const PopulationShowdown = () => {
         }
     }
 
+    const handlePlayAgain = () => {
+        setPositionCircle('100px')
+        setIsGameOver(false)
+        setIsClick(false)
+        getPlayerInfo()
+        setScore(0)
+        setTime(10)
+        handleIntervalId()
+        handlePlayGame()
+    }
+
     const handleAnswer = (answer: string) => {
         const isHigher: boolean = (answer == "higher" && currentCountries[0].population < currentCountries[1].population)
         const isLower: boolean = (answer == "lower" && currentCountries[0].population > currentCountries[1].population)
         handleCountAnimation()
         setIsClick(true)
+
         if (isHigher || isLower) {
+            setIsAnswerTrue(true)
+            setTimeout(() => {
+                setPositionCircle('0')
+            }, 1400);
             setTimeout(() => {
                 setIsVisibleCircle(false)
             }, 2200);
@@ -68,13 +92,18 @@ const PopulationShowdown = () => {
                 handleNextCountry()
             }, 2900);
         } else {
+            setIsAnswerTrue(false)
+            setTimeout(() => {
+                setPositionCircle('0')
+            }, 1400);
             setTimeout(() => {
                 setIsGameOver(!isGameOver)
-            }, 2000);
+            }, 2300);
         }
     }
 
     const handleNextCountry = () => {
+        setPositionCircle('100px')
         setTime(10)
         handleIntervalId()
         setIsClick(false)
@@ -123,12 +152,10 @@ const PopulationShowdown = () => {
     }
 
     useEffect(() => {
-        if (!isGameOver) {
-            getPlayerInfo()
-            getCountry()
-            handleIntervalId()
-        }
-    }, [isGameOver])
+        getPlayerInfo()
+        getCountry()
+        handleIntervalId()
+    }, [])
 
     useEffect(() => {
         handlePlayGame()
@@ -140,7 +167,7 @@ const PopulationShowdown = () => {
                 score={score}
                 storageName="populationGamesInfo"
                 gameName="Population Showdown"
-                playAgainFunction={setIsGameOver}
+                playAgainFunction={handlePlayAgain}
                 time={time} />)
                 : (<div className="ps-container">
                     {currentCountries.length > 0 && (
@@ -166,7 +193,19 @@ const PopulationShowdown = () => {
                             </div>
                             <div style={{ background: `conic-gradient(transparent ${degValue}deg, ${isVisibleCircle ? 'white' : 'transparent'} 0deg)` }}
                                 className={`ps-container-game-circle  ${isClick ? 'circle-time-animation' : ''}`}>
-                                <div className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>{time}</div>
+                                <div className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>{time}
+                                    {
+                                        isAnswerTrue ? (
+                                            <div className={`ps-container-game-circle-time-answer`} style={{ top: positionCircle, backgroundColor: '  #248939' }}  >
+                                                <i className="fa-solid fa-check"></i>
+                                            </div>)
+                                            : (
+                                                <div className={`ps-container-game-circle-time-answer`} style={{ top: positionCircle, backgroundColor: '#b03535' }}  >
+                                                    <i className="fa-solid fa-xmark"></i>
+                                                </div>
+                                            )
+                                    }
+                                </div>
                             </div>
                             <div className={`ps-container-game-card first-div ${hasSwitchAnimation ? 'firts-div-animation' : ''} `}>
                                 <div className="ps-container-game-card-info" >
@@ -190,8 +229,14 @@ const PopulationShowdown = () => {
                                     <div>
                                         <p> has</p>
                                         {!isClick ? <div className="ps-container-game-card-info-buttons">
-                                            <button onClick={() => handleAnswer('higher')}>Higher</button>
-                                            <button onClick={() => handleAnswer('lower')}>Lower</button>
+                                            <button onClick={() => handleAnswer('higher')}>
+                                                <span>Higher</span>
+                                                <i className="fa-solid fa-caret-up"></i>
+                                            </button>
+                                            <button onClick={() => handleAnswer('lower')}>
+                                                <span>Lower</span>
+                                                <i className="fa-solid fa-caret-down"></i>
+                                            </button>
                                         </div> : <h4>{populationValue}</h4>}
                                         <p>population {!isClick ? `than ${currentCountries[0].name.common}` : ''}</p>
                                     </div>

@@ -110,7 +110,21 @@
                 background-color: #333;
                 border-radius: 50%;
                 overflow: hidden;
+
+                &-answer {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    transition: all .3s;
+                    background-color: red;
+                }
             }
+
+
         }
 
         &-card {
@@ -149,12 +163,24 @@
                         border: 1px solid white;
                         border-radius: 25px;
                         transition: all .2s;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+
+                        i {
+                            color: white;
+                        }
                     }
 
                     button:hover {
                         border: 1px solid white;
                         background-color: white;
                         color: black
+                    }
+
+                    button:hover i {
+                        color: black;
                     }
                 }
 

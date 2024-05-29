@@ -9,12 +9,17 @@ interface iGameOverProps {
 }
 
 const GameOver: FunctionComponent<iGameOverProps> = (props) => {
+
+    //todo : eger highscore olursa konfeti patlasin. 
+    //todo: ortalama skore yazsin. buna gore kullaniciya bir seyler denebilir. ort : 100 ve su anki score 10 ise bu ortalamanin cok altidir ve ona gore 
+    //todo : bir seyler denebilir? yuzdelik dilime gore olsun. yuzde 10 yuzde 30 yuzde 50 yuzde 100 vs vs gitsin. diyecek bir seyler bul.
+
     const { score, storageName, gameName, time, playAgainFunction } = props
     const [gameInfo, setGameInfo] = useState<any>('')
     const [isHighScore, setIsHighScore] = useState<boolean>(false)
 
     const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem(storageName) || '{"highScore": 0, "playedTime": 0}')
+        const gameInfo = JSON.parse(localStorage.getItem(storageName) || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
 
@@ -31,7 +36,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     }
 
     const handlePlayAgain = () => {
-        playAgainFunction(false)
+        playAgainFunction()
     }
 
     useEffect(() => {
@@ -44,8 +49,8 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     return (
         <div>
             <h3>{gameName}</h3>
-            <h4>{time === 0 ? 'TIMES UP' : '#'}</h4>
-            <p>score: {score} {isHighScore ? '#' : null}</p>
+            <h4>{time === 0 ? 'TIMES UP' : 'get better another time'}</h4>
+            <p>score: {score} {isHighScore ? 'new high score ##' : null}</p>
             <div>
                 <button onClick={handlePlayAgain}>
                     play again
