@@ -5,7 +5,6 @@ import Country from "./Country"
 import Loading from "../../components/utils/Loading"
 import Header from "../../components/utils/Header"
 
-
 interface sortingOptions {
     name: string,
     icon: string
@@ -15,10 +14,8 @@ const Countries = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('')
-
     const [sortingValue, setSortingValue] = useState<string>('Default Sorting')
     const [regionsArray, setRegionsArray] = useState<string[]>([])
-
     const [minPopulationValue, setMinPopulationValue] = useState<number>(NaN)
     const [maxPopulationValue, setMaxPopulationValue] = useState<number>(NaN)
 

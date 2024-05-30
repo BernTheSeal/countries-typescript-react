@@ -13,19 +13,13 @@ const PopulationShowdown = () => {
     const [hasSwitchAnimation, setHasSwitchAnimation] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false)
     const [isVisibleCircle, setIsVisibleCircle] = useState<boolean>(true)
-
     const [isAnswerTrue, setIsAnswerTrue] = useState<any>(true)
     const [positionCircle, setPositionCircle] = useState<string>('100px')
-
     const [populationValue, setPopulationValue] = useState<any>(0)
     const [time, setTime] = useState<number>(10)
     const [degValue, setDegValue] = useState<number>(0)
     const [intervalId, setIntervalId] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
-
-    //todo : avarage puan hesaplamasi icin algoritma yaz. bu puan game over bolumunde olacak. puana gore iyi ilerledin veya kotuydun gibi
-    //todo : seyler yazsin
-    //! algoritma : her zaman alinan puan + olarak daha once alinan puanlarin ustune eklensin. daha sonra total puan oynanma sayisina bolunsun.
 
     if (isClick) {
         clearInterval(intervalId)
@@ -45,6 +39,8 @@ const PopulationShowdown = () => {
         const gameInfo = JSON.parse(localStorage.getItem("populationGamesInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
+
+    console.log(gameInfo)
 
     const handlePlayGame = () => {
         if (countries.length > 0) {
@@ -166,9 +162,8 @@ const PopulationShowdown = () => {
             {isGameOver || time === 0 ? (<GameOver
                 score={score}
                 storageName="populationGamesInfo"
-                gameName="Population Showdown"
                 playAgainFunction={handlePlayAgain}
-                time={time} />)
+            />)
                 : (<div className="ps-container">
                     {currentCountries.length > 0 && (
                         <div className="ps-container-game">
