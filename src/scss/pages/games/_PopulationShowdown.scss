@@ -18,7 +18,6 @@
             display: flex;
             justify-content: center;
 
-
             &-container {
                 width: 400px;
                 height: 100%;
@@ -27,9 +26,7 @@
                 align-items: center;
                 justify-content: space-between;
 
-
                 &-title {
-
                     width: 100%;
                     display: flex;
                     justify-content: center;
@@ -78,7 +75,6 @@
                     font-weight: 600;
                     font-size: 18px;
                     font-style: italic;
-
                 }
             }
         }
@@ -95,7 +91,6 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-
 
             &-time {
                 transition: all 0.3s;
@@ -120,11 +115,8 @@
                     height: 100%;
                     border-radius: 50%;
                     transition: all .3s;
-                    background-color: red;
                 }
             }
-
-
         }
 
         &-card {
@@ -218,18 +210,15 @@
     }
 }
 
-
 .firts-div-animation {
     animation-name: first-div;
     animation-duration: 0.5s;
 }
 
-
 .second-div-animation {
     animation-name: second-div;
     animation-duration: 0.5s;
 }
-
 
 .third-div-animation {
     animation-name: third-div;
@@ -252,8 +241,6 @@
     animation: bounce;
     animation-duration: 0.5s;
 }
-
-.circle-false-animation {}
 
 @keyframes first-div {
     0% {
@@ -284,7 +271,6 @@
         left: 50%;
     }
 }
-
 
 .first-div {
     left: 0%;

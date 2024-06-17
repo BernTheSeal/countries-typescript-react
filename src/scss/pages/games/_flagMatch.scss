@@ -1,0 +1,222 @@
+.fm-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    &-info {
+        position: absolute;
+        top: 25px;
+        width: 100vw;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+
+        &-container {
+            width: 400px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            &-title {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                margin-bottom: 10px;
+                letter-spacing: 3px;
+                color: #777;
+
+                i {
+                    font-size: 20px;
+                }
+
+                h2 {
+                    margin: 0 10px;
+                }
+            }
+
+            &-details {
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                &-score {
+                    text-align: center;
+                    width: 50%;
+                    margin-left: 10px;
+                    border-right: 2px solid gray;
+                }
+
+                &-highScore {
+                    margin-right: 10px;
+                    width: 50%;
+                    text-align: center;
+                }
+            }
+
+            h4 {
+                font-weight: 300;
+                font-size: 14px;
+                color: #777;
+            }
+
+            p {
+                color: white;
+                font-weight: 600;
+                font-size: 18px;
+                font-style: italic;
+            }
+        }
+    }
+
+    &-gameArea {
+        width: 100%;
+        position: relative;
+        height: 550px;
+        margin-top: 50px;
+
+        &-flags {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+
+            div {
+                width: 50%;
+                height: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                button {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        position: absolute;
+                        z-index: 20;
+                    }
+
+                    div {
+                        overflow: hidden;
+                        position: absolute;
+                        z-index: 25;
+                        width: 100%;
+                        height: 100%;
+                        animation-name: checkAnimationContainer;
+                        animation-duration: .2s;
+
+                        i {
+                            font-size: 80px;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        p {
+            font-size: 200px;
+            text-align: center;
+            font-weight: 600;
+            z-index: -1;
+            color: #333;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+
+        &-time {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+
+            h3 {
+                font-size: 30px;
+                font-weight: 200;
+                color: #fff989;
+            }
+        }
+    }
+}
+
+.fm-button-default {
+    width: 220px;
+    height: 130px;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+    transition: all .1s;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.fm-button-default:hover {
+    outline: 4px solid white;
+    width: 240px;
+    height: 145px;
+}
+
+.fm-button-clicked {
+    width: 220px;
+    height: 130px;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+    transition: all .1s;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.fm-true-answer {
+    background-color: #248939;
+}
+
+.fm-wrong-answer {
+    background-color: #b03535;
+}
+
+@keyframes checkAnimationContainer {
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.fm-flag-animation-hidden {
+    transition: all .2s;
+    height: 0;
+    width: 0;
+}
+
+.fm-flag-animation-appear {
+    transition: all .2s;
+    width: 220px;
+    height: 130px;
+}

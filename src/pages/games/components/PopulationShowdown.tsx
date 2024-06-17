@@ -40,8 +40,6 @@ const PopulationShowdown = () => {
         setGameInfo(gameInfo)
     }
 
-    console.log(gameInfo)
-
     const handlePlayGame = () => {
         if (countries.length > 0) {
             const threeCountries: any = []
@@ -86,7 +84,7 @@ const PopulationShowdown = () => {
             }, 2500);
             setTimeout(() => {
                 handleNextCountry()
-            }, 2900);
+            }, 2950);
         } else {
             setIsAnswerTrue(false)
             setTimeout(() => {
@@ -191,7 +189,7 @@ const PopulationShowdown = () => {
                                 <div className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>{time}
                                     {
                                         isAnswerTrue ? (
-                                            <div className={`ps-container-game-circle-time-answer`} style={{ top: positionCircle, backgroundColor: '  #248939' }}  >
+                                            <div className={`ps-container-game-circle-time-answer`} style={{ top: positionCircle, backgroundColor: '#248939' }}  >
                                                 <i className="fa-solid fa-check"></i>
                                             </div>)
                                             : (
