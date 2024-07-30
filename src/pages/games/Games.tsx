@@ -17,6 +17,10 @@ const Games = () => {
             name: "flag match",
             onClick: () => navigate('/games/flagMatch')
         },
+        {
+            name: "hidden flag",
+            onClick: () => navigate('/games/hiddenFlag')
+        },
     ]
 
     return (

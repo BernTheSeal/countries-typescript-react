@@ -1,0 +1,73 @@
+.hf-game-button-active {
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.hf-game-button-active:hover {
+    border: 2px solid #fff989;
+    color: #fff989;
+}
+
+.hf-game-button-active:active {
+    transform: scale(0.9);
+}
+
+.hf-game-button-inactive {
+    border: 2px solid rgb(110, 110, 110);
+    color: rgb(110, 110, 110);
+    background-color: transparent;
+}
+
+.hf-game-search-active {
+    bottom: 45px;
+}
+
+.hf-game-search-inactive {
+    bottom: -100px;
+}
+
+.hf-game-correct-answer {
+    background-color: #248939;
+}
+
+.hf-game-wrong-answer {
+    background-color: #b03535;
+}
+
+.hf-game-hoverI {
+    animation-name: hoverI;
+    animation-duration: .2s;
+    animation-fill-mode: both;
+}
+
+
+@keyframes answerResult {
+    0% {
+        bottom: -47px;
+    }
+
+    20% {
+        bottom: 0px;
+    }
+
+    80% {
+        bottom: 0px;
+    }
+
+    100% {
+        bottom: 47px;
+    }
+}
+
+
+@keyframes hoverI {
+    0% {
+        font-size: 15px;
+    }
+
+    100% {
+        font-size: 35px;
+    }
+}

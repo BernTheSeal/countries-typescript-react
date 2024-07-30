@@ -3,8 +3,9 @@ import Home from "../pages/home";
 import Countries from "../pages/countries/Countries";
 import Details from "../pages/details/Details";
 import Games from "../pages/games/Games";
-import PopulationShowdown from "../pages/games/components/PopulationShowdown";
-import FlagMatch from "../pages/games/components/FlagMatch";
+import PopulationShowdown from "../pages/games/game-modes/population-showdown";
+import FlagMatch from "../pages/games/game-modes/flag-match";
+import HiddenFlag from "../pages/games/game-modes/hidden-flag";
 
 const routes = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
     {
         path: 'games/flagMatch',
         element: <FlagMatch />
+    },
+    {
+        path: 'games/hiddenFlag',
+        element: <HiddenFlag />
     }
 ]);
 

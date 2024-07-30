@@ -1,8 +1,9 @@
 import axios from "axios"
-import { CountryType } from "../../../type"
+import { CountryType } from "../../../../type"
 import { useEffect, useState, useRef } from "react"
-import GameOver from "../utils/GameOver";
+import GameOver from "../../shared-components/GameOver";
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
+import GameTitle from "../../shared-components/GameTitle";
 
 const FlagMatch = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -34,12 +35,10 @@ const FlagMatch = () => {
     }
 
     const handleCurrentCountries = () => {
-        setIsFlagAnimation(false)
         setClickedIndex(null)
         setIsAnswerTrue(null)
         setIsClick(false)
         setTime(10)
-        startTimeInterval()
         const shuffled = countries.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 4);
         const countryInfo = selected.map(country => ({
@@ -48,6 +47,10 @@ const FlagMatch = () => {
         }));
         setCurrentCountries(countryInfo)
         setSelectedCountry(countryInfo[Math.floor(Math.random() * 4)])
+        setTimeout(() => {
+            setIsFlagAnimation(false)
+            startTimeInterval()
+        }, 300);
     }
 
     const handleAnswer = (countryName: string, index: number) => {
@@ -113,25 +116,13 @@ const FlagMatch = () => {
                 playAgainFunction={handlePlayAgain}
             />)
                 : (<div className="fm-container">
-                    <div className="fm-container-info">
-                        <div className="fm-container-info-container">
-                            <div className="fm-container-info-container-title">
-                                <i className="fa-regular fa-flag"></i>
-                                <h2>FLAG MATCH</h2>
-                                <i className="fa-regular fa-flag"></i>
-                            </div>
-                            <div className="fm-container-info-container-details">
-                                <div className="ps-container-game-info-container-details-score">
-                                    <p>{score && score.toLocaleString()}</p>
-                                    <h4>Score</h4>
-                                </div>
-                                <div className="fm-container-info-container-details-highScore">
-                                    <p>{gameInfo.highScore && gameInfo.highScore.toLocaleString()}</p>
-                                    <h4>High score</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <GameTitle
+                        title={'flag match'}
+                        iconLeft={'fa-regular fa-flag'}
+                        iconRight={'fa-regular fa-flag'}
+                        score={score}
+                        highScore={gameInfo.highScore}
+                    />
                     <div className="fm-container-gameArea">
                         <div className="fm-container-gameArea-flags">
                             {currentCountries.map((country: any, index: number) => (

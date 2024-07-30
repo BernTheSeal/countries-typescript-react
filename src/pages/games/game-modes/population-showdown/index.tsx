@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { CountryType } from "../../../type"
+import { CountryType } from "../../../../type"
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import 'animate.css'
-import GameOver from "../utils/GameOver";
+import GameOver from "../../shared-components/GameOver";
+import GameTitle from "../../shared-components/GameTitle";
 
 const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -165,25 +166,13 @@ const PopulationShowdown = () => {
                 : (<div className="ps-container">
                     {currentCountries.length > 0 && (
                         <div className="ps-container-game">
-                            <div className="ps-container-game-info">
-                                <div className="ps-container-game-info-container">
-                                    <div className="ps-container-game-info-container-title">
-                                        <i className="fa-solid fa-caret-up"></i>
-                                        <h2>POPULATION SHOWDOWN</h2>
-                                        <i className="fa-solid fa-caret-down"></i>
-                                    </div>
-                                    <div className="ps-container-game-info-container-details">
-                                        <div className="ps-container-game-info-container-details-score">
-                                            <p>{score.toLocaleString()}</p>
-                                            <h4>Score</h4>
-                                        </div>
-                                        <div className="ps-container-game-info-container-details-highScore">
-                                            <p>{gameInfo.highScore.toLocaleString()}</p>
-                                            <h4>High score</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <GameTitle
+                                title={'population showdown'}
+                                iconLeft={'fa-solid fa-caret-up'}
+                                iconRight={'fa-solid fa-caret-down'}
+                                score={score}
+                                highScore={gameInfo.highScore}
+                            />
                             <div style={{ background: `conic-gradient(transparent ${degValue}deg, ${isVisibleCircle ? 'white' : 'transparent'} 0deg)` }}
                                 className={`ps-container-game-circle  ${isClick ? 'circle-time-animation' : ''}`}>
                                 <div className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>{time}

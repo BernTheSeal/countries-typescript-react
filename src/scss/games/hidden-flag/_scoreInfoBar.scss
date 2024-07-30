@@ -1,0 +1,35 @@
+.hf-game-score-info-bar {
+    width: 50%;
+    height: 100%;
+    display: flex;
+
+    &-up {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-bottom: 25px;
+
+        span {
+            position: absolute;
+            font-size: 34px;
+            font-style: italic;
+        }
+    }
+
+    &-down {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 50%;
+        padding-top: 25px;
+
+        span {
+            position: absolute;
+            font-size: 34px;
+
+            font-style: italic;
+        }
+
+    }
+}

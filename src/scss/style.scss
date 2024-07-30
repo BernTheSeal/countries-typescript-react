@@ -1,8 +1,27 @@
 @import "./base/base",
+
+//? component css
 "./components/header",
+
+//? pages css
 "./pages/countries",
 "./pages/details",
 "./pages/games",
-"./pages/games/PopulationShowdown",
-"./pages/games/utils/gameOver",
-"./pages/games/flagMatch"
+
+//? population showdown css
+"./games/population-showdown/index.scss",
+
+//? flag match css
+"./games/flag-match/index.scss",
+
+//? hidden flag css
+"./games/hidden-flag/index.scss",
+"./games/hidden-flag/animation",
+"./games/hidden-flag/gameInfo",
+"./games/hidden-flag/statusBar",
+"./games/hidden-flag/scoreInfoBar",
+
+
+//? games shared css
+"./games/shared-css/gameOver",
+"./games/shared-css/gameTitle"
