@@ -2,26 +2,29 @@
 
 //? component css
 "./components/header",
+"./components/pageContainer",
 
 //? pages css
-"./pages/countries",
-"./pages/details",
-"./pages/games",
+"./pages/countries-page/countries",
+"./pages/details-page/details",
+"./pages/game-page/index",
 
+
+//!GAMES
 //? population showdown css
-"./games/population-showdown/index.scss",
+"./game-modes/population-showdown/index.scss",
 
 //? flag match css
-"./games/flag-match/index.scss",
+"./game-modes/flag-match/index.scss",
 
 //? hidden flag css
-"./games/hidden-flag/index.scss",
-"./games/hidden-flag/animation",
-"./games/hidden-flag/gameInfo",
-"./games/hidden-flag/statusBar",
-"./games/hidden-flag/scoreInfoBar",
+"./game-modes/hidden-flag/index.scss",
+"./game-modes/hidden-flag/animation",
+"./game-modes/hidden-flag/gameInfo",
+"./game-modes/hidden-flag/statusBar",
+"./game-modes/hidden-flag/scoreInfoBar",
 
 
 //? games shared css
-"./games/shared-css/gameOver",
-"./games/shared-css/gameTitle"
+"./game-modes/shared-css/gameOver",
+"./game-modes/shared-css/gameTitle"

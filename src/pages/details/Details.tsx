@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { CountryType } from "../../type"
+import { CountryType } from "../../types/countryType"
 import axios from "axios"
-import Loading from "../../components/utils/Loading"
-import Header from "../../components/utils/Header"
+import Loading from "../../components/Loading"
+import Header from "../../components/Header"
 import 'leaflet/dist/leaflet.css'
 import Map from './Map';
 

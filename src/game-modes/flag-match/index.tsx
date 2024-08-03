@@ -1,9 +1,9 @@
 import axios from "axios"
-import { CountryType } from "../../../../type"
+import { CountryType } from "../../types/countryType"
 import { useEffect, useState, useRef } from "react"
-import GameOver from "../../shared-components/GameOver";
+import GameOver from "../shared-components/GameOver";
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
-import GameTitle from "../../shared-components/GameTitle";
+import GameTitle from "../shared-components/GameTitle";
 
 const FlagMatch = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -30,7 +30,7 @@ const FlagMatch = () => {
     }
 
     const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("flagMatchGamesInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+        const gameInfo = JSON.parse(localStorage.getItem("flagMatchGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
 
@@ -112,7 +112,7 @@ const FlagMatch = () => {
         <>
             {isGameOver || time === 0 ? (<GameOver
                 score={score}
-                storageName="flagMatchGamesInfo"
+                storageName="flagMatchGameInfo"
                 playAgainFunction={handlePlayAgain}
             />)
                 : (<div className="fm-container">

@@ -1,14 +1,13 @@
 .header {
     position: fixed;
     overflow: hidden;
-
     height: 80px;
     top: 0;
     right: 0;
     left: 0;
     background-color: $bodyBackgroundColor;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-    z-index: 1000;
+    z-index: 500;
 
     h1 {
         font-weight: 800;
@@ -16,8 +15,6 @@
         color: $textColor;
         letter-spacing: 2px;
     }
-
-
 
     &-container {
         height: 100%;

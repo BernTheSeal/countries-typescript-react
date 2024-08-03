@@ -49,9 +49,9 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     useEffect(() => {
         getPlayerInfo()
     }, [])
+
     useEffect(() => {
         handleGameOver()
-
     }, [gameInfo])
 
     return (

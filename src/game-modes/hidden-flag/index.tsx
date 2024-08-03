@@ -1,11 +1,11 @@
 import axios from "axios"
-import { CountryType } from "../../../../type"
+import { CountryType } from "../../types/countryType"
 import { useEffect, useState } from "react"
 import { AiOutlineEnter } from "react-icons/ai";
-import GameOver from "../../shared-components/GameOver";
+import GameOver from "../shared-components/GameOver";
 import StatusBar from "./StatusBar";
 import GameInfo from "./GameInfo";
-import GameTitle from "../../shared-components/GameTitle";
+import GameTitle from "../shared-components/GameTitle";
 import ScoreInfoBar from "./ScoreInfoBar";
 
 interface shuffledCountriesType {
@@ -32,6 +32,7 @@ const HiddenFlag = () => {
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null)
     const [onHover, setOnHover] = useState<number | null>(null)
 
+
     const getCountry = async () => {
         try {
             const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all')
@@ -42,8 +43,8 @@ const HiddenFlag = () => {
         }
     }
 
-    const getPlayerInfo = (): void => {
-        const gameInfo = JSON.parse(localStorage.getItem("hiddenFlagGamesInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+    const getPlayerInfo = () => {
+        const gameInfo = JSON.parse(localStorage.getItem("hiddenFlagGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
 
@@ -217,8 +218,8 @@ const HiddenFlag = () => {
     }, [countries])
 
     useEffect(() => {
-        getCountry()
         getPlayerInfo()
+        getCountry()
         handleDeleteABox()
     }, [])
 
@@ -226,7 +227,7 @@ const HiddenFlag = () => {
         <>
             {isGameOver ? (<GameOver
                 score={score}
-                storageName="hiddenFlagGamesInfo"
+                storageName="hiddenFlagGameInfo"
                 playAgainFunction={handlePlayAgain}
             />)
                 : (

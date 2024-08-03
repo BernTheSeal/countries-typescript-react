@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react"
-import { CountryType } from "../../type"
+import { CountryType } from "../../types/countryType"
 import { NavigateFunction } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 

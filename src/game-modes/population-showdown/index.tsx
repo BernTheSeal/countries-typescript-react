@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { CountryType } from "../../../../type"
+import { CountryType } from "../../types/countryType"
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import 'animate.css'
-import GameOver from "../../shared-components/GameOver";
-import GameTitle from "../../shared-components/GameTitle";
+import GameOver from "../shared-components/GameOver";
+import GameTitle from "../shared-components/GameTitle";
 
 const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -37,7 +37,7 @@ const PopulationShowdown = () => {
     }
 
     const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("populationGamesInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+        const gameInfo = JSON.parse(localStorage.getItem("populationShowdownGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
         setGameInfo(gameInfo)
     }
 
@@ -160,7 +160,7 @@ const PopulationShowdown = () => {
         <>
             {isGameOver || time === 0 ? (<GameOver
                 score={score}
-                storageName="populationGamesInfo"
+                storageName="populationShowdownGameInfo"
                 playAgainFunction={handlePlayAgain}
             />)
                 : (<div className="ps-container">

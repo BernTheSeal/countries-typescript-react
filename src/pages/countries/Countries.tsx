@@ -1,9 +1,9 @@
 import axios from "axios"
-import { CountryType } from "../../type"
+import { CountryType } from "../../types/countryType"
 import { useState, useEffect } from "react"
 import Country from "./Country"
-import Loading from "../../components/utils/Loading"
-import Header from "../../components/utils/Header"
+import Loading from "../../components/Loading"
+import Header from "../../components/Header"
 
 interface sortingOptions {
     name: string,

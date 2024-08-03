@@ -44,7 +44,7 @@ input::-webkit-inner-spin-button {
   left: 0;
   background-color: #222;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  z-index: 1000;
+  z-index: 500;
 }
 .header h1 {
   font-weight: 800;
@@ -131,6 +131,12 @@ input::-webkit-inner-spin-button {
     color: white;
   }
 }
+.page-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  margin-top: 110px;
+}
+
 .countries {
   max-width: 1240px;
   margin: 0 auto;
@@ -836,26 +842,53 @@ input::-webkit-inner-spin-button {
     margin-bottom: 50px;
   }
 }
-.games {
-  max-width: 1240px;
-  margin: 0 auto;
-  margin-top: 110px;
+.game-action-menu {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 50000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.games .page-title {
-  font-size: 20px;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-.games-gamesMenu {
+.game-action-menu-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-.games-gamesMenu-game {
-  border-radius: 15px;
   background-color: #333;
-  padding: 20px;
+  border: 2px solid yellow;
+  width: 1000px;
+  height: 500px;
+}
+
+.game-card {
+  background-color: #333;
+  margin-top: 30px;
+  height: 70px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  font-size: 24px;
+  outline: 1px solid #555;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.game-card:hover {
+  outline: 1px solid #fff989;
+}
+.game-card:hover p {
+  color: #fff989;
+  scale: 1.2;
+}
+.game-card p {
+  transition: all 0.2s;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: 1px;
 }
 
 .ps-container {

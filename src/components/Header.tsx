@@ -35,8 +35,9 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                 </div>
                 <nav className={`header-container-nav ${menuOpen ? 'menu-open' : 'menu-close'}`}>
                     <ul className="header-container-nav-ul">
-                        {pageOptions.map((pages) => (
+                        {pageOptions.map((pages, index) => (
                             <li
+                                key={index}
                                 className={`header-container-nav-ul-link ${onPage.toLowerCase() === pages.page.toLocaleLowerCase() ? 'active-page' : 'inactive-page'}`}
                                 onClick={pages.onClick}> {pages.page}</li>
                         ))}
