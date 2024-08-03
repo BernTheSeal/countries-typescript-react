@@ -6,6 +6,8 @@ import 'animate.css'
 import GameOver from "../shared-components/GameOver";
 import GameTitle from "../shared-components/GameTitle";
 
+import useGetGameInfo from "../../hooks/use-getGameInfo";
+
 const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [currentCountries, setCurrentCountries] = useState<CountryType[]>([])
@@ -22,6 +24,8 @@ const PopulationShowdown = () => {
     const [intervalId, setIntervalId] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
 
+    const { getGameInfo } = useGetGameInfo()
+    console.log(gameInfo)
     if (isClick) {
         clearInterval(intervalId)
     }
@@ -36,8 +40,8 @@ const PopulationShowdown = () => {
         }
     }
 
-    const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("populationShowdownGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+    const handleGameInfo = () => {
+        const gameInfo = getGameInfo('populationShowdownGameInfo')
         setGameInfo(gameInfo)
     }
 
@@ -58,7 +62,7 @@ const PopulationShowdown = () => {
         setPositionCircle('100px')
         setIsGameOver(false)
         setIsClick(false)
-        getPlayerInfo()
+        handleGameInfo()
         setScore(0)
         setTime(10)
         handleIntervalId()
@@ -147,7 +151,7 @@ const PopulationShowdown = () => {
     }
 
     useEffect(() => {
-        getPlayerInfo()
+        handleGameInfo()
         getCountry()
         handleIntervalId()
     }, [])

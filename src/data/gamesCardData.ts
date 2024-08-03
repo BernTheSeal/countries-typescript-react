@@ -1,6 +1,6 @@
-import { gamesInformation } from "../types/gamesCard"
+import { GamesInformation } from "../types/gamesCardType"
 
-const gamesData: gamesInformation[] = [
+const gamesData: GamesInformation[] = [
     {
         id: 0,
         name: "Population Showdown",

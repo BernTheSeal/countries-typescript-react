@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState, useRef } from "react"
-import { GamesInformation } from "../../types/gamesCard"
+import { GamesInformation } from "../../types/gamesCardType"
 import gamesCardData from "../../data/gamesCardData"
 import { NavigateFunction, useNavigate } from "react-router-dom"
 

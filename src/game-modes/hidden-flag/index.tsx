@@ -8,6 +8,8 @@ import GameInfo from "./GameInfo";
 import GameTitle from "../shared-components/GameTitle";
 import ScoreInfoBar from "./ScoreInfoBar";
 
+import useGetGameInfo from "../../hooks/use-getGameInfo";
+
 interface shuffledCountriesType {
     name: string,
     flag: string
@@ -31,6 +33,7 @@ const HiddenFlag = () => {
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null)
     const [onHover, setOnHover] = useState<number | null>(null)
+    const { getGameInfo } = useGetGameInfo()
 
 
     const getCountry = async () => {
@@ -43,8 +46,8 @@ const HiddenFlag = () => {
         }
     }
 
-    const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("hiddenFlagGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+    const handleGameInfo = () => {
+        const gameInfo = getGameInfo('hiddenFlagGameInfo')
         setGameInfo(gameInfo)
     }
 
@@ -198,7 +201,7 @@ const HiddenFlag = () => {
     }
 
     const handlePlayAgain = () => {
-        getPlayerInfo()
+        handleGameInfo()
         handleShuffleCountries(countries)
         handleNextFlag(false)
         setSkipCount(10)
@@ -218,7 +221,7 @@ const HiddenFlag = () => {
     }, [countries])
 
     useEffect(() => {
-        getPlayerInfo()
+        handleGameInfo()
         getCountry()
         handleDeleteABox()
     }, [])

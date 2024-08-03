@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import GameOver from "../shared-components/GameOver";
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import GameTitle from "../shared-components/GameTitle";
+import useGetGameInfo from "../../hooks/use-getGameInfo";
 
 const FlagMatch = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -17,7 +18,9 @@ const FlagMatch = () => {
     const [isAnswerTrue, setIsAnswerTrue] = useState<boolean | null>(null);
     const [clickedIndex, setClickedIndex] = useState<number | null>(null)
     const [isFlagAnimation, setIsFlagAnimation] = useState<boolean>(false)
+
     const intervalId = useRef<any>(null)
+    const { getGameInfo } = useGetGameInfo()
 
     const getCountry = async () => {
         try {
@@ -29,8 +32,8 @@ const FlagMatch = () => {
         }
     }
 
-    const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem("flagMatchGameInfo") || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+    const handleGameInfo = () => {
+        const gameInfo = getGameInfo("flagMatchGameInfo")
         setGameInfo(gameInfo)
     }
 
@@ -75,12 +78,13 @@ const FlagMatch = () => {
     }
 
     const handlePlayAgain = () => {
+        handleGameInfo()
         setTime(10)
         startTimeInterval()
         setIsGameOver(false)
         setScore(0)
         handleCurrentCountries()
-        getPlayerInfo()
+        handleGameInfo()
     }
 
     const startTimeInterval = () => {
@@ -101,7 +105,7 @@ const FlagMatch = () => {
 
     useEffect(() => {
         getCountry()
-        getPlayerInfo()
+        handleGameInfo()
     }, [])
 
     useEffect(() => {

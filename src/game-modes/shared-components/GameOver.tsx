@@ -2,6 +2,11 @@ import { FunctionComponent, useEffect, useState } from "react"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useNavigate, NavigateFunction } from "react-router-dom"
 
+import useGetGameInfo from "../../hooks/use-getGameInfo";
+import useUpdateGameInfo from "../../hooks/use-updateGameInfo";
+
+
+
 interface iGameOverProps {
     score: number,
     storageName: string,
@@ -15,9 +20,13 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     const [isHighScore, setIsHighScore] = useState<boolean>(false)
     const [isExploding, setIsExploding] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate()
+    const { getGameInfo } = useGetGameInfo()
+    const { updateGameInfo } = useUpdateGameInfo()
 
-    const getPlayerInfo = () => {
-        const gameInfo = JSON.parse(localStorage.getItem(storageName) || '{"highScore": 0, "playedTime": 0, "totalScore": 0}')
+
+    const handleGameInfo = () => {
+        //!buraya yine hookum gelecek. 
+        const gameInfo = getGameInfo(storageName)
         setGameInfo(gameInfo)
     }
 
@@ -28,13 +37,13 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
         if (score > gameInfo.highScore) {
             setIsHighScore(true)
             setIsExploding(true)
-            const updatedGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore }
-            localStorage.setItem(storageName, JSON.stringify(updatedGameInfo))
-            setNewGameInfo(updatedGameInfo)
+            const newGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore }
+            updateGameInfo(storageName, newGameInfo)
+            setNewGameInfo(newGameInfo)
         } else {
-            const updatedGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore }
-            localStorage.setItem(storageName, JSON.stringify(updatedGameInfo))
-            setNewGameInfo(updatedGameInfo)
+            const newGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore }
+            updateGameInfo(storageName, newGameInfo)
+            setNewGameInfo(newGameInfo)
         }
     }
 
@@ -47,7 +56,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     }
 
     useEffect(() => {
-        getPlayerInfo()
+        handleGameInfo()
     }, [])
 
     useEffect(() => {
