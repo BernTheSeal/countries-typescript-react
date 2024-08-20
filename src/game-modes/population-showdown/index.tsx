@@ -7,6 +7,7 @@ import GameOver from "../shared-components/GameOver";
 import GameTitle from "../shared-components/GameTitle";
 
 import useGetGameInfo from "../../hooks/use-getGameInfo";
+import useGameTimer from "../../hooks/use-gameTimer";
 
 const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -23,9 +24,16 @@ const PopulationShowdown = () => {
     const [degValue, setDegValue] = useState<number>(0)
     const [intervalId, setIntervalId] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
-
     const { getGameInfo } = useGetGameInfo()
-    console.log(gameInfo)
+    const { startTimer, stopTimer, elapsedTime } = useGameTimer()
+
+    useEffect(() => {
+        if (time === 0) {
+            stopTimer()
+            setIsGameOver(true)
+        }
+    }, [time])
+
     if (isClick) {
         clearInterval(intervalId)
     }
@@ -59,6 +67,7 @@ const PopulationShowdown = () => {
     }
 
     const handlePlayAgain = () => {
+        startTimer()
         setPositionCircle('100px')
         setIsGameOver(false)
         setIsClick(false)
@@ -96,6 +105,7 @@ const PopulationShowdown = () => {
                 setPositionCircle('0')
             }, 1400);
             setTimeout(() => {
+                stopTimer()
                 setIsGameOver(!isGameOver)
             }, 2300);
         }
@@ -158,14 +168,16 @@ const PopulationShowdown = () => {
 
     useEffect(() => {
         handlePlayGame()
+        startTimer()
     }, [countries])
 
     return (
         <>
-            {isGameOver || time === 0 ? (<GameOver
+            {isGameOver ? (<GameOver
                 score={score}
                 storageName="populationShowdownGameInfo"
                 playAgainFunction={handlePlayAgain}
+                elapsedTime={elapsedTime}
             />)
                 : (<div className="ps-container">
                     {currentCountries.length > 0 && (

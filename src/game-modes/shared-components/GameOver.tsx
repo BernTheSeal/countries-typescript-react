@@ -4,28 +4,28 @@ import { useNavigate, NavigateFunction } from "react-router-dom"
 
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useUpdateGameInfo from "../../hooks/use-updateGameInfo";
-
-
+import useGameTimer from "../../hooks/use-gameTimer";
 
 interface iGameOverProps {
     score: number,
     storageName: string,
     playAgainFunction: any,
+    elapsedTime: number
 }
 
 const GameOver: FunctionComponent<iGameOverProps> = (props) => {
-    const { score, storageName, playAgainFunction } = props
+    const { score, storageName, playAgainFunction, elapsedTime } = props
     const [gameInfo, setGameInfo] = useState<any>('')
     const [newGameInfo, setNewGameInfo] = useState<any>('')
     const [isHighScore, setIsHighScore] = useState<boolean>(false)
     const [isExploding, setIsExploding] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate()
+
     const { getGameInfo } = useGetGameInfo()
     const { updateGameInfo } = useUpdateGameInfo()
-
+    const { resetTimer } = useGameTimer()
 
     const handleGameInfo = () => {
-        //!buraya yine hookum gelecek. 
         const gameInfo = getGameInfo(storageName)
         setGameInfo(gameInfo)
     }
@@ -33,15 +33,16 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     const handleGameOver = () => {
         let playedTime: number = gameInfo.playedTime + 1
         let newTotalScore: number = gameInfo.totalScore + score
+        let newElapsedTime: number = gameInfo.elapsedTime + Number((elapsedTime / 1000).toFixed(2))
 
         if (score > gameInfo.highScore) {
             setIsHighScore(true)
             setIsExploding(true)
-            const newGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore }
+            const newGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
             updateGameInfo(storageName, newGameInfo)
             setNewGameInfo(newGameInfo)
         } else {
-            const newGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore }
+            const newGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
             updateGameInfo(storageName, newGameInfo)
             setNewGameInfo(newGameInfo)
         }
@@ -56,6 +57,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     }
 
     useEffect(() => {
+        resetTimer()
         handleGameInfo()
     }, [])
 

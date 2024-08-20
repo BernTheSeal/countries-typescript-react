@@ -7,8 +7,8 @@ import StatusBar from "./StatusBar";
 import GameInfo from "./GameInfo";
 import GameTitle from "../shared-components/GameTitle";
 import ScoreInfoBar from "./ScoreInfoBar";
-
 import useGetGameInfo from "../../hooks/use-getGameInfo";
+import useGameTimer from "../../hooks/use-gameTimer";
 
 interface shuffledCountriesType {
     name: string,
@@ -33,8 +33,9 @@ const HiddenFlag = () => {
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null)
     const [onHover, setOnHover] = useState<number | null>(null)
-    const { getGameInfo } = useGetGameInfo()
 
+    const { getGameInfo } = useGetGameInfo()
+    const { startTimer, stopTimer, elapsedTime } = useGameTimer()
 
     const getCountry = async () => {
         try {
@@ -174,6 +175,7 @@ const HiddenFlag = () => {
                     }, 2000);
                 } else {
                     setTimeout(() => {
+                        stopTimer()
                         setIsGameOver(true)
                     }, 1200);
                 }
@@ -201,6 +203,7 @@ const HiddenFlag = () => {
     }
 
     const handlePlayAgain = () => {
+        startTimer()
         handleGameInfo()
         handleShuffleCountries(countries)
         handleNextFlag(false)
@@ -221,6 +224,7 @@ const HiddenFlag = () => {
     }, [countries])
 
     useEffect(() => {
+        startTimer()
         handleGameInfo()
         getCountry()
         handleDeleteABox()
@@ -231,6 +235,7 @@ const HiddenFlag = () => {
             {isGameOver ? (<GameOver
                 score={score}
                 storageName="hiddenFlagGameInfo"
+                elapsedTime={elapsedTime}
                 playAgainFunction={handlePlayAgain}
             />)
                 : (

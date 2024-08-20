@@ -1,5 +1,8 @@
+import { GameInfoType } from "../types/gameInfoType";
+
 const useUpdateGameInfo = () => {
-    const updateGameInfo = (gameKey: string, newInfo: any) => {
+
+    const updateGameInfo = (gameKey: string, newInfo: GameInfoType) => {
         const games = JSON.parse(localStorage.getItem('gamesData') || '{}')
         const game = games[gameKey] || {};
 

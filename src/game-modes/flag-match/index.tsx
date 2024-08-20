@@ -5,6 +5,7 @@ import GameOver from "../shared-components/GameOver";
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import GameTitle from "../shared-components/GameTitle";
 import useGetGameInfo from "../../hooks/use-getGameInfo";
+import useGameTimer from "../../hooks/use-gameTimer";
 
 const FlagMatch = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -21,6 +22,14 @@ const FlagMatch = () => {
 
     const intervalId = useRef<any>(null)
     const { getGameInfo } = useGetGameInfo()
+    const { startTimer, stopTimer, elapsedTime } = useGameTimer()
+
+    useEffect(() => {
+        if (time === 0) {
+            stopTimer()
+            setIsGameOver(true)
+        }
+    }, [time])
 
     const getCountry = async () => {
         try {
@@ -70,14 +79,17 @@ const FlagMatch = () => {
                 handleCurrentCountries()
             }, 1000);
         } else {
+
             setIsAnswerTrue(false)
             setTimeout(() => {
+                stopTimer()
                 setIsGameOver(true)
             }, 1000);
         }
     }
 
     const handlePlayAgain = () => {
+        startTimer()
         handleGameInfo()
         setTime(10)
         startTimeInterval()
@@ -109,14 +121,16 @@ const FlagMatch = () => {
     }, [])
 
     useEffect(() => {
+        startTimer()
         handleCurrentCountries()
     }, [countries])
 
     return (
         <>
-            {isGameOver || time === 0 ? (<GameOver
+            {isGameOver ? (<GameOver
                 score={score}
                 storageName="flagMatchGameInfo"
+                elapsedTime={elapsedTime}
                 playAgainFunction={handlePlayAgain}
             />)
                 : (<div className="fm-container">
