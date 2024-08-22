@@ -3,11 +3,15 @@ import axios from "axios"
 import { CountryType } from "../../types/countryType"
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import 'animate.css'
+
+//*components
 import GameOver from "../shared-components/GameOver";
 import GameTitle from "../shared-components/GameTitle";
 
+//*hooks
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
+import useCountdownTimer from "../../hooks/use-countdownTimer";
 
 const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -20,23 +24,18 @@ const PopulationShowdown = () => {
     const [isAnswerTrue, setIsAnswerTrue] = useState<any>(true)
     const [positionCircle, setPositionCircle] = useState<string>('100px')
     const [populationValue, setPopulationValue] = useState<any>(0)
-    const [time, setTime] = useState<number>(10)
+
     const [degValue, setDegValue] = useState<number>(0)
-    const [intervalId, setIntervalId] = useState<any>(null)
+    const [degValueInterval, setDegValueInterval] = useState<any>(null)
+
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
+
     const { getGameInfo } = useGetGameInfo()
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
 
-    useEffect(() => {
-        if (time === 0) {
-            stopTimer()
-            setIsGameOver(true)
-        }
-    }, [time])
+    const defaultTimeCountdown = 10;
+    const { displayTime, isTimeUp, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
 
-    if (isClick) {
-        clearInterval(intervalId)
-    }
 
     const getCountry = async () => {
         try {
@@ -67,14 +66,14 @@ const PopulationShowdown = () => {
     }
 
     const handlePlayAgain = () => {
-        startTimer()
         setPositionCircle('100px')
         setIsGameOver(false)
         setIsClick(false)
         handleGameInfo()
         setScore(0)
-        setTime(10)
-        handleIntervalId()
+        resetTimeInterval()
+        startTimeInterval()
+        handleDegValue()
         handlePlayGame()
     }
 
@@ -83,6 +82,8 @@ const PopulationShowdown = () => {
         const isLower: boolean = (answer == "lower" && currentCountries[0].population > currentCountries[1].population)
         handleCountAnimation()
         setIsClick(true)
+        stopTimeInterval()
+        clearInterval(degValueInterval)
 
         if (isHigher || isLower) {
             setIsAnswerTrue(true)
@@ -94,7 +95,7 @@ const PopulationShowdown = () => {
             }, 2200);
             setTimeout(() => {
                 setHasSwitchAnimation(true)
-                setScore(n => n + time)
+                setScore(n => n + displayTime)
             }, 2500);
             setTimeout(() => {
                 handleNextCountry()
@@ -113,8 +114,9 @@ const PopulationShowdown = () => {
 
     const handleNextCountry = () => {
         setPositionCircle('100px')
-        setTime(10)
-        handleIntervalId()
+        resetTimeInterval()
+        startTimeInterval()
+        handleDegValue()
         setIsClick(false)
         setHasSwitchAnimation(false)
         setIsVisibleCircle(true)
@@ -128,20 +130,29 @@ const PopulationShowdown = () => {
         setCurrentCountries(newCurrentCountries)
     }
 
-    const handleIntervalId = () => {
-        let currentTime = 1100
+    const handleDegValue = () => {
+        const totalTime = defaultTimeCountdown
+        const updateInterval = 100
+        const totalDegValue = 360
+        const totalUpdates = (totalTime * 1000) / updateInterval
+        let elapsedUpdates = 0
         let currentDegValue = 0
-        let progress = setInterval(() => {
-            currentTime -= 10
-            currentDegValue = currentDegValue + 3.6
+
+        const progress = setInterval(() => {
+            elapsedUpdates++
+            currentDegValue = (totalDegValue * elapsedUpdates) / totalUpdates
             setDegValue(currentDegValue)
-            setTime(Math.floor(currentTime / 100))
-            if (currentTime < 100) {
+
+            if (currentDegValue >= totalDegValue) {
                 clearInterval(progress)
+                setDegValue(totalDegValue)
             }
-        }, 100)
-        setIntervalId(progress)
+        }, updateInterval);
+
+        setDegValueInterval(progress);
     }
+
+
 
     const handleCountAnimation = () => {
         setPopulationValue(0)
@@ -163,17 +174,18 @@ const PopulationShowdown = () => {
     useEffect(() => {
         handleGameInfo()
         getCountry()
-        handleIntervalId()
+        startTimeInterval()
+        startTimer()
+        handleDegValue()
     }, [])
 
     useEffect(() => {
         handlePlayGame()
-        startTimer()
     }, [countries])
 
     return (
         <>
-            {isGameOver ? (<GameOver
+            {isGameOver || isTimeUp ? (<GameOver
                 score={score}
                 storageName="populationShowdownGameInfo"
                 playAgainFunction={handlePlayAgain}
@@ -189,9 +201,14 @@ const PopulationShowdown = () => {
                                 score={score}
                                 highScore={gameInfo.highScore}
                             />
-                            <div style={{ background: `conic-gradient(transparent ${degValue}deg, ${isVisibleCircle ? 'white' : 'transparent'} 0deg)` }}
+                            <div
+                                style={{
+                                    background: `conic-gradient(transparent ${degValue}deg, ${isVisibleCircle ? 'white' : 'transparent'} 0deg)`,
+                                }}
                                 className={`ps-container-game-circle  ${isClick ? 'circle-time-animation' : ''}`}>
-                                <div className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>{time}
+                                <div
+                                    className={`ps-container-game-circle-time animate__animated   ${!isVisibleCircle ? 'circle-animation' : ''} `}>
+                                    {displayTime}
                                     {
                                         isAnswerTrue ? (
                                             <div className={`ps-container-game-circle-time-answer`} style={{ top: positionCircle, backgroundColor: '#248939' }}  >

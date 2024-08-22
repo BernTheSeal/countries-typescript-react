@@ -1,11 +1,16 @@
 import axios from "axios"
 import { CountryType } from "../../types/countryType"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
+import { setTimeout } from 'worker-timers';
+
+//*components
 import GameOver from "../shared-components/GameOver";
-import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import GameTitle from "../shared-components/GameTitle";
+
+//*hooks
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
+import useCountdownTimer from "../../hooks/use-countdownTimer";
 
 const FlagMatch = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
@@ -13,23 +18,16 @@ const FlagMatch = () => {
     const [currentCountries, setCurrentCountries] = useState<any>([])
     const [selectedCountry, setSelectedCountry] = useState<any>([])
     const [score, setScore] = useState<number>(0)
-    const [time, setTime] = useState<number>(11)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isClick, setIsClick] = useState<boolean>(false)
     const [isAnswerTrue, setIsAnswerTrue] = useState<boolean | null>(null);
     const [clickedIndex, setClickedIndex] = useState<number | null>(null)
     const [isFlagAnimation, setIsFlagAnimation] = useState<boolean>(false)
 
-    const intervalId = useRef<any>(null)
     const { getGameInfo } = useGetGameInfo()
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
-
-    useEffect(() => {
-        if (time === 0) {
-            stopTimer()
-            setIsGameOver(true)
-        }
-    }, [time])
+    const defaultTimeCountdown = 10;
+    const { displayTime, isTimeUp, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
 
     const getCountry = async () => {
         try {
@@ -47,10 +45,11 @@ const FlagMatch = () => {
     }
 
     const handleCurrentCountries = () => {
+        resetTimeInterval()
+        startTimeInterval()
         setClickedIndex(null)
         setIsAnswerTrue(null)
         setIsClick(false)
-        setTime(10)
         const shuffled = countries.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 4);
         const countryInfo = selected.map(country => ({
@@ -68,10 +67,10 @@ const FlagMatch = () => {
     const handleAnswer = (countryName: string, index: number) => {
         setIsClick(true)
         setClickedIndex(index)
-        clearInterval(intervalId.current)
+        stopTimeInterval()
         if (countryName === selectedCountry.name) {
             setIsAnswerTrue(true)
-            setScore(n => n + time)
+            setScore(n => n + displayTime)
             setTimeout(() => {
                 setIsFlagAnimation(true)
             }, 700);
@@ -79,7 +78,6 @@ const FlagMatch = () => {
                 handleCurrentCountries()
             }, 1000);
         } else {
-
             setIsAnswerTrue(false)
             setTimeout(() => {
                 stopTimer()
@@ -90,29 +88,10 @@ const FlagMatch = () => {
 
     const handlePlayAgain = () => {
         startTimer()
-        handleGameInfo()
-        setTime(10)
-        startTimeInterval()
         setIsGameOver(false)
         setScore(0)
         handleCurrentCountries()
         handleGameInfo()
-    }
-
-    const startTimeInterval = () => {
-        if (intervalId.current) {
-            clearInterval(intervalId.current)
-        }
-        intervalId.current = setInterval(() => {
-            setTime(prev => {
-                if (prev !== 0) {
-                    return prev - 1
-                } else {
-                    clearInterval(intervalId.current)
-                    return 0;
-                }
-            })
-        }, 1000)
     }
 
     useEffect(() => {
@@ -127,7 +106,7 @@ const FlagMatch = () => {
 
     return (
         <>
-            {isGameOver ? (<GameOver
+            {isGameOver || isTimeUp ? (<GameOver
                 score={score}
                 storageName="flagMatchGameInfo"
                 elapsedTime={elapsedTime}
@@ -167,7 +146,7 @@ const FlagMatch = () => {
                         </div>
                         <div className="fm-container-gameArea-time">
                             <h3>{selectedCountry && selectedCountry.name}</h3>
-                            <p>{time}</p>
+                            <p>{displayTime}</p>
                         </div>
                     </div>
                 </div>)}
