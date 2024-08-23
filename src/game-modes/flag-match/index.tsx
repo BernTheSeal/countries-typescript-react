@@ -23,11 +23,10 @@ const FlagMatch = () => {
     const [isAnswerTrue, setIsAnswerTrue] = useState<boolean | null>(null);
     const [clickedIndex, setClickedIndex] = useState<number | null>(null)
     const [isFlagAnimation, setIsFlagAnimation] = useState<boolean>(false)
-
     const { getGameInfo } = useGetGameInfo()
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
     const defaultTimeCountdown = 10;
-    const { displayTime, isTimeUp, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
+    const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
 
     const getCountry = async () => {
         try {
@@ -45,7 +44,6 @@ const FlagMatch = () => {
     }
 
     const handleCurrentCountries = () => {
-        resetTimeInterval()
         startTimeInterval()
         setClickedIndex(null)
         setIsAnswerTrue(null)
@@ -60,14 +58,14 @@ const FlagMatch = () => {
         setSelectedCountry(countryInfo[Math.floor(Math.random() * 4)])
         setTimeout(() => {
             setIsFlagAnimation(false)
-            startTimeInterval()
         }, 300);
     }
 
     const handleAnswer = (countryName: string, index: number) => {
+        stopTimeInterval()
         setIsClick(true)
         setClickedIndex(index)
-        stopTimeInterval()
+
         if (countryName === selectedCountry.name) {
             setIsAnswerTrue(true)
             setScore(n => n + displayTime)
@@ -75,6 +73,7 @@ const FlagMatch = () => {
                 setIsFlagAnimation(true)
             }, 700);
             setTimeout(() => {
+                resetTimeInterval()
                 handleCurrentCountries()
             }, 1000);
         } else {
@@ -87,12 +86,21 @@ const FlagMatch = () => {
     }
 
     const handlePlayAgain = () => {
-        startTimer()
-        setIsGameOver(false)
+        resetTimeInterval()
+        startTimeInterval()
         setScore(0)
         handleCurrentCountries()
         handleGameInfo()
+        setIsGameOver(false)
+        startTimer()
     }
+
+    useEffect(() => {
+        if (time === 10) {
+            stopTimer()
+            setIsGameOver(true)
+        }
+    }, [time])
 
     useEffect(() => {
         getCountry()
@@ -106,7 +114,7 @@ const FlagMatch = () => {
 
     return (
         <>
-            {isGameOver || isTimeUp ? (<GameOver
+            {isGameOver ? (<GameOver
                 score={score}
                 storageName="flagMatchGameInfo"
                 elapsedTime={elapsedTime}

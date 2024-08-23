@@ -24,18 +24,13 @@ const PopulationShowdown = () => {
     const [isAnswerTrue, setIsAnswerTrue] = useState<any>(true)
     const [positionCircle, setPositionCircle] = useState<string>('100px')
     const [populationValue, setPopulationValue] = useState<any>(0)
-
     const [degValue, setDegValue] = useState<number>(0)
     const [degValueInterval, setDegValueInterval] = useState<any>(null)
-
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
-
     const { getGameInfo } = useGetGameInfo()
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
-
     const defaultTimeCountdown = 10;
-    const { displayTime, isTimeUp, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
-
+    const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
 
     const getCountry = async () => {
         try {
@@ -63,18 +58,8 @@ const PopulationShowdown = () => {
             }
             setCurrentCountries(threeCountries)
         }
-    }
-
-    const handlePlayAgain = () => {
-        setPositionCircle('100px')
-        setIsGameOver(false)
-        setIsClick(false)
-        handleGameInfo()
-        setScore(0)
-        resetTimeInterval()
         startTimeInterval()
-        handleDegValue()
-        handlePlayGame()
+        startDegValueInterval()
     }
 
     const handleAnswer = (answer: string) => {
@@ -82,8 +67,8 @@ const PopulationShowdown = () => {
         const isLower: boolean = (answer == "lower" && currentCountries[0].population > currentCountries[1].population)
         handleCountAnimation()
         setIsClick(true)
-        stopTimeInterval()
         clearInterval(degValueInterval)
+        stopTimeInterval()
 
         if (isHigher || isLower) {
             setIsAnswerTrue(true)
@@ -98,6 +83,7 @@ const PopulationShowdown = () => {
                 setScore(n => n + displayTime)
             }, 2500);
             setTimeout(() => {
+                resetTimeInterval()
                 handleNextCountry()
             }, 2950);
         } else {
@@ -106,6 +92,7 @@ const PopulationShowdown = () => {
                 setPositionCircle('0')
             }, 1400);
             setTimeout(() => {
+                resetTimeInterval()
                 stopTimer()
                 setIsGameOver(!isGameOver)
             }, 2300);
@@ -113,10 +100,9 @@ const PopulationShowdown = () => {
     }
 
     const handleNextCountry = () => {
-        setPositionCircle('100px')
-        resetTimeInterval()
         startTimeInterval()
-        handleDegValue()
+        startDegValueInterval()
+        setPositionCircle('100px')
         setIsClick(false)
         setHasSwitchAnimation(false)
         setIsVisibleCircle(true)
@@ -130,7 +116,12 @@ const PopulationShowdown = () => {
         setCurrentCountries(newCurrentCountries)
     }
 
-    const handleDegValue = () => {
+    const startDegValueInterval = () => {
+        setDegValue(0)
+        if (degValueInterval) {
+            clearInterval(degValueInterval)
+        }
+
         const totalTime = defaultTimeCountdown
         const updateInterval = 100
         const totalDegValue = 360
@@ -147,12 +138,10 @@ const PopulationShowdown = () => {
                 clearInterval(progress)
                 setDegValue(totalDegValue)
             }
-        }, updateInterval);
+        }, updateInterval)
 
-        setDegValueInterval(progress);
+        setDegValueInterval(progress)
     }
-
-
 
     const handleCountAnimation = () => {
         setPopulationValue(0)
@@ -171,21 +160,38 @@ const PopulationShowdown = () => {
         }, 10);
     }
 
-    useEffect(() => {
-        handleGameInfo()
-        getCountry()
+    const handlePlayAgain = () => {
+        resetTimeInterval()
         startTimeInterval()
+        setPositionCircle('100px')
+        handleGameInfo()
+        setScore(0)
+        handlePlayGame()
+        setIsClick(false)
+        setIsGameOver(false)
         startTimer()
-        handleDegValue()
-    }, [])
+    }
+
+    useEffect(() => {
+        if (time === 10) {
+            stopTimer()
+            setIsGameOver(true)
+        }
+    }, [time])
 
     useEffect(() => {
         handlePlayGame()
     }, [countries])
 
+    useEffect(() => {
+        handleGameInfo()
+        getCountry()
+        startTimer()
+    }, [])
+
     return (
         <>
-            {isGameOver || isTimeUp ? (<GameOver
+            {isGameOver ? (<GameOver
                 score={score}
                 storageName="populationShowdownGameInfo"
                 playAgainFunction={handlePlayAgain}

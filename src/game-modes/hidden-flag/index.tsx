@@ -33,7 +33,6 @@ const HiddenFlag = () => {
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null)
     const [onHover, setOnHover] = useState<number | null>(null)
-
     const { getGameInfo } = useGetGameInfo()
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
 

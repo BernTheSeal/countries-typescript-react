@@ -20,7 +20,6 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     const [isHighScore, setIsHighScore] = useState<boolean>(false)
     const [isExploding, setIsExploding] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate()
-
     const { getGameInfo } = useGetGameInfo()
     const { updateGameInfo } = useUpdateGameInfo()
     const { resetTimer } = useGameTimer()
@@ -33,7 +32,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     const handleGameOver = () => {
         let playedTime: number = gameInfo.playedTime + 1
         let newTotalScore: number = gameInfo.totalScore + score
-        let newElapsedTime: number = gameInfo.elapsedTime + Number((elapsedTime / 1000).toFixed(2))
+        let newElapsedTime: number = gameInfo.elapsedTime + elapsedTime
 
         if (score > gameInfo.highScore) {
             setIsHighScore(true)

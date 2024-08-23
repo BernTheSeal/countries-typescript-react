@@ -7,7 +7,6 @@ const useCountdownTimer = (gameTime: number) => {
     const countdownThreshold = 10
     const [time, setTime] = useState<number>(initialTime)
     const [displayTime, setDisplayTime] = useState<number>(gameTime);
-    const [isTimeUp, setIsTimeUp] = useState<boolean>(false)
     const intervalId = useRef<any>(null)
 
     const startTimeInterval = () => {
@@ -23,7 +22,6 @@ const useCountdownTimer = (gameTime: number) => {
                     return newTime
                 } else {
                     clearInterval(intervalId.current)
-                    setIsTimeUp(true)
                     return 0
                 }
             })
@@ -35,13 +33,12 @@ const useCountdownTimer = (gameTime: number) => {
     }
 
     const resetTimeInterval = () => {
-        if (isTimeUp) {
-            setIsTimeUp(false)
-        }
-        setTime(initialTime)
+        setTime(initialTime);
+        setDisplayTime(gameTime);
     }
 
-    return { displayTime, isTimeUp, startTimeInterval, stopTimeInterval, resetTimeInterval }
+    return { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval }
 }
 
 export default useCountdownTimer
+

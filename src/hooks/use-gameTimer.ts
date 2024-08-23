@@ -12,7 +12,8 @@ const useGameTimer = () => {
     if (startTime !== null) {
       const endTime = Date.now()
       const timeSpent = endTime - startTime
-      setElapsedTime(timeSpent)
+      const timeSpentSecond = Math.floor(timeSpent / 1000)
+      setElapsedTime(timeSpentSecond)
     }
   }
 
