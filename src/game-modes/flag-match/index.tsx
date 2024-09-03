@@ -1,5 +1,3 @@
-import axios from "axios"
-import { CountryType } from "../../types/countryType"
 import { useEffect, useState } from "react"
 import { setTimeout } from 'worker-timers';
 
@@ -11,9 +9,9 @@ import GameTitle from "../shared-components/GameTitle";
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
 import useCountdownTimer from "../../hooks/use-countdownTimer";
+import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
 
 const FlagMatch = () => {
-    const [countries, setCountries] = useState<CountryType[]>([])
     const [gameInfo, setGameInfo] = useState<any>('')
     const [currentCountries, setCurrentCountries] = useState<any>([])
     const [selectedCountry, setSelectedCountry] = useState<any>([])
@@ -27,16 +25,7 @@ const FlagMatch = () => {
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
     const defaultTimeCountdown = 10;
     const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
-
-    const getCountry = async () => {
-        try {
-            const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all')
-            const filteredData = data.filter((country: any) => country.population > 3000)
-            setCountries(filteredData)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const { countries } = useFetchCountriesData()
 
     const handleGameInfo = () => {
         const gameInfo = getGameInfo("flagMatchGameInfo")
@@ -103,11 +92,11 @@ const FlagMatch = () => {
     }, [time])
 
     useEffect(() => {
-        getCountry()
         handleGameInfo()
     }, [])
 
     useEffect(() => {
+        console.log(countries)
         startTimer()
         handleCurrentCountries()
     }, [countries])
