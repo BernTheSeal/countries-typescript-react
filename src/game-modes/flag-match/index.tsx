@@ -10,44 +10,60 @@ import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
 import useCountdownTimer from "../../hooks/use-countdownTimer";
 import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
+import { CountryType } from "../../types/countryType";
 
 const FlagMatch = () => {
-    const [gameInfo, setGameInfo] = useState<any>('')
-    const [currentCountries, setCurrentCountries] = useState<any>([])
-    const [selectedCountry, setSelectedCountry] = useState<any>([])
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const [selectedCountry, setSelectedCountry] = useState<string>('')
     const [score, setScore] = useState<number>(0)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isClick, setIsClick] = useState<boolean>(false)
     const [isAnswerTrue, setIsAnswerTrue] = useState<boolean | null>(null);
     const [clickedIndex, setClickedIndex] = useState<number | null>(null)
-    const [isFlagAnimation, setIsFlagAnimation] = useState<boolean>(false)
-    const { getGameInfo } = useGetGameInfo()
+    const [isFlagAnimation, setIsFlagAnimation] = useState<boolean>(true)
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
     const defaultTimeCountdown = 10;
     const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
-    const { countries } = useFetchCountriesData()
+    const { gameInfo, gameInfotTrigger } = useGetGameInfo("flagMatchGameInfo")
+    const { countries, countriesFetchTrigger } = useFetchCountriesData({
+        sortingType: "shuffled"
+    })
 
-    const handleGameInfo = () => {
-        const gameInfo = getGameInfo("flagMatchGameInfo")
-        setGameInfo(gameInfo)
-    }
+    useEffect(() => {
+        if (time === 10) {
+            stopTimer()
+            setIsGameOver(true)
+        }
+    }, [time])
+
+    useEffect(() => {
+        if (countries && countries.length > 0) {
+            handleCurrentCountries()
+        }
+    }, [currentIndex, countries])
+
+    useEffect(() => {
+        startTimer()
+    }, [])
 
     const handleCurrentCountries = () => {
         startTimeInterval()
         setClickedIndex(null)
         setIsAnswerTrue(null)
         setIsClick(false)
-        const shuffled = countries.sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, 4);
-        const countryInfo = selected.map(country => ({
-            name: country.name.common,
-            flag: country.flags.png
-        }));
-        setCurrentCountries(countryInfo)
-        setSelectedCountry(countryInfo[Math.floor(Math.random() * 4)])
-        setTimeout(() => {
-            setIsFlagAnimation(false)
-        }, 300);
+
+        if (countries.length - currentIndex < 4) {
+            countriesFetchTrigger()
+            setCurrentIndex(0)
+            return;
+
+        } else {
+            const selectedCountry = countries.slice(currentIndex, (currentIndex + 4))[Math.floor(Math.random() * 4)]
+            setSelectedCountry(selectedCountry.name.common)
+            setTimeout(() => {
+                setIsFlagAnimation(false)
+            }, 300);
+        }
     }
 
     const handleAnswer = (countryName: string, index: number) => {
@@ -55,7 +71,7 @@ const FlagMatch = () => {
         setIsClick(true)
         setClickedIndex(index)
 
-        if (countryName === selectedCountry.name) {
+        if (countryName === selectedCountry) {
             setIsAnswerTrue(true)
             setScore(n => n + displayTime)
             setTimeout(() => {
@@ -63,7 +79,7 @@ const FlagMatch = () => {
             }, 700);
             setTimeout(() => {
                 resetTimeInterval()
-                handleCurrentCountries()
+                setCurrentIndex(prev => prev + 4)
             }, 1000);
         } else {
             setIsAnswerTrue(false)
@@ -75,31 +91,16 @@ const FlagMatch = () => {
     }
 
     const handlePlayAgain = () => {
+        countriesFetchTrigger()
+        gameInfotTrigger()
         resetTimeInterval()
-        startTimeInterval()
+        startTimer()
+        handleCurrentCountries()
+        setCurrentIndex(0)
         setScore(0)
-        handleCurrentCountries()
-        handleGameInfo()
+        setIsFlagAnimation(true)
         setIsGameOver(false)
-        startTimer()
     }
-
-    useEffect(() => {
-        if (time === 10) {
-            stopTimer()
-            setIsGameOver(true)
-        }
-    }, [time])
-
-    useEffect(() => {
-        handleGameInfo()
-    }, [])
-
-    useEffect(() => {
-        console.log(countries)
-        startTimer()
-        handleCurrentCountries()
-    }, [countries])
 
     return (
         <>
@@ -107,7 +108,8 @@ const FlagMatch = () => {
                 score={score}
                 storageName="flagMatchGameInfo"
                 elapsedTime={elapsedTime}
-                playAgainFunction={handlePlayAgain}
+                playAgain={handlePlayAgain}
+
             />)
                 : (<div className="fm-container">
                     <GameTitle
@@ -119,11 +121,11 @@ const FlagMatch = () => {
                     />
                     <div className="fm-container-gameArea">
                         <div className="fm-container-gameArea-flags">
-                            {currentCountries.map((country: any, index: number) => (
+                            {countries.slice(currentIndex, (currentIndex + 4)).map((country: CountryType, index: number) => (
                                 <div key={index} >
                                     <button
-                                        className={`${isClick ? 'fm-button-clicked' : 'fm-button-default'} ${isFlagAnimation ? 'fm-flag-animation-hidden' : 'fm-flag-animation-appear'}`} disabled={isClick} onClick={() => handleAnswer(country.name, index)}>
-                                        <img src={country.flag} alt="flag" />
+                                        className={`${isClick ? 'fm-button-clicked' : 'fm-button-default'} ${isFlagAnimation ? 'fm-flag-animation-hidden' : 'fm-flag-animation-appear'}`} disabled={isClick} onClick={() => handleAnswer(country.name.common, index)}>
+                                        <img src={country.flags.png} alt="flag" />
                                         {isClick && index === clickedIndex && (
                                             <div>
                                                 {isAnswerTrue ? (
@@ -142,7 +144,7 @@ const FlagMatch = () => {
                             ))}
                         </div>
                         <div className="fm-container-gameArea-time">
-                            <h3>{selectedCountry && selectedCountry.name}</h3>
+                            <h3>{selectedCountry ? selectedCountry : null}</h3>
                             <p>{displayTime}</p>
                         </div>
                     </div>

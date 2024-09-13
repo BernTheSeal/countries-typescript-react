@@ -1,4 +1,3 @@
-import axios from "axios"
 import { CountryType } from "../../types/countryType"
 import { useEffect, useState } from "react"
 import { AiOutlineEnter } from "react-icons/ai";
@@ -9,17 +8,10 @@ import GameTitle from "../shared-components/GameTitle";
 import ScoreInfoBar from "./ScoreInfoBar";
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
-
-interface shuffledCountriesType {
-    name: string,
-    flag: string
-}
+import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
 
 const HiddenFlag = () => {
-    const [countries, setCountries] = useState<CountryType[]>([])
-    const [shuffledCountries, setShuffledCountries] = useState<shuffledCountriesType[]>()
-    const [shuffledCountriesIndex, setShuffledCountriesIndex] = useState<number>(0)
-    const [gameInfo, setGameInfo] = useState<any>('')
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [currentScore, setCurrentScore] = useState<number>(10)
     const [skipCount, setSkipCount] = useState<number>(10)
@@ -33,38 +25,11 @@ const HiddenFlag = () => {
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null)
     const [onHover, setOnHover] = useState<number | null>(null)
-    const { getGameInfo } = useGetGameInfo()
+    const { gameInfo, getGameInfo } = useGetGameInfo("hiddenFlagGameInfo")
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
-
-    const getCountry = async () => {
-        try {
-            const { data } = await axios.get<CountryType[]>('https://restcountries.com/v3.1/all')
-            const filteredData = data.filter((country: CountryType) => country.population > 3000)
-            setCountries(filteredData)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const handleGameInfo = () => {
-        const gameInfo = getGameInfo('hiddenFlagGameInfo')
-        setGameInfo(gameInfo)
-    }
-
-    const handleShuffleCountries = (countries: CountryType[]): void => {
-        if (countries.length === 0) {
-            return;
-        }
-        const countriesForShuffle: shuffledCountriesType[] = countries.map(country => ({
-            name: country.name.common,
-            flag: country.flags.png
-        }));
-        for (let i = countriesForShuffle.length - 1; i > 0; i--) {
-            const j: number = Math.floor(Math.random() * (i + 1));
-            [countriesForShuffle[i], countriesForShuffle[j]] = [countriesForShuffle[j], countriesForShuffle[i]]
-        }
-        setShuffledCountries(countriesForShuffle)
-    }
+    const { countries } = useFetchCountriesData({
+        sortingType: "shuffled"
+    })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && searchCountries.length > 0) {
@@ -104,11 +69,10 @@ const HiddenFlag = () => {
             const updatedArray = initialHiddenArray.filter((index) => index !== initialHiddenArray[randomIndex])
             setHiddenArray(updatedArray);
             setTimeout(() => {
-                if (shuffledCountries && shuffledCountries.length - 1 == shuffledCountriesIndex) {
-                    handleShuffleCountries(countries)
-                    setShuffledCountriesIndex(-1)
+                if (countries && countries.length - 1 == currentIndex) {
+                    setCurrentIndex(-1)
                 }
-                setShuffledCountriesIndex(prev => prev + 1)
+                setCurrentIndex(prev => prev + 1)
                 setIsFlagAnimating(false)
             }, 200);
         }, 200);
@@ -138,7 +102,7 @@ const HiddenFlag = () => {
             setInputValue('')
             setIsAnswered(true)
             setHiddenArray([])
-            if (shuffledCountries && shuffledCountries[shuffledCountriesIndex].name == answer) {
+            if (countries && countries[currentIndex].name.common == answer) {
                 setIsAnswerCorrect(true)
                 setScore(prev => {
                     if (currentScore === 10) {
@@ -203,8 +167,7 @@ const HiddenFlag = () => {
 
     const handlePlayAgain = () => {
         startTimer()
-        handleGameInfo()
-        handleShuffleCountries(countries)
+        getGameInfo()
         handleNextFlag(false)
         setSkipCount(10)
         setEnergyCount(3)
@@ -219,13 +182,7 @@ const HiddenFlag = () => {
     }, [inputValue])
 
     useEffect(() => {
-        handleShuffleCountries(countries)
-    }, [countries])
-
-    useEffect(() => {
         startTimer()
-        handleGameInfo()
-        getCountry()
         handleDeleteABox()
     }, [])
 
@@ -235,7 +192,7 @@ const HiddenFlag = () => {
                 score={score}
                 storageName="hiddenFlagGameInfo"
                 elapsedTime={elapsedTime}
-                playAgainFunction={handlePlayAgain}
+                playAgain={handlePlayAgain}
             />)
                 : (
                     <div className="hf-container">
@@ -277,7 +234,9 @@ const HiddenFlag = () => {
                                                 )
                                             })}
                                         </div>
-                                        <img src={shuffledCountries && shuffledCountries[shuffledCountriesIndex].flag} alt="current flag" />
+                                        {countries && countries.length > 0 && currentIndex >= 0 && currentIndex < countries.length ? (
+                                            <img src={countries[currentIndex].flags.png} alt="current flag" />
+                                        ) : null}
                                     </div>
                                     <div className="hf-container-game-content-header-buttons">
                                         <button

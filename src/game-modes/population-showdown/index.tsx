@@ -17,7 +17,6 @@ const PopulationShowdown = () => {
     const [countries, setCountries] = useState<CountryType[]>([])
     const [currentCountries, setCurrentCountries] = useState<CountryType[]>([])
     const [score, setScore] = useState<number>(0)
-    const [gameInfo, setGameInfo] = useState<any>('')
     const [hasSwitchAnimation, setHasSwitchAnimation] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false)
     const [isVisibleCircle, setIsVisibleCircle] = useState<boolean>(true)
@@ -27,7 +26,7 @@ const PopulationShowdown = () => {
     const [degValue, setDegValue] = useState<number>(0)
     const [degValueInterval, setDegValueInterval] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
-    const { getGameInfo } = useGetGameInfo()
+    const { gameInfo, getGameInfo } = useGetGameInfo("populationShowdownGameInfo")
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
     const defaultTimeCountdown = 10;
     const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
@@ -42,10 +41,6 @@ const PopulationShowdown = () => {
         }
     }
 
-    const handleGameInfo = () => {
-        const gameInfo = getGameInfo('populationShowdownGameInfo')
-        setGameInfo(gameInfo)
-    }
 
     const handlePlayGame = () => {
         if (countries.length > 0) {
@@ -164,7 +159,7 @@ const PopulationShowdown = () => {
         resetTimeInterval()
         startTimeInterval()
         setPositionCircle('100px')
-        handleGameInfo()
+        getGameInfo()
         setScore(0)
         handlePlayGame()
         setIsClick(false)
@@ -184,7 +179,6 @@ const PopulationShowdown = () => {
     }, [countries])
 
     useEffect(() => {
-        handleGameInfo()
         getCountry()
         startTimer()
     }, [])
@@ -194,7 +188,7 @@ const PopulationShowdown = () => {
             {isGameOver ? (<GameOver
                 score={score}
                 storageName="populationShowdownGameInfo"
-                playAgainFunction={handlePlayAgain}
+                playAgain={handlePlayAgain}
                 elapsedTime={elapsedTime}
             />)
                 : (<div className="ps-container">

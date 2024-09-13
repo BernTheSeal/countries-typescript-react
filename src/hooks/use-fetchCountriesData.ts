@@ -7,6 +7,7 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
     const URL = "https://restcountries.com/v3.1/all"
     const [countries, setCountries] = useState<CountryType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
+    const [trigger, setTrigger] = useState<number>(0)
 
     const getCountries = async () => {
         setLoading(true)
@@ -111,9 +112,13 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
 
     useEffect(() => {
         getCountries()
-    }, [])
+    }, [trigger])
 
-    return { countries, loading }
+    const handleTrigger = () => {
+        setTrigger(prev => prev + 1)
+    }
+
+    return { countries, loading, countriesFetchTrigger: handleTrigger }
 }
 
 export default useFetchCountriesData

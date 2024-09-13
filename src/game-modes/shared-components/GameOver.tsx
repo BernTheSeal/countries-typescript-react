@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useNavigate, NavigateFunction } from "react-router-dom"
-
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useUpdateGameInfo from "../../hooks/use-updateGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
@@ -9,25 +8,19 @@ import useGameTimer from "../../hooks/use-gameTimer";
 interface iGameOverProps {
     score: number,
     storageName: string,
-    playAgainFunction: any,
-    elapsedTime: number
+    elapsedTime: number,
+    playAgain: () => void
 }
 
 const GameOver: FunctionComponent<iGameOverProps> = (props) => {
-    const { score, storageName, playAgainFunction, elapsedTime } = props
-    const [gameInfo, setGameInfo] = useState<any>('')
+    const { score, storageName, elapsedTime, playAgain } = props
     const [newGameInfo, setNewGameInfo] = useState<any>('')
     const [isHighScore, setIsHighScore] = useState<boolean>(false)
     const [isExploding, setIsExploding] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate()
-    const { getGameInfo } = useGetGameInfo()
+    const { gameInfo } = useGetGameInfo(storageName)
     const { updateGameInfo } = useUpdateGameInfo()
     const { resetTimer } = useGameTimer()
-
-    const handleGameInfo = () => {
-        const gameInfo = getGameInfo(storageName)
-        setGameInfo(gameInfo)
-    }
 
     const handleGameOver = () => {
         let playedTime: number = gameInfo.playedTime + 1
@@ -48,7 +41,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     }
 
     const handlePlayAgain = () => {
-        playAgainFunction()
+        playAgain()
     }
 
     const handleBackToMenu = () => {
@@ -57,7 +50,6 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
 
     useEffect(() => {
         resetTimer()
-        handleGameInfo()
     }, [])
 
     useEffect(() => {

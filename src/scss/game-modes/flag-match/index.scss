@@ -7,76 +7,8 @@
     position: relative;
     overflow: hidden;
 
-    &-info {
-        position: absolute;
-        top: 25px;
-        width: 100vw;
-        height: 100px;
-        display: flex;
-        justify-content: center;
-
-        &-container {
-            width: 400px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-
-            &-title {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 14px;
-                margin-bottom: 10px;
-                letter-spacing: 3px;
-                color: #777;
-
-                i {
-                    font-size: 20px;
-                }
-
-                h2 {
-                    margin: 0 10px;
-                }
-            }
-
-            &-details {
-                display: flex;
-                align-items: center;
-                width: 100%;
-
-                &-score {
-                    text-align: center;
-                    width: 50%;
-                    margin-left: 10px;
-                    border-right: 2px solid gray;
-                }
-
-                &-highScore {
-                    margin-right: 10px;
-                    width: 50%;
-                    text-align: center;
-                }
-            }
-
-            h4 {
-                font-weight: 300;
-                font-size: 14px;
-                color: #777;
-            }
-
-            p {
-                color: white;
-                font-weight: 600;
-                font-size: 18px;
-                font-style: italic;
-            }
-        }
-    }
-
     &-gameArea {
+
         width: 100%;
         position: relative;
         height: 550px;
@@ -87,6 +19,7 @@
             height: 100%;
             display: flex;
             flex-wrap: wrap;
+
 
             div {
                 width: 50%;
@@ -143,6 +76,7 @@
             left: 50%;
 
             h3 {
+                text-align: center;
                 font-size: 30px;
                 font-weight: 200;
                 color: #fff989;
@@ -167,11 +101,7 @@
     }
 }
 
-.fm-button-default:hover {
-    outline: 4px solid white;
-    width: 240px;
-    height: 145px;
-}
+
 
 .fm-button-clicked {
     width: 220px;
@@ -211,14 +141,74 @@
 
 .fm-flag-animation-hidden {
     transition: all .2s;
-    // height: 0;
-    // width: 0;
     transform: scale(0);
 }
 
 .fm-flag-animation-appear {
     transition: all .2s;
     transform: scale(1);
-    // width: 220px;
-    // height: 130px;
+}
+
+@media only screen and (max-width: 768px) {
+    .fm-container {
+        &-gameArea {
+            height: 650px;
+
+            p {
+                font-size: 160px;
+            }
+
+            &-time {
+                h3 {
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+
+    .fm-button-default {
+        width: 180px;
+        height: 100px;
+    }
+
+    .fm-button-clicked {
+        width: 180px;
+        height: 100px;
+    }
+}
+
+@media only screen and (max-width: 385px) {
+    .fm-container {
+        &-gameArea {
+            height: 550px;
+
+            p {
+                font-size: 140px;
+            }
+
+            &-time {
+                h3 {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .fm-button-default {
+        width: 160px;
+        height: 90px;
+    }
+
+    .fm-button-clicked {
+        width: 160px;
+        height: 90px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .fm-button-default:hover {
+        outline: 4px solid white;
+        width: 240px;
+        height: 145px;
+    }
 }
