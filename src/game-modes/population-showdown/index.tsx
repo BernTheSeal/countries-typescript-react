@@ -194,13 +194,15 @@ const PopulationShowdown = () => {
                 : (<div className="ps-container">
                     {currentCountries.length > 0 && (
                         <div className="ps-container-game">
-                            <GameTitle
+                            {gameInfo && (
+                                <GameTitle
                                 title={'population showdown'}
                                 iconLeft={'fa-solid fa-caret-up'}
                                 iconRight={'fa-solid fa-caret-down'}
                                 score={score}
                                 highScore={gameInfo.highScore}
                             />
+                            )}
                             <div
                                 style={{
                                     background: `conic-gradient(transparent ${degValue}deg, ${isVisibleCircle ? 'white' : 'transparent'} 0deg)`,

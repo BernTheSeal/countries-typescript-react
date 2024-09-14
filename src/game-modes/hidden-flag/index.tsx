@@ -197,13 +197,15 @@ const HiddenFlag = () => {
                 : (
                     <div className="hf-container">
                         <div className="hf-container-game">
-                            <GameTitle
+                            {gameInfo && (
+                                <GameTitle
                                 title={'hidden flag'}
                                 iconLeft={'fa-solid fa-flag'}
                                 iconRight={'fa-regular fa-flag'}
                                 score={score}
                                 highScore={gameInfo.highScore}
-                            />
+                                />
+                            )}
                             <div className="hf-container-game-content">
                                 <div onContextMenu={handleContextMenu} className="hf-container-game-content-header">
                                     <div style={{ scale: isFlagAnimating ? '0' : '1' }} className="hf-container-game-content-header-flag">

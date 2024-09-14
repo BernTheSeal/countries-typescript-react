@@ -112,6 +112,7 @@ const FlagMatch = () => {
 
             />)
                 : (<div className="fm-container">
+                {gameInfo && (
                     <GameTitle
                         title={'flag match'}
                         iconLeft={'fa-regular fa-flag'}
@@ -119,6 +120,7 @@ const FlagMatch = () => {
                         score={score}
                         highScore={gameInfo.highScore}
                     />
+                )}
                     <div className="fm-container-gameArea">
                         <div className="fm-container-gameArea-flags">
                             {countries.slice(currentIndex, (currentIndex + 4)).map((country: CountryType, index: number) => (

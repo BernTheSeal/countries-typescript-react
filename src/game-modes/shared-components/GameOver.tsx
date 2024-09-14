@@ -23,20 +23,22 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
     const { resetTimer } = useGameTimer()
 
     const handleGameOver = () => {
-        let playedTime: number = gameInfo.playedTime + 1
-        let newTotalScore: number = gameInfo.totalScore + score
-        let newElapsedTime: number = gameInfo.elapsedTime + elapsedTime
-
-        if (score > gameInfo.highScore) {
-            setIsHighScore(true)
-            setIsExploding(true)
-            const newGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
-            updateGameInfo(storageName, newGameInfo)
-            setNewGameInfo(newGameInfo)
-        } else {
-            const newGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
-            updateGameInfo(storageName, newGameInfo)
-            setNewGameInfo(newGameInfo)
+        if(gameInfo !== null){
+            let playedTime: number = gameInfo.playedTime + 1
+            let newTotalScore: number = gameInfo.totalScore + score
+            let newElapsedTime: number = gameInfo.elapsedTime + elapsedTime
+    
+            if (score > gameInfo.highScore) {
+                setIsHighScore(true)
+                setIsExploding(true)
+                const newGameInfo = { highScore: score, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
+                updateGameInfo(storageName, newGameInfo)
+                setNewGameInfo(newGameInfo)
+            } else {
+                const newGameInfo = { highScore: gameInfo.highScore, playedTime: playedTime, totalScore: newTotalScore, elapsedTime: newElapsedTime }
+                updateGameInfo(storageName, newGameInfo)
+                setNewGameInfo(newGameInfo)
+            }
         }
     }
 
