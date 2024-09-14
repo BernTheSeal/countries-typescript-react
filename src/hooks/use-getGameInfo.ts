@@ -3,7 +3,7 @@ import gameInfoData from "../data/gameInfoData";
 import { GameInfoType } from "../types/gameInfoType";
 
 const useGetGameInfo = (gameKey: string) => {
-    const [gameInfo, setGameInfo] = useState<GameInfoType>(gameInfoData)
+    const [gameInfo, setGameInfo] = useState<GameInfoType | {}>({})
     const [trigger, setTrigger] = useState<number>(0)
 
     const getGameInfo = () => {
