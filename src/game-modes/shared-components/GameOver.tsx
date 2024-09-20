@@ -69,6 +69,7 @@ const GameOver: FunctionComponent<iGameOverProps> = (props) => {
                         <div className="game-over-container-score-highScore">
                             <i className="fa-solid fa-crown"></i>
                             <p>New High Score</p>
+                            <i className="fa-solid fa-crown"></i>
                         </div>
                     )}
                 </div>

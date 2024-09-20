@@ -66,3 +66,52 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 480px) {
+    .game-info{
+        top: 0;        
+        height: 70px;
+        border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.1);
+        i{
+            visibility: hidden;
+            position: absolute;
+        }
+
+        &-container {
+            flex-direction: row;
+            width: 100%;
+
+            &-title {
+                justify-content: start;
+                width: 50%;
+                font-size: 10px;
+                margin-bottom: 0px;
+            }
+
+            &-details {
+                width: 50%;
+                height: 100%;
+
+                &-score {
+                    border-right: 0px
+                }
+            }
+
+            h4 {
+                font-weight: 300;
+                font-size: 10px;
+                color: #777;
+            }
+    
+            p {
+                color: white;
+                font-weight: 300;
+                font-size: 14px;
+                font-style: italic;
+            }
+
+           }
+    }
+ 
+}

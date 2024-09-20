@@ -1277,26 +1277,7 @@ input::-webkit-inner-spin-button {
   transform: scale(1);
 }
 
-@media only screen and (max-width: 768px) {
-  .fm-container-gameArea {
-    height: 650px;
-  }
-  .fm-container-gameArea p {
-    font-size: 160px;
-  }
-  .fm-container-gameArea-time h3 {
-    font-size: 25px;
-  }
-  .fm-button-default {
-    width: 180px;
-    height: 100px;
-  }
-  .fm-button-clicked {
-    width: 180px;
-    height: 100px;
-  }
-}
-@media only screen and (max-width: 385px) {
+@media only screen and (max-width: 480px) {
   .fm-container-gameArea {
     height: 550px;
   }
@@ -1315,7 +1296,7 @@ input::-webkit-inner-spin-button {
     height: 90px;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 480) {
   .fm-button-default:hover {
     outline: 4px solid white;
     width: 240px;
@@ -1717,11 +1698,34 @@ input::-webkit-inner-spin-button {
   background-color: transparent;
   transition: all 0.2s;
 }
-.game-over-container-buttons button:hover {
-  color: black;
-  background-color: white;
-}
 
+@media only screen and (max-width: 480px) {
+  .game-over-container {
+    width: 70%;
+    height: 70%;
+  }
+  .game-over-container-score-highScore {
+    font-size: 20px;
+  }
+  .game-over-container-comment {
+    width: 100%;
+  }
+  .game-over-container-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    button-background-color: red;
+  }
+  .game-over-container-buttons button {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 480px) {
+  button:hover {
+    color: black;
+    background-color: white;
+  }
+}
 .game-info {
   position: absolute;
   top: 25px;
@@ -1780,6 +1784,46 @@ input::-webkit-inner-spin-button {
   font-weight: 600;
   font-size: 18px;
   font-style: italic;
+}
+
+@media only screen and (max-width: 480px) {
+  .game-info {
+    top: 0;
+    height: 70px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .game-info i {
+    visibility: hidden;
+    position: absolute;
+  }
+  .game-info-container {
+    flex-direction: row;
+    width: 100%;
+  }
+  .game-info-container-title {
+    justify-content: start;
+    width: 50%;
+    font-size: 10px;
+    margin-bottom: 0px;
+  }
+  .game-info-container-details {
+    width: 50%;
+    height: 100%;
+  }
+  .game-info-container-details-score {
+    border-right: 0px;
+  }
+  .game-info-container h4 {
+    font-weight: 300;
+    font-size: 10px;
+    color: #777;
+  }
+  .game-info-container p {
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: italic;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

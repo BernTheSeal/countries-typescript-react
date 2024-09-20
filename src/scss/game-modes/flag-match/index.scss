@@ -149,35 +149,8 @@
     transform: scale(1);
 }
 
-@media only screen and (max-width: 768px) {
-    .fm-container {
-        &-gameArea {
-            height: 650px;
 
-            p {
-                font-size: 160px;
-            }
-
-            &-time {
-                h3 {
-                    font-size: 25px;
-                }
-            }
-        }
-    }
-
-    .fm-button-default {
-        width: 180px;
-        height: 100px;
-    }
-
-    .fm-button-clicked {
-        width: 180px;
-        height: 100px;
-    }
-}
-
-@media only screen and (max-width: 385px) {
+@media only screen and (max-width: 480px) {
     .fm-container {
         &-gameArea {
             height: 550px;
@@ -205,7 +178,7 @@
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 480) {
     .fm-button-default:hover {
         outline: 4px solid white;
         width: 240px;

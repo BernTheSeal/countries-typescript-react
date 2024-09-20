@@ -67,11 +67,47 @@
                 background-color: transparent;
                 transition: all .2s;
             }
-
-            button:hover {
-                color: black;
-                background-color: white;
-            }
         }
     }
 }
+
+
+@media only screen and (max-width: 480px) {
+  .game-over {
+    &-container {      
+        width: 70%;
+        height: 70%;
+
+        &-score {
+            &-highScore {
+                font-size: 20px;
+            }
+        }
+
+        &-comment {
+            width: 100%;
+        }
+
+        &-buttons {
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            
+            button {
+                width: 100%;
+            }
+
+            button: {
+                background-color: red;
+            }
+        }
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+    button:hover {
+        color: black;
+        background-color: white;
+    }
+  }
