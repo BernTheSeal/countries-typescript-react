@@ -153,12 +153,10 @@
 @media only screen and (max-width: 480px) {
     .fm-container {
         &-gameArea {
-            height: 550px;
-
+            height: 100vh;
             p {
                 font-size: 140px;
             }
-
             &-time {
                 h3 {
                     font-size: 20px;
@@ -178,7 +176,7 @@
     }
 }
 
-@media only screen and (min-width: 480) {
+@media only screen and (min-width: 480px) {
     .fm-button-default:hover {
         outline: 4px solid white;
         width: 240px;

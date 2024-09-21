@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { CountryType } from "../../types/countryType"
 import { clearInterval, setInterval, setTimeout } from 'worker-timers';
 import 'animate.css'
 
@@ -12,10 +10,10 @@ import GameTitle from "../shared-components/GameTitle";
 import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
 import useCountdownTimer from "../../hooks/use-countdownTimer";
+import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
 
 const PopulationShowdown = () => {
-    const [countries, setCountries] = useState<CountryType[]>([])
-    const [currentCountries, setCurrentCountries] = useState<CountryType[]>([])
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [hasSwitchAnimation, setHasSwitchAnimation] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false)
@@ -26,40 +24,17 @@ const PopulationShowdown = () => {
     const [degValue, setDegValue] = useState<number>(0)
     const [degValueInterval, setDegValueInterval] = useState<any>(null)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
-    const { gameInfo, getGameInfo } = useGetGameInfo("populationShowdownGameInfo")
     const { startTimer, stopTimer, elapsedTime } = useGameTimer()
     const defaultTimeCountdown = 10;
     const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
-
-    const getCountry = async () => {
-        try {
-            const { data } = await axios.get<CountryType[]>(`https://restcountries.com/v3.1/all`)
-            const filteredData = data.filter((country: any) => country.population > 1)
-            setCountries(filteredData)
-        } catch {
-            console.log('error')
-        }
-    }
-
-
-    const handlePlayGame = () => {
-        if (countries.length > 0) {
-            const threeCountries: any = []
-            while (threeCountries.length < 3) {
-                const randomIndex = Math.floor(Math.random() * countries.length)
-                if (!threeCountries.includes(countries[randomIndex])) {
-                    threeCountries.push(countries[randomIndex])
-                }
-            }
-            setCurrentCountries(threeCountries)
-        }
-        startTimeInterval()
-        startDegValueInterval()
-    }
+    const { gameInfo, gameInfotTrigger } = useGetGameInfo("populationShowdownGameInfo")
+    const { countries, countriesFetchTrigger } = useFetchCountriesData({
+        sortingType: "shuffled",
+    })
 
     const handleAnswer = (answer: string) => {
-        const isHigher: boolean = (answer == "higher" && currentCountries[0].population < currentCountries[1].population)
-        const isLower: boolean = (answer == "lower" && currentCountries[0].population > currentCountries[1].population)
+        const isHigher: boolean = (answer == "higher" && countries[currentIndex].population < countries[currentIndex + 1].population)
+        const isLower: boolean = (answer == "lower" && countries[currentIndex].population > countries[currentIndex + 1].population)
         handleCountAnimation()
         setIsClick(true)
         clearInterval(degValueInterval)
@@ -101,14 +76,15 @@ const PopulationShowdown = () => {
         setIsClick(false)
         setHasSwitchAnimation(false)
         setIsVisibleCircle(true)
-        const newCurrentCountries: any = currentCountries.slice(1, 3)
-        while (newCurrentCountries.length < 3) {
-            const randomIndex = Math.floor(Math.random() * countries.length)
-            if (!currentCountries.includes(countries[randomIndex])) {
-                newCurrentCountries.push(countries[randomIndex])
-            }
+
+        if (countries.length - (currentIndex + 2) < 2) {
+            countriesFetchTrigger()
+            setCurrentIndex(0)
+            return;
+
+        } else {
+            setCurrentIndex(prev => prev + 1)
         }
-        setCurrentCountries(newCurrentCountries)
     }
 
     const startDegValueInterval = () => {
@@ -141,7 +117,7 @@ const PopulationShowdown = () => {
     const handleCountAnimation = () => {
         setPopulationValue(0)
         let currentValue = 0
-        let targetValue = currentCountries[1].population
+        let targetValue = countries[currentIndex + 1].population
         const animationDuration = 1000
         const incrementAmount = targetValue / (animationDuration / 10)
         const animationInterval = setInterval(() => {
@@ -159,9 +135,10 @@ const PopulationShowdown = () => {
         resetTimeInterval()
         startTimeInterval()
         setPositionCircle('100px')
-        getGameInfo()
+        countriesFetchTrigger()
+        gameInfotTrigger()
         setScore(0)
-        handlePlayGame()
+        setCurrentIndex(0)
         setIsClick(false)
         setIsGameOver(false)
         startTimer()
@@ -175,11 +152,11 @@ const PopulationShowdown = () => {
     }, [time])
 
     useEffect(() => {
-        handlePlayGame()
+        startTimeInterval()
+        startDegValueInterval()
     }, [countries])
 
     useEffect(() => {
-        getCountry()
         startTimer()
     }, [])
 
@@ -192,7 +169,7 @@ const PopulationShowdown = () => {
                 elapsedTime={elapsedTime}
             />)
                 : (<div className="ps-container">
-                    {currentCountries.length > 0 && (
+                    {countries.length > 0 && (
                         <div className="ps-container-game">
                             {gameInfo && (
                                 <GameTitle
@@ -227,12 +204,12 @@ const PopulationShowdown = () => {
                             <div className={`ps-container-game-card first-div ${hasSwitchAnimation ? 'firts-div-animation' : ''} `}>
                                 <div className="ps-container-game-card-info" >
                                     <div className="ps-container-game-card-info-firts-div">
-                                        <img src={currentCountries[0].flags.png} alt="" />
-                                        <h3>{currentCountries[0].name.common}</h3>
+                                        <img src={countries[currentIndex].flags.png} alt="" />
+                                        <h3>{countries[currentIndex].name.common}</h3>
                                     </div>
                                     <div>
                                         <p> has</p>
-                                        <h4>{currentCountries[0].population.toLocaleString()}</h4>
+                                        <h4>{countries[currentIndex].population.toLocaleString()}</h4>
                                         <p>population</p>
                                     </div>
                                 </div>
@@ -240,8 +217,8 @@ const PopulationShowdown = () => {
                             <div className={`ps-container-game-card second-div ${hasSwitchAnimation ? 'second-div-animation' : ''} `}>
                                 <div className="ps-container-game-card-info" >
                                     <div className="ps-container-game-card-info-firts-div">
-                                        <img src={currentCountries[1].flags.png} alt="" />
-                                        <h3>{currentCountries[1].name.common}</h3>
+                                        <img src={countries[currentIndex + 1].flags.png} alt="" />
+                                        <h3>{countries[currentIndex + 1].name.common}</h3>
                                     </div>
                                     <div>
                                         <p> has</p>
@@ -255,19 +232,19 @@ const PopulationShowdown = () => {
                                                 <i className="fa-solid fa-caret-down"></i>
                                             </button>
                                         </div> : <h4>{populationValue}</h4>}
-                                        <p>population {!isClick ? `than ${currentCountries[0].name.common}` : ''}</p>
+                                        <p>population {!isClick ? `than ${countries[currentIndex].name.common}` : ''}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className={`ps-container-game-card third-div ${hasSwitchAnimation ? 'third-div-animation' : ''}`}>
+                                <div className={`ps-container-game-card third-div ${hasSwitchAnimation ? 'third-div-animation' : ''}`}>
                                 <div className="ps-container-game-card-info" >
-                                    <img src={currentCountries[2].flags.png} alt="" />
+                                    <img src={countries[currentIndex + 2].flags.png} alt="" />
                                     <div>
-                                        <h3>{currentCountries[2].name.common}</h3>
-                                        <p>{currentCountries[2].population.toLocaleString()}</p>
+                                        <h3>{countries[currentIndex + 2].name.common}</h3>
+                                        <p>{countries[currentIndex + 2].population.toLocaleString()}</p>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                         </div>
                     )}
                 </div >)}

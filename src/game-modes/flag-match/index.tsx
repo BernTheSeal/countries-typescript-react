@@ -26,7 +26,7 @@ const FlagMatch = () => {
     const { displayTime, time, startTimeInterval, stopTimeInterval, resetTimeInterval } = useCountdownTimer(defaultTimeCountdown)
     const { gameInfo, gameInfotTrigger } = useGetGameInfo("flagMatchGameInfo")
     const { countries, countriesFetchTrigger } = useFetchCountriesData({
-        sortingType: "shuffled"
+        sortingType: "shuffled",
     })
 
     useEffect(() => {
