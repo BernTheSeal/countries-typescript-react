@@ -72,9 +72,8 @@
     .game-info{
         z-index: 100000;
         top:0 ;
-        height: 60px;
+        height: 80px;
         width: 100%;
-
         i{
             visibility: hidden;
             position: absolute;
@@ -108,7 +107,6 @@
                 font-weight: 300;
                 font-size: 14px;
                 color: #777;
-
             }
     
             p {
