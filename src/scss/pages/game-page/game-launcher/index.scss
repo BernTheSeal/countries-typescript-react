@@ -1,0 +1,171 @@
+@keyframes containerAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes backgroundAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.game-action-menu {
+  animation: backgroundAppear 0.3s;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.8);
+  z-index: 50000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-container {
+    animation: containerAppear 0.3s;
+    background-color: #1d1d1d;
+    border-radius: 10px;
+    width: 1000px;
+    height: 600px;
+    overflow: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+
+    &-header {
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 20px 0px 20px;
+      gap: 10px;
+      box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.24);
+
+      &-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+          letter-spacing: 3px;
+          font-weight: 500;
+          font-size: 26px;
+          color: gray;
+        }
+
+        i {
+          cursor: pointer;
+          color: gray;
+        }
+
+        i:hover {
+          color: white;
+        }
+      }
+    }
+
+    &-main {
+      grid-row: 2;
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: 10px;
+      background-color: rgb(24, 24, 24);
+
+      &-content {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &-footer {
+      grid-row: 3;
+      display: flex;
+      z-index: 3;
+      bottom: 0;
+      width: 100%;
+      overflow: hidden;
+
+      &-default {
+        height: 80px;
+        transition: all 0.2s;
+
+        button {
+          width: 100%;
+          height: 100%;
+          font-weight: 400;
+          font-size: 26px;
+          letter-spacing: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+          color: white;
+        }
+      }
+
+      &-custom {
+        height: 80px;
+        transition: all 0.2s;
+
+        button {
+          cursor: pointer;
+          background-color: #242689;
+          width: 100%;
+          height: 100%;
+          color: white;
+          font-size: 40px;
+          transition: all 0.2s;
+        }
+
+        button:hover {
+          background-color: #3032b9;
+          color: black;
+        }
+
+        button:hover i {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+.fm-custom-game {
+  button {
+    background-color: #242689;
+  }
+  button:hover {
+    background-color: #3032b9;
+    letter-spacing: 4px;
+  }
+}
+
+.fm-default-game {
+  border-right: 5px solid transparent;
+  button {
+    background-color: #248939;
+  }
+  button:hover {
+    background-color: #2eb048;
+    letter-spacing: 4px;
+  }
+}

@@ -1,0 +1,38 @@
+.clickInput {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(40, 40, 40);
+
+  &-title {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    color: rgb(59, 59, 59);
+  }
+
+  &-value {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    justify-content: center;
+
+    button {
+      cursor: pointer;
+      padding: 4px 32px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #d0d0d0;
+    }
+
+    button:hover {
+      color: white;
+    }
+
+    button:not(:last-child) {
+      border-right: 2px solid rgb(32, 32, 32);
+    }
+  }
+}

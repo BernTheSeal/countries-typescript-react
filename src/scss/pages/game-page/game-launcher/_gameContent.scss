@@ -1,0 +1,36 @@
+.gameContent-container {
+    border-bottom: 1px solid rgb(32, 32, 32);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    &-title {
+        color: rgb(59, 59, 59);
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 20%;
+    }
+
+    &-content {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 80%;
+
+        div{
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #333;
+            color:rgb(201, 201, 201);;
+            font-size: 18px;
+            font-weight: 600;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+    }
+}

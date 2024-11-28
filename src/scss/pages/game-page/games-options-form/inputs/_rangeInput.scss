@@ -1,0 +1,85 @@
+.rangeInput {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(40, 40, 40);
+
+  &-title {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    color: rgb(59, 59, 59);
+  }
+
+  &-value {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+
+    &-range {
+      border-radius: 5px;
+
+      input {
+        border-radius: 5px;
+        -webkit-appearance: none;
+        width: 300px;
+        height: 10px;
+        outline: none;
+        display: flex;
+        align-items: center;
+      }
+
+      input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        border-radius: 5px;
+        transition: all 0.2s;
+      }
+    }
+
+    &-unlimited {
+      label {
+        user-select: none;
+        padding: 4px 8px;
+        background-color: rgb(51, 51, 51);
+        font-size: 18px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-style: italic;
+        cursor: pointer;
+
+        i {
+          margin-right: 5px;
+        }
+        input {
+          display: none;
+        }
+      }
+    }
+
+    &-display {
+      width: 50px;
+      font-size: 20px;
+      font-weight: 600;
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.range-active::-webkit-slider-thumb {
+  height: 30px;
+  background-color: #191a60;
+  cursor: pointer;
+}
+
+.range-inactive::-webkit-slider-thumb {
+  background-color: rgb(55, 55, 55);
+  height: 20px;
+}

@@ -13,7 +13,6 @@ interface pageOptions {
 const Header: FunctionComponent<iHeaderProps> = (props) => {
     const { onPage } = props
     const navigate: NavigateFunction = useNavigate()
-
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
     const pageOptions: pageOptions[] = [

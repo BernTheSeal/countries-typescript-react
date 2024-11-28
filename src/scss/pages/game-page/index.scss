@@ -1,2 +1,9 @@
-@import "./gameActionMenu",
-"./gameCard"
+@import "../game-page/game-launcher/index.scss",
+  "../game-page/game-card/index.scss",
+  "../game-page/game-launcher/gameInformation",
+  "../game-page/game-launcher/gameContent",
+  "../game-page/game-launcher/gameDifficulty",
+  "../game-page/game-launcher/gameForms",
+  "../game-page/games-options-form/commonGameOptionsForm",
+  "../game-page/games-options-form/inputs/rangeInput",
+  "../game-page/games-options-form/inputs/clickInput";

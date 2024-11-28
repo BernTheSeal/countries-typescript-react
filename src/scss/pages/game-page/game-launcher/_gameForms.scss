@@ -1,0 +1,53 @@
+.gameForms-container {
+  border-top: 2px solid rgb(32, 32, 32);
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  left: 100%;
+  transition: transform 0.2s ease;
+  overflow: auto;
+  background-color: #1d1d1d;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #151515;
+
+    &-title {
+      color: rgb(59, 59, 59);
+      font-size: 20px;
+      font-style: italic;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: rgb(158, 35, 35);
+      cursor: pointer;
+      padding: 6px 12px;
+      font-size: 18px;
+      justify-self: end;
+      border-radius: 4px;
+      color: white;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: rgb(193, 43, 43);
+        color: white;
+      }
+    }
+  }
+}
+
+.active-gameForms {
+  transform: translateX(-100%);
+}
+
+.inactive-gameForms {
+  transform: translateX(0);
+}
