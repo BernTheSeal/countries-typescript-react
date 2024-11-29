@@ -51,3 +51,18 @@
 .inactive-gameForms {
   transform: translateX(0);
 }
+
+@media only screen and (max-width: 480px) {
+  .gameForms-container {
+    &-header {
+      padding: 10px;
+      &-title {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    }
+  }
+}

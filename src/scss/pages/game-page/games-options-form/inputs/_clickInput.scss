@@ -15,9 +15,9 @@
 
   &-value {
     display: flex;
-    border-radius: 10px;
-    overflow: hidden;
+    overflow: auto;
     justify-content: center;
+    border-radius: 10px;
 
     button {
       cursor: pointer;
@@ -33,6 +33,49 @@
 
     button:not(:last-child) {
       border-right: 2px solid rgb(32, 32, 32);
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .clickInput {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+
+    &-value {
+      display: flex;
+      align-items: start;
+      justify-content: start;
+      width: 100%;
+      overflow: auto;
+      -- button {
+        font-size: 16px;
+      }
+    }
+
+    &-value > button:first-child {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    &-value > button:last-child {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .clickInput {
+    &-value::-webkit-scrollbar {
+      height: 4px;
+      background-color: transparent;
+    }
+
+    &-value::-webkit-scrollbar-thumb {
+      height: 4px;
+      background-color: gray;
     }
   }
 }

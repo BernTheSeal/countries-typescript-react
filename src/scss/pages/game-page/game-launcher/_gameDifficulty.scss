@@ -14,21 +14,52 @@
     width: 20%;
   }
 
-  &-bar {
+  &-content {
     display: flex;
-    border: 2px solid rgb(201, 201, 201);
-    border-radius: 10px;
-    overflow: hidden;
+    align-items: center;
 
-    div:not(:last-child) {
-      border-right: 2px solid rgb(201, 201, 201);
+    &-bar {
+      display: flex;
+      border: 2px solid rgb(201, 201, 201);
+      border-radius: 10px;
+      overflow: hidden;
+
+      div:not(:last-child) {
+        border-right: 2px solid rgb(201, 201, 201);
+      }
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: 600;
+      font-style: italic;
+      margin-left: 20px;
     }
   }
+}
 
-  p {
-    font-size: 20px;
-    font-weight: 600;
-    font-style: italic;
-    margin-left: 20px;
+@media only screen and (max-width: 480px) {
+  .gameDifficulty-container {
+    flex-direction: column;
+    align-items: self-start;
+    gap: 10px;
+
+    &-title {
+      font-size: 18px;
+    }
+
+    &-content {
+      width: 100%;
+      display: flex;
+      &-bar {
+        width: 80%;
+        height: 18px;
+      }
+
+      p {
+        width: 20%;
+        font-size: 16px;
+      }
+    }
   }
 }

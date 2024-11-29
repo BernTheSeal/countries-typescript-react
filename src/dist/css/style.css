@@ -14,16 +14,6 @@
   overflow-y: scroll;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #6f6f6f;
-  border-radius: 3px;
-}
-
 ::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
@@ -975,6 +965,16 @@ input::-webkit-inner-spin-button {
   margin-bottom: 5px;
 }
 
+@media only screen and (max-width: 480px) {
+  .game-action-menu-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .game-action-menu-container-header-title h2 {
+    font-size: 18px;
+  }
+}
 .fm-custom-game button {
   background-color: #242689;
 }
@@ -1057,10 +1057,17 @@ input::-webkit-inner-spin-button {
   color: #333;
   opacity: 0.3;
 }
-.gameInformation-container-info:not(:last-child) {
-  border-right: 1px solid rgba(47, 47, 47, 0.5);
-}
 
+@media only screen and (max-width: 480px) {
+  .gameInformation-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (min-width: 480px) {
+  .gameInformation-container-info:not(:last-child) {
+    border-right: 1px solid rgba(47, 47, 47, 0.5);
+  }
+}
 .gameContent-container {
   border-bottom: 1px solid rgb(32, 32, 32);
   padding: 20px;
@@ -1095,6 +1102,19 @@ input::-webkit-inner-spin-button {
   flex-wrap: wrap;
 }
 
+@media only screen and (max-width: 480px) {
+  .gameContent-container {
+    flex-direction: column;
+    align-items: self-start;
+    gap: 10px;
+  }
+  .gameContent-container-title {
+    font-size: 18px;
+  }
+  .gameContent-container-content div {
+    font-size: 16px;
+  }
+}
 .gameDifficulty-container {
   border-bottom: 1px solid rgb(32, 32, 32);
   border-top: 1px solid rgb(32, 32, 32);
@@ -1110,22 +1130,48 @@ input::-webkit-inner-spin-button {
   gap: 8px;
   width: 20%;
 }
-.gameDifficulty-container-bar {
+.gameDifficulty-container-content {
+  display: flex;
+  align-items: center;
+}
+.gameDifficulty-container-content-bar {
   display: flex;
   border: 2px solid rgb(201, 201, 201);
   border-radius: 10px;
   overflow: hidden;
 }
-.gameDifficulty-container-bar div:not(:last-child) {
+.gameDifficulty-container-content-bar div:not(:last-child) {
   border-right: 2px solid rgb(201, 201, 201);
 }
-.gameDifficulty-container p {
+.gameDifficulty-container-content p {
   font-size: 20px;
   font-weight: 600;
   font-style: italic;
   margin-left: 20px;
 }
 
+@media only screen and (max-width: 480px) {
+  .gameDifficulty-container {
+    flex-direction: column;
+    align-items: self-start;
+    gap: 10px;
+  }
+  .gameDifficulty-container-title {
+    font-size: 18px;
+  }
+  .gameDifficulty-container-content {
+    width: 100%;
+    display: flex;
+  }
+  .gameDifficulty-container-content-bar {
+    width: 80%;
+    height: 18px;
+  }
+  .gameDifficulty-container-content p {
+    width: 20%;
+    font-size: 16px;
+  }
+}
 .gameForms-container {
   border-top: 2px solid rgb(32, 32, 32);
   position: absolute;
@@ -1176,6 +1222,17 @@ input::-webkit-inner-spin-button {
   transform: translateX(0);
 }
 
+@media only screen and (max-width: 480px) {
+  .gameForms-container-header {
+    padding: 10px;
+  }
+  .gameForms-container-header-title {
+    font-size: 16px;
+  }
+  .gameForms-container-header button {
+    font-size: 16px;
+  }
+}
 .commonGameOptionsForm {
   padding: 20px;
   border-bottom: 1px solid rgb(40, 40, 40);
@@ -1212,6 +1269,18 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
+@media only screen and (max-width: 480px) {
+  .commonGameOptionsForm-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .commonGameOptionsForm-container-title {
+    font-size: 16px;
+  }
+  .commonGameOptionsForm-container-regions label {
+    font-size: 16px;
+  }
+}
 .rangeInput {
   padding: 20px;
   display: flex;
@@ -1287,6 +1356,35 @@ input::-webkit-inner-spin-button {
   height: 20px;
 }
 
+@media only screen and (max-width: 480px) {
+  .rangeInput {
+    flex-direction: column;
+    align-items: self-start;
+    gap: 10px;
+  }
+  .rangeInput-title {
+    font-size: 18px;
+  }
+  .rangeInput-value {
+    gap: 0;
+    width: 100%;
+  }
+  .rangeInput-value-range {
+    width: 50%;
+  }
+  .rangeInput-value-range input {
+    width: 100%;
+  }
+  .rangeInput-value-unlimited i {
+    display: none;
+  }
+  .rangeInput-value-unlimited label {
+    font-size: 16px;
+  }
+  .rangeInput-value-display {
+    font-size: 16px;
+  }
+}
 .clickInput {
   padding: 20px;
   display: flex;
@@ -1303,9 +1401,9 @@ input::-webkit-inner-spin-button {
 }
 .clickInput-value {
   display: flex;
-  border-radius: 10px;
-  overflow: hidden;
+  overflow: auto;
   justify-content: center;
+  border-radius: 10px;
 }
 .clickInput-value button {
   cursor: pointer;
@@ -1321,6 +1419,41 @@ input::-webkit-inner-spin-button {
   border-right: 2px solid rgb(32, 32, 32);
 }
 
+@media only screen and (max-width: 480px) {
+  .clickInput {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+  .clickInput-value {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    overflow: auto;
+  }
+  .clickInput-value -- button {
+    font-size: 16px;
+  }
+  .clickInput-value > button:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  .clickInput-value > button:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .clickInput-value::-webkit-scrollbar {
+    height: 4px;
+    background-color: transparent;
+  }
+  .clickInput-value::-webkit-scrollbar-thumb {
+    height: 4px;
+    background-color: gray;
+  }
+}
 @media only screen and (max-width: 480px) {
   .ps-container {
     overflow: hidden;

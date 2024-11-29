@@ -38,3 +38,22 @@
     }
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .commonGameOptionsForm {
+    &-container {
+      flex-direction: column;
+      gap: 10px;
+
+      &-title {
+        font-size: 16px;
+      }
+
+      &-regions {
+        label {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

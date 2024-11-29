@@ -1,40 +1,29 @@
 @import "../variables/color";
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style-type: none;
-    font-family: "Poppins", sans-serif;
-    outline: none;
-    border: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  border: none;
 
-    body {
-        background-color: $bodyBackgroundColor;
-        color: $textColor;
-        overflow-y: scroll;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: $inputOutlineColor;
-    border-radius: 3px;
+  body {
+    background-color: $bodyBackgroundColor;
+    color: $textColor;
+    overflow-y: scroll;
+  }
 }
 
 ::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }

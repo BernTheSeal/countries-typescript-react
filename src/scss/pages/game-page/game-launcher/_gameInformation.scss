@@ -36,8 +36,18 @@
       opacity: 0.3;
     }
   }
+}
 
-  &-info:not(:last-child) {
-    border-right: 1px solid rgba($color: #2f2f2f, $alpha: 0.5);
+@media only screen and (max-width: 480px) {
+  .gameInformation-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .gameInformation-container {
+    &-info:not(:last-child) {
+      border-right: 1px solid rgba($color: #2f2f2f, $alpha: 0.5);
+    }
   }
 }

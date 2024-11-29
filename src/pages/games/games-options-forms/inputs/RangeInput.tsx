@@ -116,7 +116,7 @@ const RangeInput = <T,>(props: RangeInputProps<T>) => {
               onChange={handleChangeUnlimitedValue}
             />
             <i className="fa-solid fa-infinity"></i>
-            unlimited
+            <span>unlimited</span>
           </label>
         </div>
       </div>

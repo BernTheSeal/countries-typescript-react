@@ -13,7 +13,7 @@ export const populationShowdownDefaultOptions: populationShowdownGameOptionsType
   { defaultTime: 10 };
 
 export const hiddenFLagDefaultOptions: hiddenFlagGameOptionsType = {
-  defaultEnergy: 3,
-  defaultSkip: 10,
-  defaultReveal: 20,
+  defaultEnergy: 5,
+  defaultSkip: 20,
+  defaultReveal: 40,
 };
