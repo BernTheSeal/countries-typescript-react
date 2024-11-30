@@ -1,6 +1,5 @@
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import { FunctionComponent, useState } from "react";
-
 interface iHeaderProps {
   onPage: string;
 }
@@ -13,7 +12,7 @@ interface pageOptions {
 const Header: FunctionComponent<iHeaderProps> = (props) => {
   const { onPage } = props;
   const navigate: NavigateFunction = useNavigate();
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [isMenuToggle, setIsMenutoggle] = useState<boolean>(false);
 
   const pageOptions: pageOptions[] = [
     { page: "Home", onClick: () => navigate("/") },
@@ -25,21 +24,14 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
   return (
     <header className="header">
       <div className="header-container">
+        {/* logo */}
         <div className="header-container-logo">
           <i className="fa-solid fa-earth-europe"></i>
           <h1>Earth Explorer</h1>
-          <div
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="header-container-bars"
-          >
-            <i className="fa-solid fa-bars"></i>
-          </div>
         </div>
-        <nav
-          className={`header-container-nav ${
-            menuOpen ? "menu-open" : "menu-close"
-          }`}
-        >
+
+        {/*desktop navbar*/}
+        <nav className="header-container-nav">
           <ul className="header-container-nav-ul">
             {pageOptions.map((pages, index) => (
               <li
@@ -56,6 +48,43 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
             ))}
           </ul>
         </nav>
+
+        {/* mobile navbar */}
+        {isMenuToggle && (
+          <div className="header-container-mobileNav">
+            <nav>
+              <button onClick={() => setIsMenutoggle(false)}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+              <ul>
+                {pageOptions.map((pages, index) => (
+                  <li
+                    key={index}
+                    className={` ${
+                      onPage.toLowerCase() === pages.page.toLocaleLowerCase()
+                        ? "active-page"
+                        : "inactive-page"
+                    }`}
+                    onClick={() => {
+                      pages.onClick();
+                      setIsMenutoggle(false);
+                    }}
+                  >
+                    {pages.page}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
+
+        {/*  mobile bars */}
+        <div
+          onClick={() => setIsMenutoggle(!isMenuToggle)}
+          className="header-container-bars"
+        >
+          <i className="fa-solid fa-bars"></i>
+        </div>
       </div>
     </header>
   );
