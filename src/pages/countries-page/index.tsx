@@ -10,7 +10,7 @@ import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
 import { useState } from "react";
 
 const CountriesPage = () => {
-  const { countries, countriesFetchTrigger, loading } = useFetchCountriesData({
+  const { countries } = useFetchCountriesData({
     sortingType: "alphabetical",
     sortingOrder: "asc",
   });
