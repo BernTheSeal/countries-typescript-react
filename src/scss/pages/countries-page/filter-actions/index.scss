@@ -1,0 +1,20 @@
+.filterActions-container {
+  display: flex;
+  flex-direction: column;
+  gap: $inputGap;
+}
+
+.secondDiv {
+  height: $inputHeight;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $inputGap;
+}
+
+.divider {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  height: 1px;
+  background-color: $firstColor;
+  width: 100%;
+}

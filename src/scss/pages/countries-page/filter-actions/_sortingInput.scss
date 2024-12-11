@@ -1,0 +1,13 @@
+.sortingInput-container {
+  width: 100%;
+  height: 100%;
+  button {
+    width: 100%;
+    height: 100%;
+    border-radius: $inputBorderRadius;
+    background-color: $firstColor;
+    color: $blueColor;
+    font-size: $inputFontSize;
+    box-shadow: $inputBoxShadow;
+  }
+}

@@ -1,19 +1,11 @@
 .header {
   position: fixed;
-  overflow: hidden;
   height: 80px;
   top: 0;
   right: 0;
   left: 0;
-  background-color: black;
-  background-color: $bodyBackgroundColor;
+  background-color: $headerColor;
   z-index: 500;
-
-  &-mobileNav {
-    height: 100%;
-    width: 300px;
-    background-color: red;
-  }
 
   &-container {
     max-width: 370px;
@@ -27,10 +19,13 @@
       display: flex;
       align-items: center;
 
-      i {
-        font-size: 20px;
-        margin-right: 15px;
-        color: $textColor;
+      div {
+        margin-right: 8px;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: #2e61ff;
+        box-shadow: 0px 0px 4px 1px rgba(46, 97, 255, 1);
       }
 
       h1 {
@@ -48,17 +43,20 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.6);
       z-index: 4000;
+      transition: all 0.2s;
 
       nav {
+        position: fixed;
+        top: 0;
+        bottom: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 280px;
-        background-color: #222;
-        height: 100%;
+        background-color: #111;
         gap: 50px;
+        transition: all 0.2s;
 
         button {
           align-self: flex-end;
@@ -94,19 +92,35 @@
   }
 }
 
+.active-mobil-bar {
+  right: 0;
+}
+
+.inactive-mobil-bar {
+  right: -100%;
+}
+
+.active-background-color {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.inactive-background-color {
+  background-color: transparent;
+}
+
 .active-page {
-  color: white;
+  color: $blueColor;
 }
 
 .inactive-page {
-  color: $inputOutlineColor;
+  color: $textColor;
 }
 
 @media only screen and (min-width: 480px) {
   .header {
-    background-color: rgba(22, 22, 22, 0.8);
+    background-color: rgba(31, 31, 31, 0.6);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
     &-container {
       max-width: 1240px;
 
@@ -133,6 +147,7 @@
           li {
             cursor: pointer;
             font-size: 15px;
+            font-weight: 600;
 
             &:hover {
               color: white;

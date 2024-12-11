@@ -1,5 +1,6 @@
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import { FunctionComponent, useState } from "react";
+
 interface iHeaderProps {
   onPage: string;
 }
@@ -13,6 +14,21 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
   const { onPage } = props;
   const navigate: NavigateFunction = useNavigate();
   const [isMenuToggle, setIsMenutoggle] = useState<boolean>(false);
+  const [isClose, setIsClose] = useState<boolean>(false);
+
+  const handleMenuToggle = () => {
+    if (!isClose) {
+      setIsClose(true);
+      setTimeout(() => {
+        setIsMenutoggle(!isMenuToggle);
+      }, 200);
+    } else {
+      setIsMenutoggle(!isMenuToggle);
+      setTimeout(() => {
+        setIsClose(false);
+      }, 200);
+    }
+  };
 
   const pageOptions: pageOptions[] = [
     { page: "Home", onClick: () => navigate("/") },
@@ -26,7 +42,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
       <div className="header-container">
         {/* logo */}
         <div className="header-container-logo">
-          <i className="fa-solid fa-earth-europe"></i>
+          <div></div>
           <h1>Earth Explorer</h1>
         </div>
 
@@ -50,10 +66,20 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
         </nav>
 
         {/* mobile navbar */}
-        {isMenuToggle && (
-          <div className="header-container-mobileNav">
-            <nav>
-              <button onClick={() => setIsMenutoggle(false)}>
+        {isClose && (
+          <div
+            className={`header-container-mobileNav ${
+              isMenuToggle
+                ? "active-background-color"
+                : "inactive-background-color"
+            }`}
+          >
+            <nav
+              className={`${
+                isMenuToggle ? "active-mobil-bar" : "inactive-mobil-bar"
+              }`}
+            >
+              <button onClick={handleMenuToggle}>
                 <i className="fa-solid fa-xmark"></i>
               </button>
               <ul>
@@ -67,7 +93,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                     }`}
                     onClick={() => {
                       pages.onClick();
-                      setIsMenutoggle(false);
+                      handleMenuToggle;
                     }}
                   >
                     {pages.page}
@@ -79,10 +105,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
         )}
 
         {/*  mobile bars */}
-        <div
-          onClick={() => setIsMenutoggle(!isMenuToggle)}
-          className="header-container-bars"
-        >
+        <div onClick={handleMenuToggle} className="header-container-bars">
           <i className="fa-solid fa-bars"></i>
         </div>
       </div>

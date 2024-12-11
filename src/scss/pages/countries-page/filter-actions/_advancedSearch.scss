@@ -1,0 +1,17 @@
+.advancedSearch-container {
+  height: 100%;
+  width: 100%;
+
+  button {
+    width: 100%;
+    height: 100%;
+    border-radius: $inputBorderRadius;
+    background-color: $blueColor;
+    color: $textColor;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $inputFontSize;
+  }
+}

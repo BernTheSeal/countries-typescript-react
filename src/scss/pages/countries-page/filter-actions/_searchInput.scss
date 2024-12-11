@@ -1,0 +1,23 @@
+.searchInput-container {
+  height: $inputHeight;
+  input {
+    border-radius: $inputBorderRadius;
+    background-color: $firstColor;
+    padding: 0 5px;
+    height: 100%;
+    width: 100%;
+    color: $textColor;
+    outline: none;
+    box-shadow: $inputBoxShadow;
+    font-weight: 400;
+    font-size: $inputFontSize;
+
+    &::placeholder {
+      color: $secondColor;
+    }
+
+    &:focus {
+      outline: 1px solid $blueColor;
+    }
+  }
+}

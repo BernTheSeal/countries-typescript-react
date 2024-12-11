@@ -1,4 +1,4 @@
-@import "../variables/color";
+@import "../base/variables";
 
 * {
   padding: 0;
@@ -13,7 +13,7 @@
   body {
     background-color: $bodyBackgroundColor;
     color: $textColor;
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
 }
 

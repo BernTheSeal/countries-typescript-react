@@ -11,6 +11,7 @@ import useGetGameInfo from "../../hooks/use-getGameInfo";
 import useGameTimer from "../../hooks/use-gameTimer";
 import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
 import { hiddenFLagDefaultOptions } from "../../data/gamesOptions";
+import { searchCountryUtils } from "../../utils/searchUtils";
 
 const HiddenFlag = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -101,15 +102,6 @@ const HiddenFlag = () => {
 
   const handleinputValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
-  };
-
-  const normalizeString = (str: string): string => {
-    return str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/\s+/g, "")
-      .trim();
   };
 
   const handleNextFlag = (isSkip?: boolean): void => {
@@ -219,28 +211,8 @@ const HiddenFlag = () => {
   };
 
   const handleSearchCountry = (countries: any): void => {
-    const updatedValue = normalizeString(inputValue);
-    if (updatedValue.length > 0) {
-      const result = [...countries]
-        .filter((country: CountryType) =>
-          normalizeString(country.name.common).startsWith(
-            updatedValue.slice(0, updatedValue.length)
-          )
-        )
-        .slice(0, 3);
-      if (result.length > 0) {
-        setSearchCountries(result);
-        return;
-      }
-    }
-    if (updatedValue.length > 0) {
-      const result = [...countries]
-        .filter((country: CountryType) =>
-          normalizeString(country.name.common).includes(updatedValue)
-        )
-        .slice(0, 3);
-      setSearchCountries(result);
-    }
+    const result = searchCountryUtils(countries, inputValue).slice(0, 3);
+    setSearchCountries(result);
   };
 
   const handlePlayAgain = () => {

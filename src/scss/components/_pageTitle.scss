@@ -1,0 +1,35 @@
+.pageTitle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  width: 100%;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $pageTitleGap;
+    width: 40%;
+
+    &-title {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        color: $textColor;
+        font-weight: $pageTitleFontWeight;
+        font-size: $pageTitleFontSize;
+      }
+    }
+
+    &-icons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+    }
+  }
+}

@@ -10,6 +10,8 @@ const GamesPage = () => {
   const [gameActionMenu, setGameActionMenu] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
+  const pageTitleIcon = [{ radius: "20px", color: "red" }];
+
   const handleOpenGameMenu = (id: number) => {
     setGameActionMenu(true);
     setSelectedId(id);
@@ -30,7 +32,7 @@ const GamesPage = () => {
         />
       )}
       <PageContainer>
-        <PageTitle title={"games"} />
+        <PageTitle title={"games"} icons={pageTitleIcon} />
         {gamesCardData.map((gameCard, index) => (
           <GameCard
             key={index}
