@@ -3,18 +3,29 @@ import {
   Dispatch,
   FunctionComponent,
   SetStateAction,
+  useEffect,
+  useState,
 } from "react";
 
 interface searchInputProps {
-  searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
 }
 
 const SearchInput: FunctionComponent<searchInputProps> = (props) => {
-  const { searchValue, setSearchValue } = props;
+  const { setSearchValue } = props;
+
+  const [localSearchValue, setLocalSearchValue] = useState<string>("");
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setSearchValue(localSearchValue);
+    }, 500);
+
+    return () => clearTimeout(handle);
+  }, [localSearchValue]);
 
   const handleSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    setLocalSearchValue(e.target.value);
   };
 
   return (
@@ -22,7 +33,7 @@ const SearchInput: FunctionComponent<searchInputProps> = (props) => {
       <input
         placeholder="search country or capital..."
         type="search"
-        value={searchValue}
+        value={localSearchValue}
         onChange={handleSearchValue}
       />
     </div>

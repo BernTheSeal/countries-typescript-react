@@ -3,6 +3,17 @@
   width: 100%;
   display: flex;
   gap: $cardGap;
+  align-items: center;
+
+  &-num {
+    width: 5%;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+    color: $secondColor;
+  }
 
   &-flag {
     width: 18%;
@@ -17,21 +28,41 @@
   }
 
   &-content {
+    height: 100%;
     width: 82%;
     background-color: $firstColor;
     border-radius: $inputBorderRadius;
     padding: 0 6px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    div:nth-child(2) {
+      display: flex;
+      align-items: center;
+      color: $blueColor;
+      font-size: 14px;
+      gap: 4px;
+
+      span {
+        font-size: 12px;
+        color: $secondColor;
+      }
+    }
 
     &-name {
-      width: calc(100%);
+      &.sortingTypeActive {
+        width: calc(50%);
+      }
+
+      &.sortingTypeInactive {
+        width: calc(100%);
+      }
 
       h2 {
         font-size: 14px;
         color: $textColor;
         font-weight: 300;
-
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -42,6 +73,9 @@
         color: $secondColor;
         font-size: 12px;
         font-weight: 300;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
   }

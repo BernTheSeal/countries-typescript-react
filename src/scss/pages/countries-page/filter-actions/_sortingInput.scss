@@ -1,13 +1,134 @@
+@keyframes slideDown {
+  0% {
+  }
+  100% {
+    transform: translateY(-$inputHeight);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+  }
+  100% {
+    transform: translateY($inputHeight);
+  }
+}
+
 .sortingInput-container {
   width: 100%;
   height: 100%;
-  button {
-    width: 100%;
+  position: relative;
+
+  &-currentSorting {
     height: 100%;
-    border-radius: $inputBorderRadius;
-    background-color: $firstColor;
-    color: $blueColor;
-    font-size: $inputFontSize;
+
+    button {
+      width: 100%;
+      height: 100%;
+      border-radius: $inputBorderRadius;
+      background-color: $firstColor;
+      color: $blueColor;
+      font-size: $inputFontSize;
+      box-shadow: $inputBoxShadow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+
+      div {
+        width: 100%;
+        position: absolute;
+        height: $inputHeight * 3;
+
+        &.slideUp {
+          animation: slideUp 0.3s none;
+        }
+
+        &.slideDown {
+          animation: slideDown 0.3s none;
+        }
+
+        span {
+          width: 100%;
+          height: $inputHeight;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      svg {
+        position: absolute;
+        right: 10px;
+        transition: transform 0.2s ease, color 0.2s ease;
+
+        &.desc {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &.active {
+      border: 1px solid $blueColor;
+      border-radius: $inputBorderRadius;
+    }
+  }
+
+  &-sortingOptions {
     box-shadow: $inputBoxShadow;
+    border-radius: $inputBorderRadius;
+    right: 0;
+    width: 280px;
+    position: absolute;
+    background-color: $firstColor;
+    transition: all 0.2s;
+    border: 1px solid $secondColor;
+
+    &.active {
+      opacity: 1;
+      top: $inputHeight + $inputGap;
+    }
+
+    &.inactive {
+      top: $inputHeight + $inputGap - 7;
+      opacity: 0;
+    }
+
+    li {
+      font-weight: 400;
+      padding: 0 8px;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $secondColor;
+
+      &.active {
+        color: $blueColor;
+      }
+
+      div {
+        display: flex;
+        gap: 25px;
+
+        button {
+          background-color: transparent;
+          display: flex;
+          color: $secondColor;
+          font-size: 18px;
+
+          &.active {
+            color: $blueColor;
+          }
+
+          &.desc {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
   }
 }

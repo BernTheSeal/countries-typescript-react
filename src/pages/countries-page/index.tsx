@@ -7,15 +7,25 @@ import AdvancedSearch from "./FilterActions/AdvancedSearch";
 import SearchInput from "./FilterActions/SearchInput";
 import SortingInput from "./FilterActions/SortingInput";
 import useFetchCountriesData from "../../hooks/use-fetchCountriesData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { sortingOptionsType } from "../../types/countryFetchOptionsType";
 
 const CountriesPage = () => {
-  const { countries } = useFetchCountriesData({
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const [sortingOptions, setSortingOptions] = useState<sortingOptionsType>({
     sortingType: "alphabetical",
     sortingOrder: "asc",
   });
 
-  const [searchValue, setSearchValue] = useState<string>("");
+  const { countries, countriesFetchTrigger } = useFetchCountriesData({
+    ...sortingOptions,
+  });
+
+  useEffect(() => {
+    countriesFetchTrigger();
+  }, [sortingOptions]);
 
   const pageTitleIcons = [
     { radius: "5px", color: "#fa2828" },
@@ -30,17 +40,21 @@ const CountriesPage = () => {
       <PageContainer>
         <PageTitle title="countries" icons={pageTitleIcons} />
         <FilterActions>
-          <SearchInput
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-          />
+          <SearchInput setSearchValue={setSearchValue} />
           <div className="secondDiv">
             <AdvancedSearch />
-            <SortingInput />
+            <SortingInput
+              sortingOptions={sortingOptions}
+              setSortingOptions={setSortingOptions}
+            />
           </div>
         </FilterActions>
         <div className="divider"></div>
-        <CountriesContainer countries={countries} searchValue={searchValue} />
+        <CountriesContainer
+          countries={countries}
+          searchValue={searchValue}
+          sortingOptions={sortingOptions}
+        />
       </PageContainer>
     </>
   );

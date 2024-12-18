@@ -84,6 +84,12 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
         case "area":
           areaSorting(filteredData, options.sortingOrder);
           break;
+        case "languages":
+          spokenLanguagesSorting(filteredData, options.sortingOrder);
+          break;
+        case "neighbors":
+          neighborsSorting(filteredData, options.sortingOrder);
+          break;
         default:
           setCountries(filteredData);
           break;
@@ -109,7 +115,7 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
 
   const alphabeticalSorting = (
     countries: CountryType[],
-    sortingOrder = "desc"
+    sortingOrder = "asc"
   ): void => {
     const alphabeticalSortingArray = [...countries].sort((a, b) =>
       sortingOrder === "desc"
@@ -139,6 +145,38 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
       sortingOrder === "desc" ? b.area - a.area : a.area - b.area
     );
     setCountries(areaSortingArray);
+  };
+
+  const spokenLanguagesSorting = (
+    countries: CountryType[],
+    sortingOrder = "desc"
+  ): void => {
+    const spokenLangaugesSortingArray = [...countries].sort((a, b) => {
+      const langCountA = a.languages ? Object.keys(a.languages).length : 0;
+      const langCountB = b.languages ? Object.keys(b.languages).length : 0;
+
+      return sortingOrder === "desc"
+        ? langCountB - langCountA
+        : langCountA - langCountB;
+    });
+
+    setCountries(spokenLangaugesSortingArray);
+  };
+
+  const neighborsSorting = (
+    countries: CountryType[],
+    sortingOrder = "desc"
+  ): void => {
+    const neighborsSortingArray = [...countries].sort((a, b) => {
+      const neighborsCountA = a.borders ? a.borders.length : 0;
+      const neighborsCountB = b.borders ? b.borders.length : 0;
+
+      return sortingOrder === "desc"
+        ? neighborsCountB - neighborsCountA
+        : neighborsCountA - neighborsCountB;
+    });
+
+    setCountries(neighborsSortingArray);
   };
 
   useEffect(() => {

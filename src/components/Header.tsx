@@ -21,7 +21,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
       setIsClose(true);
       setTimeout(() => {
         setIsMenutoggle(!isMenuToggle);
-      }, 200);
+      }, 0);
     } else {
       setIsMenutoggle(!isMenuToggle);
       setTimeout(() => {

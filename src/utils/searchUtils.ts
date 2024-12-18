@@ -2,7 +2,8 @@ import { CountryType } from "../types/countryType";
 
 export const searchCountryUtils = (
   countries: CountryType[],
-  inputValue: string
+  inputValue: string,
+  isAlphabetical: boolean
 ): CountryType[] => {
   const normalizeString = (str: string): string => {
     return str
@@ -20,18 +21,27 @@ export const searchCountryUtils = (
   }
 
   if (updatedValue.length > 0) {
-    const startWith = [...countries].filter((country) =>
-      normalizeString(country.name.common).startsWith(updatedValue)
-    );
+    if (isAlphabetical) {
+      const startWith = [...countries].filter((country) =>
+        normalizeString(country.name.common).startsWith(updatedValue)
+      );
 
-    const including = [...countries].filter(
-      (country) =>
-        normalizeString(country.name.common).includes(updatedValue) &&
-        !normalizeString(country.name.common).startsWith(updatedValue)
-    );
+      const including = [...countries].filter(
+        (country) =>
+          normalizeString(country.name.common).includes(updatedValue) &&
+          !normalizeString(country.name.common).startsWith(updatedValue)
+      );
 
-    if (startWith.length > 0 || including.length > 0) {
-      return [...startWith, ...including];
+      if (startWith.length > 0 || including.length > 0) {
+        return [...startWith, ...including];
+      }
+    } else {
+      const including = [...countries].filter((country) =>
+        normalizeString(country.name.common).includes(updatedValue)
+      );
+      if (including.length > 0) {
+        return [...including];
+      }
     }
   }
 

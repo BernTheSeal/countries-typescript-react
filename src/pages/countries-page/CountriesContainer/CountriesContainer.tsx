@@ -2,8 +2,10 @@ import CountryCard from "./CountryCard";
 import { CountryType } from "../../../types/countryType";
 import { FunctionComponent } from "react";
 import { searchCountryUtils } from "../../../utils/searchUtils";
+import { sortingOptionsType } from "../../../types/countryFetchOptionsType";
 
 interface CountriesContainerProps {
+  sortingOptions: sortingOptionsType;
   countries: CountryType[];
   searchValue: string;
 }
@@ -11,8 +13,13 @@ interface CountriesContainerProps {
 const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
   countries,
   searchValue,
+  sortingOptions,
 }) => {
-  const filteredCountries = searchCountryUtils(countries, searchValue);
+  const filteredCountries = searchCountryUtils(
+    countries,
+    searchValue,
+    sortingOptions.sortingType === "alphabetical"
+  );
 
   return (
     <div className="countries-container">
@@ -30,9 +37,20 @@ const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
         </div>
       )}
 
-      {filteredCountries.map((country: CountryType) => (
-        <CountryCard searchValue={searchValue} country={country} />
-      ))}
+      {filteredCountries.map((country: CountryType) => {
+        const originalIndex =
+          countries.findIndex((c) => c.name.common === country.name.common) + 1;
+        const isDesc = sortingOptions.sortingOrder === "desc";
+
+        return (
+          <CountryCard
+            searchValue={searchValue}
+            country={country}
+            sortingType={sortingOptions.sortingType}
+            rank={isDesc ? originalIndex : countries.length + 1 - originalIndex}
+          />
+        );
+      })}
     </div>
   );
 };
