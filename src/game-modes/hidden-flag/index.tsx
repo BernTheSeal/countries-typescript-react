@@ -211,7 +211,7 @@ const HiddenFlag = () => {
   };
 
   const handleSearchCountry = (countries: any): void => {
-    const result = searchCountryUtils(countries, inputValue).slice(0, 3);
+    const result = searchCountryUtils(countries, inputValue, true).slice(0, 3);
     setSearchCountries(result);
   };
 
