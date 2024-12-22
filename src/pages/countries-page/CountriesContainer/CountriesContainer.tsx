@@ -44,6 +44,7 @@ const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
 
         return (
           <CountryCard
+            countries={countries}
             searchValue={searchValue}
             country={country}
             sortingType={sortingOptions.sortingType}

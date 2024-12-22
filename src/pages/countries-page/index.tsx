@@ -19,7 +19,7 @@ const CountriesPage = () => {
     sortingOrder: "asc",
   });
 
-  const { countries, countriesFetchTrigger } = useFetchCountriesData({
+  const { countries, countriesFetchTrigger, loading } = useFetchCountriesData({
     ...sortingOptions,
   });
 
@@ -50,11 +50,13 @@ const CountriesPage = () => {
           </div>
         </FilterActions>
         <div className="divider"></div>
-        <CountriesContainer
-          countries={countries}
-          searchValue={searchValue}
-          sortingOptions={sortingOptions}
-        />
+        {!loading && (
+          <CountriesContainer
+            countries={countries}
+            searchValue={searchValue}
+            sortingOptions={sortingOptions}
+          />
+        )}
       </PageContainer>
     </>
   );

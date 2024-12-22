@@ -1,81 +1,128 @@
-.countryCard-container {
-  height: $inputHeight + 3;
-  width: 100%;
+.countryCard {
   display: flex;
+  flex-direction: column;
   gap: $cardGap;
-  align-items: center;
+  align-items: end;
+  width: 100%;
+  transition: all 2s;
 
-  &-num {
-    width: 5%;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-    font-size: 14px;
-    font-weight: 300;
-    font-style: italic;
-    color: $secondColor;
-  }
+  &-container {
+    width: 100%;
+    height: $inputHeight + 3;
+    display: flex;
+    gap: $cardGap;
+    align-items: center;
 
-  &-flag {
-    width: 18%;
-    height: 100%;
-    border-radius: $inputBorderRadius;
-    overflow: hidden;
+    &-num {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      font-size: 14px;
+      font-weight: 300;
+      font-style: italic;
+      color: $secondColor;
+    }
 
-    img {
-      width: 100%;
+    &-flag {
+      width: 18%;
       height: 100%;
+      border-radius: $inputBorderRadius;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &-content {
+      width: 82%;
+      height: 100%;
+      background-color: $firstColor;
+      border-radius: $inputBorderRadius;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &.selectedContent {
+        outline: 1px solid $blueColor;
+      }
+
+      div:nth-child(2) {
+        display: flex;
+        align-items: center;
+        color: $blueColor;
+        font-size: 14px;
+        gap: 4px;
+
+        span {
+          font-size: 12px;
+          color: $secondColor;
+        }
+      }
+
+      &-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &.sortingTypeActive {
+          width: calc(50%);
+        }
+
+        &.sortingTypeInactive {
+          width: calc(100%);
+        }
+
+        h2 {
+          font-size: 14px;
+          color: $textColor;
+          font-weight: 300;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        h3 {
+          color: $secondColor;
+          font-size: 12px;
+          font-weight: 300;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 
-  &-content {
-    height: 100%;
-    width: 82%;
-    background-color: $firstColor;
-    border-radius: $inputBorderRadius;
-    padding: 0 6px;
+  &-expandContent {
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: $cardGap;
 
-    div:nth-child(2) {
+    &-gap {
+      width: 25%;
+    }
+
+    &-container {
       display: flex;
-      align-items: center;
-      color: $blueColor;
-      font-size: 14px;
-      gap: 4px;
+      flex-direction: column;
+      width: 75%;
+      flex-wrap: wrap;
+      padding: 6px;
+      background-color: $firstColor;
+      border-radius: $inputBorderRadius;
+      box-sizing: $inputBoxShadow;
+      outline: 1px solid $blueColor;
 
       span {
         font-size: 12px;
-        color: $secondColor;
-      }
-    }
-
-    &-name {
-      &.sortingTypeActive {
-        width: calc(50%);
-      }
-
-      &.sortingTypeInactive {
-        width: calc(100%);
-      }
-
-      h2 {
-        font-size: 14px;
         color: $textColor;
-        font-weight: 300;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-
-      h3 {
-        margin-top: -8px;
-        color: $secondColor;
-        font-size: 12px;
-        font-weight: 300;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
       }
     }
   }

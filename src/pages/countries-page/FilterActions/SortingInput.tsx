@@ -44,6 +44,8 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
     "alphabetical",
     "population",
     "area",
+    "languages",
+    "neighbors",
   ];
 
   useEffect(() => {
