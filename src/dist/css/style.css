@@ -98,6 +98,7 @@ input::-webkit-inner-spin-button {
 .header-container-mobileNav nav ul li {
   padding: 10px;
   font-size: 20px;
+  font-weight: 600;
   margin-left: 10px;
 }
 .header-container-nav {
@@ -1264,14 +1265,6 @@ input::-webkit-inner-spin-button {
   gap: 16px;
 }
 
-.divider {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  height: 1px;
-  background-color: #282828;
-  width: 100%;
-}
-
 .searchInput-container {
   height: 38px;
 }
@@ -1565,6 +1558,247 @@ input::-webkit-inner-spin-button {
 }
 .countries-container-noCountry p {
   color: #ff2222;
+}
+
+.AdvancedSearch-container-content {
+  padding: 40px 35px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 5000;
+  transition: all 0.2s;
+  background-color: #181818;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.AdvancedSearch-container-content.activeContent {
+  left: 0;
+}
+.AdvancedSearch-container-content.inactiveContent {
+  left: -100%;
+}
+.AdvancedSearch-container-content-title {
+  display: flex;
+  justify-content: space-between;
+}
+.AdvancedSearch-container-content-title h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+.AdvancedSearch-container-content-regionsInput {
+  height: 40px;
+  background-color: #282828;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+}
+.AdvancedSearch-container-content-regionsInput-title {
+  padding: 0 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.AdvancedSearch-container-content-regionsInput-title span {
+  color: #494646;
+  font-size: 14px;
+}
+.AdvancedSearch-container-content-regionsInput-title div {
+  background-color: #2e61ff;
+  font-style: italic;
+  border-radius: 50%;
+  font-size: 14px;
+  height: 22px;
+  width: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AdvancedSearch-container-content-regionsInput-drowDown {
+  margin-top: 25px;
+  height: 105px;
+  background-color: #282828;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  outline: 1px solid #2e61ff;
+  z-index: 1000;
+}
+.AdvancedSearch-container-content-regionsInput-drowDown button {
+  padding: 10px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+.AdvancedSearch-container-content-regionsInput-drowDown button.selectedRegions {
+  background-color: #2e61ff;
+}
+.AdvancedSearch-container-content-languagesInput {
+  height: 40px;
+  background-color: #282828;
+  border-radius: 5px;
+  color: white;
+  z-index: 900;
+}
+.AdvancedSearch-container-content-languagesInput-title {
+  padding: 0 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.AdvancedSearch-container-content-languagesInput-title span {
+  color: #494646;
+  font-size: 14px;
+}
+.AdvancedSearch-container-content-languagesInput-title div {
+  background-color: #2e61ff;
+  font-style: italic;
+  border-radius: 50%;
+  font-size: 14px;
+  height: 22px;
+  width: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown {
+  margin-top: 25px;
+  background-color: #282828;
+  border-radius: 5px;
+  outline: 1px solid #2e61ff;
+  z-index: 900;
+  overflow: hidden;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown-menu {
+  overflow: auto;
+  height: 200px;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown-menu button {
+  text-align: start;
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown-menu button.selectedLanguages {
+  background-color: #2e61ff;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown input {
+  height: 40px;
+  width: 100%;
+  background-color: transparent;
+  overflow: hidden;
+  color: #2e61ff;
+  padding-left: 10px;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown input::placeholder {
+  color: #494646;
+}
+.AdvancedSearch-container-content-setValue {
+  height: 40px;
+  width: 100%;
+  z-index: 800;
+  display: flex;
+  gap: 25px;
+}
+.AdvancedSearch-container-content-setValue input {
+  background-color: #282828 !important;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  z-index: 800;
+  width: 50%;
+  height: 100%;
+  background-color: transparent;
+  color: #2e61ff;
+  font-style: italic;
+}
+.AdvancedSearch-container-content-setValue input:focus {
+  outline: 1px solid #2e61ff;
+}
+.AdvancedSearch-container-content-setValue input::placeholder {
+  color: #494646;
+  font-style: normal;
+}
+.AdvancedSearch-container-content-toggleFilters {
+  display: flex;
+  gap: 25px;
+}
+.AdvancedSearch-container-content-toggleFilters div {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 50%;
+}
+.AdvancedSearch-container-content-toggleFilters div label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.AdvancedSearch-container-content-toggleFilters div label input {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  height: 23px;
+  width: 23px;
+}
+.AdvancedSearch-container-content-toggleFilters div label.active {
+  color: #2e61ff;
+}
+.AdvancedSearch-container-content-toggleFilters div label.active input {
+  background-color: #2e61ff;
+}
+.AdvancedSearch-container-content-toggleFilters div label.inactive {
+  color: #ff2222;
+}
+.AdvancedSearch-container-content-toggleFilters div label.inactive input {
+  background-color: #ff2222;
+}
+.AdvancedSearch-container-content-toggleFilters div label.undefined {
+  color: #494646;
+}
+.AdvancedSearch-container-content-toggleFilters div label.undefined input {
+  background-color: #282828;
+}
+.AdvancedSearch-container-content-foundedCountries p {
+  color: #494646;
+}
+.AdvancedSearch-container-content-foundedCountries p span {
+  color: white;
+  font-size: 35px;
+  font-style: italic;
+}
+.AdvancedSearch-container-content-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: auto;
+  gap: 10px;
+}
+.AdvancedSearch-container-content-buttons button {
+  border-radius: 5px;
+  font-size: 14px;
+  height: 40px;
+  width: 100px;
+  background-color: #2e61ff;
+  color: white;
+}
+.AdvancedSearch-container-content-buttons button:nth-child(2) {
+  background-color: #ff2222;
 }
 
 @media only screen and (max-width: 480px) {

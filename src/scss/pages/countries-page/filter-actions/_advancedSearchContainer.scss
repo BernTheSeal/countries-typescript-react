@@ -1,0 +1,275 @@
+.AdvancedSearch-container-content {
+  padding: 40px 35px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 5000;
+  transition: all 0.2s;
+  background-color: $bodyBackgroundColor;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  &.activeContent {
+    left: 0;
+  }
+
+  &.inactiveContent {
+    left: -100%;
+  }
+
+  &-title {
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+
+  &-regionsInput {
+    height: 40px;
+    background-color: $firstColor;
+    border-radius: $inputBorderRadius;
+    color: white;
+    z-index: 1000;
+    &-title {
+      padding: 0 10px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span {
+        color: $secondColor;
+        font-size: 14px;
+      }
+
+      div {
+        background-color: $blueColor;
+        font-style: italic;
+        border-radius: 50%;
+        font-size: 14px;
+        height: 22px;
+        width: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &-drowDown {
+      margin-top: 25px;
+      height: 105px;
+      background-color: $firstColor;
+      border-radius: $inputBorderRadius;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+      outline: 1px solid $blueColor;
+
+      z-index: 1000;
+
+      button {
+        padding: 10px;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        color: white;
+
+        &.selectedRegions {
+          background-color: $blueColor;
+        }
+      }
+    }
+  }
+
+  &-languagesInput {
+    height: 40px;
+    background-color: $firstColor;
+    border-radius: $inputBorderRadius;
+    color: white;
+    z-index: 900;
+
+    &-title {
+      padding: 0 10px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span {
+        color: $secondColor;
+        font-size: 14px;
+      }
+
+      div {
+        background-color: $blueColor;
+        font-style: italic;
+        border-radius: 50%;
+        font-size: 14px;
+        height: 22px;
+        width: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &-drowDown {
+      margin-top: 25px;
+      background-color: $firstColor;
+      border-radius: $inputBorderRadius;
+      outline: 1px solid $blueColor;
+      z-index: 900;
+      overflow: hidden;
+
+      &-menu {
+        overflow: auto;
+        height: 200px;
+        button {
+          text-align: start;
+          padding-left: 10px;
+          width: 100%;
+          height: 40px;
+          outline: none;
+          border: none;
+          background-color: transparent;
+          color: white;
+
+          &.selectedLanguages {
+            background-color: $blueColor;
+          }
+        }
+      }
+
+      input {
+        height: 40px;
+        width: 100%;
+        background-color: transparent;
+        overflow: hidden;
+        color: $blueColor;
+        padding-left: 10px;
+
+        &::placeholder {
+          color: $secondColor;
+        }
+      }
+    }
+  }
+
+  &-setValue {
+    height: 40px;
+    width: 100%;
+    z-index: 800;
+    display: flex;
+    gap: 25px;
+
+    input {
+      background-color: $firstColor !important;
+      padding: 10px;
+      border-radius: $inputBorderRadius;
+      color: white;
+      z-index: 800;
+      width: 50%;
+      height: 100%;
+      background-color: transparent;
+      color: $blueColor;
+      font-style: italic;
+
+      &:focus {
+        outline: 1px solid $blueColor;
+      }
+
+      &::placeholder {
+        color: $secondColor;
+        font-style: normal;
+      }
+    }
+  }
+
+  &-toggleFilters {
+    display: flex;
+    gap: 25px;
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      width: 50%;
+
+      label {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        input {
+          appearance: none;
+          -webkit-appearance: none;
+          border-radius: 5px;
+          height: 23px;
+          width: 23px;
+        }
+
+        &.active {
+          color: $blueColor;
+          input {
+            background-color: $blueColor;
+          }
+        }
+
+        &.inactive {
+          color: $redColor;
+          input {
+            background-color: $redColor;
+          }
+        }
+
+        &.undefined {
+          color: $secondColor;
+          input {
+            background-color: $firstColor;
+          }
+        }
+      }
+    }
+  }
+
+  &-foundedCountries {
+    p {
+      color: $secondColor;
+
+      span {
+        color: $textColor;
+        font-size: 35px;
+        font-style: italic;
+      }
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: auto;
+    gap: 10px;
+
+    button {
+      border-radius: 5px;
+      font-size: 14px;
+      height: 40px;
+      width: 100px;
+      background-color: $blueColor;
+      color: white;
+    }
+
+    button:nth-child(2) {
+      background-color: $redColor;
+    }
+  }
+}

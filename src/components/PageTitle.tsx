@@ -18,8 +18,8 @@ const PageTitle: FunctionComponent<iPageTitleProps> = (props) => {
         }}
       >
         <h2 className="pageTitle-container-content-title">
-          {title.split("").map((letter) => (
-            <span>{letter}</span>
+          {title.split("").map((letter, index) => (
+            <span key={index}>{letter}</span>
           ))}
         </h2>
         <div className="pageTitle-container-content-icons">

@@ -1,15 +1,11 @@
 import { ReactNode } from "react";
 
 interface iGamePageContainer {
-    children?: ReactNode;
+  children?: ReactNode;
 }
 
 const PageContainer = ({ children }: iGamePageContainer) => {
-    return (
-        <div className="page-container">
-            {children}
-        </div>
-    )
-}
+  return <div className="page-container">{children}</div>;
+};
 
-export default PageContainer
+export default PageContainer;

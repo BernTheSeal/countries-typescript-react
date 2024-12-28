@@ -6,7 +6,7 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { sortingOptionsType } from "../../../types/countryFetchOptionsType";
+import { sortingOptionsType } from "../../../../types/countryFetchOptionsType";
 import { FaLongArrowAltUp } from "react-icons/fa";
 
 interface sortingInputProps {
@@ -48,6 +48,13 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
     "neighbors",
   ];
 
+  const handleClose = () => {
+    setIsSortingMenuOpen(false);
+    setTimeout(() => {
+      setIsOpening(false);
+    }, 200);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -56,10 +63,7 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
         buttonRef.current &&
         !buttonRef.current.contains(event.target as Node)
       ) {
-        setIsSortingMenuOpen(false);
-        setTimeout(() => {
-          setIsOpening(false);
-        }, 200);
+        handleClose();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -114,6 +118,7 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
       setDisplaySorting(options.sortingType);
       setAnimationDirection(undefined);
     }, 200);
+
     setSortingOptions({
       sortingType: options.sortingType,
       sortingOrder: options.sortingOrder,
@@ -151,31 +156,39 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
           }`}
           ref={sortingMenuRef}
         >
-          {sortingTypeList.map((s: sortingOptionsType["sortingType"]) => {
-            const { sortingType, sortingOrder } = sortingOptions;
-            return (
-              <li className={`${sortingType === s ? "active" : ""}`}>
-                <p>{s}</p>
-                <div>
-                  {buttons.map((b) => (
-                    <button
-                      className={`${
-                        sortingOrder === b && sortingType === s ? "active" : ""
-                      } ${b === "desc" ? "desc" : ""}`}
-                      onClick={() => {
-                        handleChangeSortingType({
-                          sortingType: s,
-                          sortingOrder: b,
-                        });
-                      }}
-                    >
-                      <FaLongArrowAltUp />
-                    </button>
-                  ))}
-                </div>
-              </li>
-            );
-          })}
+          {sortingTypeList.map(
+            (s: sortingOptionsType["sortingType"], index) => {
+              const { sortingType, sortingOrder } = sortingOptions;
+              return (
+                <li
+                  key={index}
+                  className={`${sortingType === s ? "active" : ""}`}
+                >
+                  <p>{s}</p>
+                  <div>
+                    {buttons.map((b, index) => (
+                      <button
+                        key={index}
+                        className={`${
+                          sortingOrder === b && sortingType === s
+                            ? "active"
+                            : ""
+                        } ${b === "desc" ? "desc" : ""}`}
+                        onClick={() => {
+                          handleChangeSortingType({
+                            sortingType: s,
+                            sortingOrder: b,
+                          });
+                        }}
+                      >
+                        <FaLongArrowAltUp />
+                      </button>
+                    ))}
+                  </div>
+                </li>
+              );
+            }
+          )}
         </ul>
       )}
     </div>

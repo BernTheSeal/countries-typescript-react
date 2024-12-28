@@ -1,25 +1,44 @@
 import CountryCard from "./CountryCard";
 import { CountryType } from "../../../types/countryType";
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, SetStateAction, useEffect } from "react";
 import { searchCountryUtils } from "../../../utils/searchUtils";
-import { sortingOptionsType } from "../../../types/countryFetchOptionsType";
+import {
+  countryFetchOptionsType,
+  sortingOptionsType,
+} from "../../../types/countryFetchOptionsType";
+import useFetchCountriesData from "../../../hooks/use-fetchCountriesData";
 
 interface CountriesContainerProps {
   sortingOptions: sortingOptionsType;
-  countries: CountryType[];
+  advancedSearchOptions: countryFetchOptionsType;
   searchValue: string;
+  setFoundedCountriesLength: Dispatch<SetStateAction<number>>;
 }
 
 const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
-  countries,
   searchValue,
   sortingOptions,
+  advancedSearchOptions,
+  setFoundedCountriesLength,
 }) => {
+  const { countries, countriesFetchTrigger, allCountries } =
+    useFetchCountriesData({
+      ...sortingOptions,
+      ...advancedSearchOptions,
+    });
   const filteredCountries = searchCountryUtils(
     countries,
     searchValue,
     sortingOptions.sortingType === "alphabetical"
   );
+
+  useEffect(() => {
+    countriesFetchTrigger();
+  }, [sortingOptions, advancedSearchOptions]);
+
+  useEffect(() => {
+    setFoundedCountriesLength(countries.length);
+  }, [countries]);
 
   return (
     <div className="countries-container">
@@ -37,14 +56,15 @@ const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
         </div>
       )}
 
-      {filteredCountries.map((country: CountryType) => {
+      {filteredCountries.map((country: CountryType, index) => {
         const originalIndex =
           countries.findIndex((c) => c.name.common === country.name.common) + 1;
         const isDesc = sortingOptions.sortingOrder === "desc";
 
         return (
           <CountryCard
-            countries={countries}
+            key={index}
+            countries={allCountries}
             searchValue={searchValue}
             country={country}
             sortingType={sortingOptions.sortingType}

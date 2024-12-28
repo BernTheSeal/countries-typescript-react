@@ -1,5 +1,6 @@
 import { useNavigate, NavigateFunction } from "react-router-dom";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { setBodyOverflow } from "../utils/setBodyOverflow";
 
 interface iHeaderProps {
   onPage: string;
@@ -29,6 +30,10 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
       }, 200);
     }
   };
+
+  useEffect(() => {
+    setBodyOverflow(isClose);
+  }, [isClose]);
 
   const pageOptions: pageOptions[] = [
     { page: "Home", onClick: () => navigate("/") },
