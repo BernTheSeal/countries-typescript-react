@@ -4,10 +4,10 @@ import {
   SetStateAction,
   useState,
   useRef,
-  useEffect,
 } from "react";
 import { sortingOptionsType } from "../../../../types/countryFetchOptionsType";
 import { FaLongArrowAltUp } from "react-icons/fa";
+import useClickOutside from "../../../../hooks/use-clickOutside";
 
 interface sortingInputProps {
   sortingOptions: sortingOptionsType;
@@ -55,22 +55,9 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
     }, 200);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sortingMenuRef.current &&
-        !sortingMenuRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        handleClose();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutside([sortingMenuRef, buttonRef], () => {
+    handleClose();
+  });
 
   const handleSortingMenuOpen = () => {
     if (!isOpening) {

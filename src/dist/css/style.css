@@ -1560,8 +1560,7 @@ input::-webkit-inner-spin-button {
   color: #ff2222;
 }
 
-.AdvancedSearch-container-content {
-  padding: 40px 35px;
+.AdvancedSearch-container {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -1571,16 +1570,20 @@ input::-webkit-inner-spin-button {
   z-index: 5000;
   transition: all 0.2s;
   background-color: #181818;
-  width: 100%;
+}
+.AdvancedSearch-container.activeContainer {
+  left: 0;
+}
+.AdvancedSearch-container.inactiveContainer {
+  left: -100%;
+}
+.AdvancedSearch-container-content {
+  padding: 40px 35px;
   display: flex;
   flex-direction: column;
   gap: 25px;
-}
-.AdvancedSearch-container-content.activeContent {
-  left: 0;
-}
-.AdvancedSearch-container-content.inactiveContent {
-  left: -100%;
+  width: 100%;
+  height: 100%;
 }
 .AdvancedSearch-container-content-title {
   display: flex;
@@ -1597,6 +1600,12 @@ input::-webkit-inner-spin-button {
   color: white;
   z-index: 1000;
 }
+.AdvancedSearch-container-content-regionsInput.active {
+  outline: 1px solid #2e61ff;
+}
+.AdvancedSearch-container-content-regionsInput.active span {
+  color: #2e61ff;
+}
 .AdvancedSearch-container-content-regionsInput-title {
   padding: 0 10px;
   width: 100%;
@@ -1609,7 +1618,8 @@ input::-webkit-inner-spin-button {
   color: #494646;
   font-size: 14px;
 }
-.AdvancedSearch-container-content-regionsInput-title div {
+.AdvancedSearch-container-content-regionsInput-title button {
+  color: white;
   background-color: #2e61ff;
   font-style: italic;
   border-radius: 50%;
@@ -1647,6 +1657,12 @@ input::-webkit-inner-spin-button {
   border-radius: 5px;
   color: white;
   z-index: 900;
+}
+.AdvancedSearch-container-content-languagesInput.active {
+  outline: 1px solid #2e61ff;
+}
+.AdvancedSearch-container-content-languagesInput.active span {
+  color: #2e61ff;
 }
 .AdvancedSearch-container-content-languagesInput-title {
   padding: 0 10px;
@@ -1695,6 +1711,11 @@ input::-webkit-inner-spin-button {
 }
 .AdvancedSearch-container-content-languagesInput-drowDown-menu button.selectedLanguages {
   background-color: #2e61ff;
+}
+.AdvancedSearch-container-content-languagesInput-drowDown-menu div {
+  font-size: 14px;
+  color: #ff2222;
+  margin-left: 10px;
 }
 .AdvancedSearch-container-content-languagesInput-drowDown input {
   height: 40px;
@@ -1747,7 +1768,7 @@ input::-webkit-inner-spin-button {
   font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 .AdvancedSearch-container-content-toggleFilters div label input {
   appearance: none;
@@ -1801,6 +1822,15 @@ input::-webkit-inner-spin-button {
   background-color: #ff2222;
 }
 
+@media only screen and (min-width: 480px) {
+  .AdvancedSearch-container-content {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .AdvancedSearch-container-content-buttons {
+    gap: 30px;
+  }
+}
 @media only screen and (max-width: 480px) {
   .ps-container {
     overflow: hidden;

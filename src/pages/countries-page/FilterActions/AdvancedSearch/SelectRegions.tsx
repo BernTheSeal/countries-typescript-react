@@ -1,13 +1,16 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useState, useRef } from "react";
 import { countryFetchOptionsType } from "../../../../types/countryFetchOptionsType";
+import { advancedSearchInputPropsType } from "../../../../types/advancedSearchInputPropsType";
+import useClickOutside from "../../../../hooks/use-clickOutside";
 
-interface selectRegionsProps {
-  setAdvancedSearchOptions: Dispatch<SetStateAction<countryFetchOptionsType>>;
-}
-
-const SelectRegions = ({ setAdvancedSearchOptions }: selectRegionsProps) => {
+const SelectRegions = ({
+  handleUpdateAdvancedSearch,
+  advancedSearchOptions,
+}: advancedSearchInputPropsType) => {
   const [isSelctedRegionsOpen, setIsSelectedRegionsOpen] =
     useState<boolean>(false);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
   const regions: countryFetchOptionsType["regions"] = [
     "Antarctic",
     "Americas",
@@ -17,41 +20,32 @@ const SelectRegions = ({ setAdvancedSearchOptions }: selectRegionsProps) => {
     "Oceania",
   ];
 
-  const [selectedRegions, setSelectedRegions] = useState<
-    countryFetchOptionsType["regions"]
-  >([]);
-
-  useEffect(() => {
-    setAdvancedSearchOptions((prev: countryFetchOptionsType) => {
-      return {
-        ...prev,
-        regions:
-          selectedRegions && selectedRegions.length > 0
-            ? selectedRegions
-            : undefined,
-      };
-    });
-  }, [selectedRegions]);
-
-  const handleSelectedRegions = (selectedRegion: string) => {
-    setSelectedRegions((prev) => {
-      if (prev && !prev.includes(selectedRegion)) {
-        return [...prev, selectedRegion];
-      } else {
-        return prev && prev.filter((r: string) => r !== selectedRegion);
-      }
-    });
-  };
+  const selectedRegions = advancedSearchOptions?.regions;
+  useClickOutside([contentRef], () => {
+    setIsSelectedRegionsOpen(false);
+  });
 
   return (
-    <div className="AdvancedSearch-container-content-regionsInput">
+    <div
+      ref={contentRef}
+      className={`AdvancedSearch-container-content-regionsInput ${
+        isSelctedRegionsOpen ? "active" : ""
+      }`}
+    >
       <div
         onClick={() => setIsSelectedRegionsOpen(!isSelctedRegionsOpen)}
         className="AdvancedSearch-container-content-regionsInput-title"
       >
         <span>Select Regions</span>
         {selectedRegions && selectedRegions.length > 0 && (
-          <div>{selectedRegions.length}</div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleUpdateAdvancedSearch(undefined, "regions");
+            }}
+          >
+            {selectedRegions.length}
+          </button>
         )}
       </div>
       {isSelctedRegionsOpen && (
@@ -64,7 +58,7 @@ const SelectRegions = ({ setAdvancedSearchOptions }: selectRegionsProps) => {
                   ? "selectedRegions"
                   : ""
               }
-              onClick={() => handleSelectedRegions(r)}
+              onClick={() => handleUpdateAdvancedSearch(r, "regions")}
             >
               {r}
             </button>

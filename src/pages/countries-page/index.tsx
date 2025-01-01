@@ -21,11 +21,7 @@ const CountriesPage = () => {
     useState<number>(0);
 
   const [advancedSearchOptions, setAdvancedSearchOptions] =
-    useState<countryFetchOptionsType>({
-      regions: undefined,
-      languages: undefined,
-      populationValue: undefined,
-    });
+    useState<countryFetchOptionsType>({});
 
   const [sortingOptions, setSortingOptions] = useState<sortingOptionsType>({
     sortingType: "alphabetical",
@@ -44,6 +40,7 @@ const CountriesPage = () => {
       <Header onPage={"countries"} />
 
       <AdvancedSearch
+        advancedSearchOptions={advancedSearchOptions}
         setAdvancedSearchOptions={setAdvancedSearchOptions}
         setIsAdvancedSearch={setIsAdvancedSearch}
         isAdvancedSearch={isAdvancedSearch}

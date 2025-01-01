@@ -1,6 +1,7 @@
 import { useNavigate, NavigateFunction } from "react-router-dom";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState, useRef } from "react";
 import { setBodyOverflow } from "../utils/setBodyOverflow";
+import useClickOutside from "../hooks/use-clickOutside";
 
 interface iHeaderProps {
   onPage: string;
@@ -16,6 +17,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
   const navigate: NavigateFunction = useNavigate();
   const [isMenuToggle, setIsMenutoggle] = useState<boolean>(false);
   const [isClose, setIsClose] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const handleMenuToggle = () => {
     if (!isClose) {
@@ -31,6 +33,9 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
     }
   };
 
+  useClickOutside([menuRef], () => {
+    handleMenuToggle();
+  });
   useEffect(() => {
     setBodyOverflow(isClose);
   }, [isClose]);
@@ -80,6 +85,7 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
             }`}
           >
             <nav
+              ref={menuRef}
               className={`${
                 isMenuToggle ? "active-mobil-bar" : "inactive-mobil-bar"
               }`}

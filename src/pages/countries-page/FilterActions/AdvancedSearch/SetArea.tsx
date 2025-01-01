@@ -1,53 +1,46 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useEffect,
-  ChangeEvent,
-} from "react";
-import { countryFetchOptionsType } from "../../../../types/countryFetchOptionsType";
+import { useEffect, useState } from "react";
+import { ChangeEvent } from "react";
+import { advancedSearchInputPropsType } from "../../../../types/advancedSearchInputPropsType";
+import { formatToReadableNumber } from "../../../../utils/formatToReadableNumber";
 
-interface setAreaProps {
-  setAdvancedSearchOptions: Dispatch<SetStateAction<countryFetchOptionsType>>;
-}
+const SetArea = ({
+  handleUpdateAdvancedSearch,
+  advancedSearchOptions,
+}: advancedSearchInputPropsType) => {
+  const [min, setMin] = useState<string>("");
+  const [max, setMax] = useState<string>("");
 
-const SetArea = ({ setAdvancedSearchOptions }: setAreaProps) => {
-  const [minValue, setMinValue] = useState<string>();
-  const [maxValue, setMaxValue] = useState<string>();
+  useEffect(() => {
+    if (!advancedSearchOptions?.areaValue) {
+      setMin("");
+      setMax("");
+    }
+  }, [advancedSearchOptions?.areaValue]);
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      setAdvancedSearchOptions((prev: countryFetchOptionsType) => {
-        return {
-          ...prev,
-          areaValue: [
-            minValue ? Number(minValue) : undefined,
-            maxValue ? Number(maxValue) : undefined,
-          ],
-        };
-      });
+      handleUpdateAdvancedSearch([min, max], "areaValue");
     }, 500);
-
     return () => clearInterval(interval);
-  }, [minValue, maxValue]);
+  }, [min, max]);
 
   return (
     <div className="AdvancedSearch-container-content-setValue">
       <input
         type="text"
-        value={minValue}
-        placeholder="Min Area"
+        value={formatToReadableNumber(min)}
+        placeholder="Min Area "
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMinValue(e.target.value)
+          setMin(e.target.value.replace(/[^0-9]/g, ""))
         }
       />
 
       <input
         type="text"
-        value={maxValue}
+        value={formatToReadableNumber(max)}
         placeholder="Max Area"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMaxValue(e.target.value)
+          setMax(e.target.value.replace(/[^0-9]/g, ""))
         }
       />
     </div>

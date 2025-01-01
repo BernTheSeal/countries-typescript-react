@@ -1,48 +1,46 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { countryFetchOptionsType } from "../../../../types/countryFetchOptionsType";
+import { useEffect, useState } from "react";
 import { ChangeEvent } from "react";
+import { advancedSearchInputPropsType } from "../../../../types/advancedSearchInputPropsType";
+import { formatToReadableNumber } from "../../../../utils/formatToReadableNumber";
 
-interface setPopulationProps {
-  setAdvancedSearchOptions: Dispatch<SetStateAction<countryFetchOptionsType>>;
-}
+const SetPopulation = ({
+  handleUpdateAdvancedSearch,
+  advancedSearchOptions,
+}: advancedSearchInputPropsType) => {
+  const [min, setMin] = useState<string>("");
+  const [max, setMax] = useState<string>("");
 
-const SetPopulation = ({ setAdvancedSearchOptions }: setPopulationProps) => {
-  const [minValue, setMinValue] = useState<string>();
-  const [maxValue, setMaxValue] = useState<string>();
+  useEffect(() => {
+    if (!advancedSearchOptions?.populationValue) {
+      setMin("");
+      setMax("");
+    }
+  }, [advancedSearchOptions?.populationValue]);
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      setAdvancedSearchOptions((prev: countryFetchOptionsType) => {
-        return {
-          ...prev,
-          populationValue: [
-            minValue ? Number(minValue) : undefined,
-            maxValue ? Number(maxValue) : undefined,
-          ],
-        };
-      });
+      handleUpdateAdvancedSearch([min, max], "populationValue");
     }, 500);
-
     return () => clearInterval(interval);
-  }, [minValue, maxValue]);
+  }, [min, max]);
 
   return (
     <div className="AdvancedSearch-container-content-setValue">
       <input
         type="text"
-        value={minValue}
+        value={formatToReadableNumber(min)}
         placeholder="Min Population"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMinValue(e.target.value)
+          setMin(e.target.value.replace(/[^0-9]/g, ""))
         }
       />
 
       <input
         type="text"
-        value={maxValue}
+        value={formatToReadableNumber(max)}
         placeholder="Max Population"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMaxValue(e.target.value)
+          setMax(e.target.value.replace(/[^0-9]/g, ""))
         }
       />
     </div>

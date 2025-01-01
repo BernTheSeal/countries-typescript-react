@@ -1,56 +1,28 @@
-import {
-  Dispatch,
-  ChangeEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { countryFetchOptionsType } from "../../../../types/countryFetchOptionsType";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
 import useFetchCountriesData from "../../../../hooks/use-fetchCountriesData";
-
-interface selectLanguagesProps {
-  setAdvancedSearchOptions: Dispatch<SetStateAction<countryFetchOptionsType>>;
-}
+import { advancedSearchInputPropsType } from "../../../../types/advancedSearchInputPropsType";
+import useClickOutside from "../../../../hooks/use-clickOutside";
 
 const SelectLanguages = ({
-  setAdvancedSearchOptions,
-}: selectLanguagesProps) => {
+  handleUpdateAdvancedSearch,
+  advancedSearchOptions,
+}: advancedSearchInputPropsType) => {
   const { allCountries } = useFetchCountriesData({});
   const [isSelectedLanguagesOpen, setIsSelectedLanguagesOpen] =
     useState<boolean>(false);
 
   const [languages, setLanguages] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-
-  const [selectedLanguages, setSelectedLanguages] = useState<
-    countryFetchOptionsType["languages"]
-  >([]);
-
-  useEffect(() => {
-    setAdvancedSearchOptions((prev: countryFetchOptionsType) => {
-      return {
-        ...prev,
-        languages:
-          selectedLanguages && selectedLanguages.length > 0
-            ? selectedLanguages
-            : undefined,
-      };
-    });
-  }, [selectedLanguages]);
-
-  const handleSelectedLanguages = (selectedLanguages: string) => {
-    setSelectedLanguages((prev: countryFetchOptionsType["regions"]) => {
-      if (prev && !prev.includes(selectedLanguages)) {
-        return [...prev, selectedLanguages];
-      } else {
-        return prev && prev.filter((r: string) => r !== selectedLanguages);
-      }
-    });
-  };
+  const selectedLanguages = advancedSearchOptions?.languages;
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const handleChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value.toLowerCase());
   };
+
+  useClickOutside([contentRef], () => {
+    setIsSelectedLanguagesOpen(false);
+  });
 
   useEffect(() => {
     const allLanguages = allCountries
@@ -66,7 +38,12 @@ const SelectLanguages = ({
   }, [allCountries]);
 
   return (
-    <div className="AdvancedSearch-container-content-languagesInput">
+    <div
+      ref={contentRef}
+      className={`AdvancedSearch-container-content-languagesInput ${
+        isSelectedLanguagesOpen ? "active" : ""
+      }`}
+    >
       <div
         onClick={() => setIsSelectedLanguagesOpen(!isSelectedLanguagesOpen)}
         className="AdvancedSearch-container-content-languagesInput-title"
@@ -76,7 +53,7 @@ const SelectLanguages = ({
           <div
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedLanguages([]);
+              handleUpdateAdvancedSearch(undefined, "languages");
             }}
           >
             {selectedLanguages.length}
@@ -92,21 +69,26 @@ const SelectLanguages = ({
             placeholder="Search Languages"
           />
           <div className="AdvancedSearch-container-content-languagesInput-drowDown-menu">
-            {languages
-              .filter((l) => l.toLowerCase().includes(searchValue))
-              .map((l, index) => (
-                <button
-                  key={index}
-                  className={
-                    selectedLanguages && selectedLanguages.includes(l)
-                      ? "selectedLanguages"
-                      : ""
-                  }
-                  onClick={() => handleSelectedLanguages(l)}
-                >
-                  {l}
-                </button>
-              ))}
+            {languages.filter((l) => l.toLowerCase().includes(searchValue))
+              .length > 0 ? (
+              languages
+                .filter((l) => l.toLowerCase().includes(searchValue))
+                .map((l, index) => (
+                  <button
+                    key={index}
+                    className={
+                      selectedLanguages && selectedLanguages.includes(l)
+                        ? "selectedLanguages"
+                        : ""
+                    }
+                    onClick={() => handleUpdateAdvancedSearch(l, "languages")}
+                  >
+                    {l}
+                  </button>
+                ))
+            ) : (
+              <div>No languages found.</div>
+            )}
           </div>
         </div>
       )}

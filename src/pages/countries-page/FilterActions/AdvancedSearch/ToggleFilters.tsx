@@ -1,67 +1,47 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { countryFetchOptionsType } from "../../../../types/countryFetchOptionsType";
+import { advancedSearchInputPropsType } from "../../../../types/advancedSearchInputPropsType";
 
-interface setToogleFilterProps {
-  setAdvancedSearchOptions: Dispatch<SetStateAction<countryFetchOptionsType>>;
-}
-const ToggleFilters = ({ setAdvancedSearchOptions }: setToogleFilterProps) => {
-  interface toggleOptions {
-    seaAccess?: boolean;
-    independent?: boolean;
-    unitedNations?: boolean;
-  }
-  const [toggleOptions, setToggleOptions] = useState<toggleOptions>({
-    seaAccess: undefined,
-    independent: undefined,
-    unitedNations: undefined,
-  });
-
-  const handleToggle = (key: keyof toggleOptions) => {
-    setToggleOptions((prev) => ({
-      ...prev,
-      [key]:
-        prev[key] === undefined ? true : prev[key] === true ? false : undefined,
-    }));
-  };
-
-  useEffect(() => {
-    setAdvancedSearchOptions((prev: countryFetchOptionsType) => {
-      return { ...prev, ...toggleOptions };
-    });
-  }, [toggleOptions]);
+const ToggleFilters = ({
+  advancedSearchOptions,
+  handleUpdateAdvancedSearch,
+}: advancedSearchInputPropsType) => {
+  const seaAccess = advancedSearchOptions?.seaAccess;
+  const independent = advancedSearchOptions?.independent;
+  const unitedNations = advancedSearchOptions?.unitedNations;
 
   return (
     <div className="AdvancedSearch-container-content-toggleFilters">
       <div>
         <label
           className={
-            toggleOptions.seaAccess === true
+            seaAccess === true
               ? "active"
-              : toggleOptions.seaAccess === false
+              : seaAccess === false
               ? "inactive"
               : "undefined"
           }
         >
           <input
             type="checkbox"
-            checked={!!toggleOptions.seaAccess}
-            onChange={() => handleToggle("seaAccess")}
+            checked={seaAccess}
+            onChange={() => handleUpdateAdvancedSearch(seaAccess, "seaAccess")}
           />
           Sea Access
         </label>
         <label
           className={
-            toggleOptions.unitedNations === true
+            unitedNations === true
               ? "active"
-              : toggleOptions.unitedNations === false
+              : unitedNations === false
               ? "inactive"
               : "undefined"
           }
         >
           <input
             type="checkbox"
-            checked={!!toggleOptions.unitedNations}
-            onChange={() => handleToggle("unitedNations")}
+            checked={unitedNations}
+            onChange={() =>
+              handleUpdateAdvancedSearch(unitedNations, "unitedNations")
+            }
           />
           United Nations
         </label>
@@ -69,17 +49,19 @@ const ToggleFilters = ({ setAdvancedSearchOptions }: setToogleFilterProps) => {
       <div>
         <label
           className={
-            toggleOptions.independent === true
+            independent === true
               ? "active"
-              : toggleOptions.independent === false
+              : independent === false
               ? "inactive"
               : "undefined"
           }
         >
           <input
             type="checkbox"
-            checked={!!toggleOptions.independent}
-            onChange={() => handleToggle("independent")}
+            checked={independent}
+            onChange={() =>
+              handleUpdateAdvancedSearch(independent, "independent")
+            }
           />
           Independent
         </label>
