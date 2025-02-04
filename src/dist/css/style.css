@@ -24,6 +24,23 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #494646;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .header {
   position: fixed;
   height: 80px;
@@ -162,7 +179,7 @@ input::-webkit-inner-spin-button {
     font-weight: 600;
   }
   .header-container-nav ul li:hover {
-    color: white;
+    color: #2e61ff;
   }
   .header-container-bars {
     display: none;
@@ -193,7 +210,12 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   align-items: center;
   gap: 4px;
+}
+.pageTitle-container-content.countries {
   width: 40%;
+}
+.pageTitle-container-content.games {
+  width: 30%;
 }
 .pageTitle-container-content-title {
   width: 100%;
@@ -212,6 +234,20 @@ input::-webkit-inner-spin-button {
   gap: 10px;
 }
 
+@media only screen and (min-width: 480px) {
+  .pageTitle-container {
+    margin: 50px 0;
+  }
+  .pageTitle-container-content h2 span {
+    font-size: 22px;
+  }
+  .pageTitle-container-content.countries {
+    width: 15%;
+  }
+  .pageTitle-container-content.games {
+    width: 10%;
+  }
+}
 .leaflet-container {
   height: 500px;
 }
@@ -1265,6 +1301,11 @@ input::-webkit-inner-spin-button {
   gap: 16px;
 }
 
+@media only screen and (min-width: 480px) {
+  .secondDiv {
+    width: 50%;
+  }
+}
 .searchInput-container {
   height: 38px;
 }
@@ -1303,6 +1344,17 @@ input::-webkit-inner-spin-button {
   font-size: 15px;
 }
 
+@media only screen and (min-width: 480px) {
+  .advancedSearch-container button {
+    transition: all 0.2s;
+  }
+  .advancedSearch-container button:hover {
+    cursor: pointer;
+    color: #2e61ff;
+    background-color: white;
+    letter-spacing: 1px;
+  }
+}
 @keyframes slideDown {
   100% {
     transform: translateY(-38px);
@@ -1358,7 +1410,7 @@ input::-webkit-inner-spin-button {
 .sortingInput-container-currentSorting button svg {
   position: absolute;
   right: 10px;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.4s ease;
 }
 .sortingInput-container-currentSorting button svg.desc {
   transform: rotate(180deg);
@@ -1371,7 +1423,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   right: 0;
-  width: 280px;
+  width: 150%;
   position: absolute;
   background-color: #282828;
   transition: all 0.2s;
@@ -1414,6 +1466,18 @@ input::-webkit-inner-spin-button {
   transform: rotate(180deg);
 }
 
+@media only screen and (min-width: 480px) {
+  .sortingInput-container-currentSorting button:hover {
+    cursor: pointer;
+    color: white;
+  }
+  .sortingInput-container-sortingOptions {
+    width: 100%;
+  }
+  .sortingInput-container-sortingOptions button:hover {
+    cursor: pointer;
+  }
+}
 .countryCard {
   display: flex;
   flex-direction: column;
@@ -1527,6 +1591,36 @@ input::-webkit-inner-spin-button {
   color: white;
 }
 
+@media only screen and (min-width: 480px) {
+  .countryCard {
+    cursor: pointer;
+  }
+  .countryCard-container {
+    height: 58px;
+  }
+  .countryCard-container:hover h2 {
+    color: #2e61ff;
+  }
+  .countryCard-container-flag {
+    width: 9%;
+  }
+  .countryCard-container-content {
+    width: 91%;
+  }
+  .countryCard-container-content h2 {
+    font-size: 18px;
+  }
+  .countryCard-container-content h3 {
+    font-size: 14px;
+  }
+  .countryCard-expandContent-gap {
+    width: 0%;
+    background-color: blue;
+  }
+  .countryCard-expandContent-container {
+    width: 100%;
+  }
+}
 .countries-container {
   display: flex;
   flex-direction: column;
@@ -1750,7 +1844,12 @@ input::-webkit-inner-spin-button {
 .AdvancedSearch-container-content-setValue input:focus {
   outline: 1px solid #2e61ff;
 }
+.AdvancedSearch-container-content-setValue input:focus::placeholder {
+  color: #494646;
+  font-style: normal;
+}
 .AdvancedSearch-container-content-setValue input::placeholder {
+  transition: all 0.2s;
   color: #494646;
   font-style: normal;
 }
@@ -1827,8 +1926,179 @@ input::-webkit-inner-spin-button {
     max-width: 1240px;
     margin: 0 auto;
   }
+  .AdvancedSearch-container-content-regionsInput:hover {
+    cursor: pointer;
+  }
+  .AdvancedSearch-container-content-regionsInput:hover span {
+    transition: all 0.2s;
+    color: white;
+  }
+  .AdvancedSearch-container-content-languagesInput:hover {
+    cursor: pointer;
+  }
+  .AdvancedSearch-container-content-languagesInput:hover span {
+    transition: all 0.2s;
+    color: white;
+  }
+  .AdvancedSearch-container-content-setValue input:hover {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .AdvancedSearch-container-content-setValue input:hover::placeholder {
+    color: white;
+    font-style: normal;
+  }
+  .AdvancedSearch-container-content-setValue input::placeholder {
+    transition: all 0.2s;
+    color: #494646;
+    font-style: normal;
+  }
+  .AdvancedSearch-container-content-setValue input:focus {
+    outline: 1px solid #2e61ff;
+  }
+  .AdvancedSearch-container-content-setValue input:focus::placeholder {
+    color: #494646;
+    font-style: normal;
+  }
+  .AdvancedSearch-container-content-toggleFilters input:hover {
+    cursor: pointer;
+  }
   .AdvancedSearch-container-content-buttons {
     gap: 30px;
+  }
+  .AdvancedSearch-container-content-buttons button:hover {
+    cursor: pointer;
+  }
+  .AdvancedSearch-container-content-buttons button:nth-child(1):hover {
+    transition: all 0.2s;
+    background-color: transparent;
+    outline: 1px solid #2e61ff;
+    color: #2e61ff;
+  }
+  .AdvancedSearch-container-content-buttons button:nth-child(2):hover {
+    transition: all 0.2s;
+    background-color: #ff2222;
+  }
+}
+.flagsFallAnimation {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+.flagsFallAnimation-flag {
+  position: absolute;
+  animation: fall linear forwards;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+}
+.flagsFallAnimation-flag::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0.7;
+  z-index: 6;
+}
+.flagsFallAnimation-flag img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-30vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+.greetings-container {
+  position: absolute;
+  transform: translate(50%, -50%);
+  top: 50%;
+  right: 50%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 80%;
+}
+.greetings-container-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.greetings-container-title h2 {
+  background: linear-gradient(to right, #4e65ff, #92effd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: all 0.5s ease-out;
+}
+.greetings-container-title p {
+  width: 80%;
+  font-size: 8px;
+  text-align: center;
+  transition: all 0.5s ease-out;
+}
+.greetings-container-buttons {
+  display: flex;
+  margin-top: 70px;
+  flex-direction: column;
+  gap: 20px;
+}
+.greetings-container-buttons button {
+  border-radius: 10px;
+  font-size: 12px;
+  width: 200px;
+  height: 40px;
+  font-weight: bold;
+  background-color: white;
+  transition: all 0.2s;
+}
+.greetings-container-buttons button:active {
+  background-color: #2e61ff;
+  color: white;
+}
+
+@media only screen and (min-width: 480px) {
+  .greetings-container {
+    gap: 10px;
+    width: 1200px;
+  }
+  .greetings-container-title {
+    gap: 10px;
+  }
+  .greetings-container-title h2 {
+    font-size: 65px;
+  }
+  .greetings-container-title p {
+    font-size: 12px;
+  }
+  .greetings-container-buttons {
+    gap: 80px;
+    flex-direction: row;
+  }
+  .greetings-container-buttons button {
+    width: 250px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 15px;
+  }
+  .greetings-container-buttons button:hover {
+    cursor: pointer;
+    background-color: #2e61ff;
+    color: white;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -2834,7 +3104,7 @@ input::-webkit-inner-spin-button {
   }
 }
 @media only screen and (min-width: 480px) {
-  button:hover {
+  .game-over-container-buttons button:hover {
     color: black;
     background-color: white;
   }

@@ -105,8 +105,10 @@
 }
 
 @media only screen and (min-width: 480px) {
-  button:hover {
-    color: black;
-    background-color: white;
+  .game-over-container-buttons {
+    button:hover {
+      color: black;
+      background-color: white;
+    }
   }
 }

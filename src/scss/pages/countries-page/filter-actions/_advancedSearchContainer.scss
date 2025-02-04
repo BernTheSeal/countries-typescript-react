@@ -108,7 +108,6 @@
       border-radius: $inputBorderRadius;
       color: white;
       z-index: 900;
-
       &.active {
         outline: 1px solid $blueColor;
         span {
@@ -210,9 +209,14 @@
 
         &:focus {
           outline: 1px solid $blueColor;
+          &::placeholder {
+            color: $secondColor;
+            font-style: normal;
+          }
         }
 
         &::placeholder {
+          transition: all 0.2s;
           color: $secondColor;
           font-style: normal;
         }
@@ -222,6 +226,7 @@
     &-toggleFilters {
       display: flex;
       gap: 25px;
+
       div {
         display: flex;
         flex-direction: column;
@@ -306,8 +311,77 @@
     max-width: 1240px;
     margin: 0 auto;
 
+    &-regionsInput {
+      &:hover {
+        cursor: pointer;
+        span {
+          transition: all 0.2s;
+          color: white;
+        }
+      }
+    }
+    &-languagesInput {
+      &:hover {
+        cursor: pointer;
+        span {
+          transition: all 0.2s;
+          color: white;
+        }
+      }
+    }
+
+    &-setValue {
+      input {
+        &:hover {
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &::placeholder {
+            color: white;
+            font-style: normal;
+          }
+        }
+
+        &::placeholder {
+          transition: all 0.2s;
+          color: $secondColor;
+          font-style: normal;
+        }
+
+        &:focus {
+          outline: 1px solid $blueColor;
+          &::placeholder {
+            color: $secondColor;
+            font-style: normal;
+          }
+        }
+      }
+    }
+
+    &-toggleFilters {
+      input:hover {
+        cursor: pointer;
+      }
+    }
+
     &-buttons {
       gap: 30px;
+
+      button:hover {
+        cursor: pointer;
+      }
+
+      button:nth-child(1):hover {
+        transition: all 0.2s;
+        background-color: transparent;
+        outline: 1px solid $blueColor;
+        color: $blueColor;
+      }
+
+      button:nth-child(2):hover {
+        transition: all 0.2s;
+        background-color: $redColor;
+      }
     }
   }
 }

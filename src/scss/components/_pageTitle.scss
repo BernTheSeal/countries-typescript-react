@@ -11,7 +11,14 @@
     justify-content: center;
     align-items: center;
     gap: $pageTitleGap;
-    width: 40%;
+
+    &.countries {
+      width: 40%;
+    }
+
+    &.games {
+      width: 30%;
+    }
 
     &-title {
       width: 100%;
@@ -30,6 +37,26 @@
       justify-content: space-between;
       width: 100%;
       gap: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .pageTitle-container {
+    margin: 50px 0;
+    &-content {
+      h2 {
+        span {
+          font-size: 22px;
+        }
+      }
+      &.countries {
+        width: 15%;
+      }
+
+      &.games {
+        width: 10%;
+      }
     }
   }
 }

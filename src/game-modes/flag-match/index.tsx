@@ -64,14 +64,6 @@ const FlagMatch = () => {
   });
 
   useEffect(() => {
-    console.log(specificGameOptions);
-  }, [specificGameOptions]);
-
-  useEffect(() => {
-    console.log(isCustomGame ? "custom game" : "default game");
-  }, [isCustomGame]);
-
-  useEffect(() => {
     if (time === 10) {
       stopTimer();
       setIsGameOver(true);

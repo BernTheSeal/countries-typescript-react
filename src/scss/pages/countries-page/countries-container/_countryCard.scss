@@ -127,3 +127,39 @@
     }
   }
 }
+
+@media only screen and (min-width: 480px) {
+  .countryCard {
+    cursor: pointer;
+
+    &-container {
+      &:hover h2 {
+        color: $blueColor;
+      }
+      height: $inputHeight + 20;
+      &-flag {
+        width: 9%;
+      }
+      &-content {
+        width: 91%;
+
+        h2 {
+          font-size: 18px;
+        }
+        h3 {
+          font-size: 14px;
+        }
+      }
+    }
+
+    &-expandContent {
+      &-gap {
+        width: 0%;
+        background-color: blue;
+      }
+      &-container {
+        width: 100%;
+      }
+    }
+  }
+}

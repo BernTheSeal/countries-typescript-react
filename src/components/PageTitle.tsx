@@ -12,10 +12,9 @@ const PageTitle: FunctionComponent<iPageTitleProps> = (props) => {
   return (
     <div className="pageTitle-container">
       <div
-        className="pageTitle-container-content"
-        style={{
-          width: title === "countries" ? "40%" : "30%",
-        }}
+        className={`pageTitle-container-content ${
+          title === "countries" ? "countries" : "games"
+        }`}
       >
         <h2 className="pageTitle-container-content-title">
           {title.split("").map((letter, index) => (

@@ -63,7 +63,7 @@
       svg {
         position: absolute;
         right: 10px;
-        transition: transform 0.2s ease, color 0.2s ease;
+        transition: transform 0.4s ease;
 
         &.desc {
           transform: rotate(180deg);
@@ -81,7 +81,7 @@
     box-shadow: $inputBoxShadow;
     border-radius: $inputBorderRadius;
     right: 0;
-    width: 280px;
+    width: 150%;
     position: absolute;
     background-color: $firstColor;
     transition: all 0.2s;
@@ -128,6 +128,23 @@
             transform: rotate(180deg);
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .sortingInput-container {
+    &-currentSorting {
+      button:hover {
+        cursor: pointer;
+        color: white;
+      }
+    }
+    &-sortingOptions {
+      width: 100%;
+      button:hover {
+        cursor: pointer;
       }
     }
   }

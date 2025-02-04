@@ -1,0 +1,93 @@
+.greetings-container {
+  position: absolute;
+  transform: translate(50%, -50%);
+  top: 50%;
+  right: 50%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 80%;
+
+  &-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    h2 {
+      background: linear-gradient(to right, #4e65ff, #92effd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 40px;
+      text-align: center;
+      letter-spacing: 1px;
+      transition: all 0.5s ease-out;
+    }
+
+    p {
+      width: 80%;
+      font-size: 8px;
+      text-align: center;
+      transition: all 0.5s ease-out;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    margin-top: 70px;
+    flex-direction: column;
+    gap: 20px;
+
+    button {
+      border-radius: 10px;
+      font-size: 12px;
+      width: 200px;
+      height: 40px;
+      font-weight: bold;
+      background-color: white;
+      transition: all 0.2s;
+
+      &:active {
+        background-color: $blueColor;
+        color: white;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .greetings-container {
+    gap: 10px;
+    width: 1200px;
+    &-title {
+      gap: 10px;
+      h2 {
+        font-size: 65px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    &-buttons {
+      gap: 80px;
+      flex-direction: row;
+
+      button {
+        width: 250px;
+        height: 50px;
+        font-size: 14px;
+        border-radius: 15px;
+        &:hover {
+          cursor: pointer;
+          background-color: $blueColor;
+          color: white;
+        }
+      }
+    }
+  }
+}

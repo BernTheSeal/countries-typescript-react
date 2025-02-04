@@ -116,7 +116,7 @@ const SortingInput: FunctionComponent<sortingInputProps> = ({
     <div className="sortingInput-container">
       <div
         className={`sortingInput-container-currentSorting ${
-          isSortingMenuOpen ? "active" : ""
+          isSortingMenuOpen ? "active" : "inactive"
         }`}
       >
         <button onClick={handleSortingMenuOpen} ref={buttonRef}>
