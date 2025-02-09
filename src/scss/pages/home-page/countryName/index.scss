@@ -1,0 +1,10 @@
+.countryName-container {
+  position: absolute;
+  white-space: nowrap;
+  width: max-content;
+  padding: 10px;
+  background-color: $firstColor;
+  color: $blueColor;
+  border-radius: 5px;
+  font-style: italic;
+}

@@ -1,4 +1,4 @@
-.flagsFallAnimation {
+.flagsFallAnimation-container {
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -7,26 +7,40 @@
   &-flag {
     position: absolute;
     animation: fall linear forwards;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
-      rgba(17, 17, 26, 0.1) 0px 0px 8px;
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: black;
-      opacity: 0.7;
-      z-index: 6;
-    }
+    &-img {
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+        rgba(17, 17, 26, 0.1) 0px 0px 8px;
+      transition: width 0.3s ease, height 0.3s ease;
+      transform-origin: center;
 
-    img {
-      width: 100%;
-      height: 100%;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        border-radius: 5px;
+        z-index: 6;
+      }
+
+      &.hoverActive::before {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      &.hoverInactive::before {
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+      }
+
+      & img {
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 }

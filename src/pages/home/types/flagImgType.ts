@@ -1,10 +1,16 @@
+interface countryPropertiesType {
+  flag: string;
+  name: string;
+}
+
 export interface flagImgType {
-  id: number;
+  id: string;
   left?: string;
   right?: string;
   animationDuration: string;
   width: number;
   height: number;
   zIndex: number;
-  img: string;
+  countryProperties: countryPropertiesType;
+  timeoutId: null | any;
 }

@@ -9,6 +9,14 @@ const flagsConfig = {
     { width: 100, height: 60, zIndex: 2 },
     { width: 90, height: 50, zIndex: 1 },
   ],
+  scale: {
+    mobile: 0.6,
+    normal: 1,
+    active: 1.3,
+  },
+  hoverZIndex: 10,
+  windowCenterOffset: 200,
+  hoverOffset: -55,
 };
 
 export default flagsConfig;

@@ -3,9 +3,13 @@ import greetingsConfig from "../config/greetingsConfig";
 import { greetingsAnimationType } from "../types/greetingsAnimationType";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 
-const Greetings = () => {
+interface greetingsProps {
+  isGreetingsActive: boolean;
+}
+
+const Greetings = ({ isGreetingsActive }: greetingsProps) => {
   const navigate: NavigateFunction = useNavigate();
-  const { initialDelay, incrementalDelay } = greetingsConfig;
+  const { initialDelay, incrementalDelay, animationSec } = greetingsConfig;
   const [titleAnimation, SetTitleAnimation] = useState<greetingsAnimationType>(
     greetingsConfig.titleAnimation
   );
@@ -40,7 +44,14 @@ const Greetings = () => {
   }, []);
 
   return (
-    <div className="greetings-container">
+    <div
+      style={{
+        opacity: isGreetingsActive ? "1" : "0",
+        pointerEvents: isGreetingsActive ? "auto" : "none",
+        transition: `opacity ${animationSec}s`,
+      }}
+      className="greetings-container"
+    >
       <div className="greetings-container-title">
         <h2
           style={{

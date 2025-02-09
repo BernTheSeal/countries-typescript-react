@@ -1980,20 +1980,24 @@ input::-webkit-inner-spin-button {
     background-color: #ff2222;
   }
 }
-.flagsFallAnimation {
+.flagsFallAnimation-container {
   height: 100vh;
   width: 100vw;
   position: relative;
   overflow: hidden;
 }
-.flagsFallAnimation-flag {
+.flagsFallAnimation-container-flag {
   position: absolute;
   animation: fall linear forwards;
+}
+.flagsFallAnimation-container-flag-img {
   border-radius: 5px;
   overflow: hidden;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  transition: width 0.3s ease, height 0.3s ease;
+  transform-origin: center;
 }
-.flagsFallAnimation-flag::before {
+.flagsFallAnimation-container-flag-img::before {
   content: "";
   position: absolute;
   top: 0;
@@ -2001,12 +2005,20 @@ input::-webkit-inner-spin-button {
   right: 0;
   bottom: 0;
   background-color: black;
-  opacity: 0.7;
+  border-radius: 5px;
   z-index: 6;
 }
-.flagsFallAnimation-flag img {
-  width: 100%;
+.flagsFallAnimation-container-flag-img.hoverActive::before {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.flagsFallAnimation-container-flag-img.hoverInactive::before {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.flagsFallAnimation-container-flag-img img {
   height: 100%;
+  width: 100%;
 }
 
 @keyframes fall {
@@ -2029,6 +2041,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   gap: 30px;
   width: 80%;
+  transition: opacity 0.2s;
 }
 .greetings-container-title {
   display: flex;
@@ -2037,12 +2050,15 @@ input::-webkit-inner-spin-button {
   gap: 20px;
 }
 .greetings-container-title h2 {
-  background: linear-gradient(to right, #4e65ff, #92effd);
+  background: linear-gradient(45deg, #4e65ff, #92effd, #009245, #fcee21, #d4145a, #fbb03b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 600% 600%;
+  animation: gradientAnimation 20s infinite ease-in-out;
   font-size: 40px;
   text-align: center;
   letter-spacing: 1px;
+  transition: animation;
   transition: all 0.5s ease-out;
 }
 .greetings-container-title p {
@@ -2101,6 +2117,58 @@ input::-webkit-inner-spin-button {
     color: white;
   }
 }
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.hideGreetingsButton-container {
+  width: 100vw;
+  position: absolute;
+}
+.hideGreetingsButton-container-button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.hideGreetingsButton-container-button button {
+  position: absolute;
+  z-index: 11;
+  margin-top: 20px;
+  background-color: transparent;
+}
+.hideGreetingsButton-container-button button :hover {
+  color: white;
+}
+.hideGreetingsButton-container-button button svg {
+  font-size: 25px;
+  color: #494646;
+  cursor: pointer;
+}
+
+.countryName-container {
+  position: absolute;
+  white-space: nowrap;
+  width: max-content;
+  padding: 10px;
+  background-color: #282828;
+  color: #2e61ff;
+  border-radius: 5px;
+  font-style: italic;
+}
+
 @media only screen and (max-width: 480px) {
   .ps-container {
     overflow: hidden;

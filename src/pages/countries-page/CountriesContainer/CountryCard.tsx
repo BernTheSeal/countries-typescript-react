@@ -1,7 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { CountryType } from "../../../types/countryType";
-import { NavigateFunction } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { sortingOptionsType } from "../../../types/countryFetchOptionsType";
 import SortingTypeContent from "./SortingTypeContent";
 import SortingDetailContent from "./SortingDetailContent";

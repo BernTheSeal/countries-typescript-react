@@ -1,0 +1,27 @@
+.hideGreetingsButton-container {
+  width: 100vw;
+  position: absolute;
+
+  &-button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+    & button {
+      position: absolute;
+      z-index: 11;
+      margin-top: 20px;
+      background-color: transparent;
+
+      :hover {
+        color: white;
+      }
+
+      svg {
+        font-size: 25px;
+        color: $secondColor;
+        cursor: pointer;
+      }
+    }
+  }
+}

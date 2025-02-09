@@ -14,6 +14,7 @@ const greetingsConfig = {
 
   initialDelay: 500,
   incrementalDelay: 600,
+  animationSec: 0.2,
 };
 
 export default greetingsConfig;
