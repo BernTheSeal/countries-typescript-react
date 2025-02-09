@@ -19,6 +19,10 @@
       display: flex;
       align-items: center;
 
+      &:hover div {
+        box-shadow: 0px 0px 12px 3px rgba(46, 97, 255, 1);
+      }
+
       div {
         margin-right: 8px;
         height: 20px;
@@ -26,6 +30,7 @@
         border-radius: 50%;
         background-color: #2e61ff;
         box-shadow: 0px 0px 4px 1px rgba(46, 97, 255, 1);
+        transition: box-shadow 0.2s;
       }
 
       h1 {

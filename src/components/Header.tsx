@@ -51,7 +51,13 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
     <header className="header">
       <div className="header-container">
         {/* logo */}
-        <div className="header-container-logo">
+        <div
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+          className="header-container-logo"
+        >
           <div></div>
           <h1>Earth Explorer</h1>
         </div>

@@ -62,6 +62,9 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
 }
+.header-container-logo:hover div {
+  box-shadow: 0px 0px 12px 3px rgb(46, 97, 255);
+}
 .header-container-logo div {
   margin-right: 8px;
   height: 20px;
@@ -69,6 +72,7 @@ input::-webkit-inner-spin-button {
   border-radius: 50%;
   background-color: #2e61ff;
   box-shadow: 0px 0px 4px 1px rgb(46, 97, 255);
+  transition: box-shadow 0.2s;
 }
 .header-container-logo h1 {
   font-size: 20px;
