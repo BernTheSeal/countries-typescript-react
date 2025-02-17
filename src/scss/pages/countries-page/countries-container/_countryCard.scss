@@ -133,16 +133,18 @@
     cursor: pointer;
 
     &-container {
-      &:hover h2 {
-        color: $blueColor;
+      &:hover &-content {
+        outline: 2px solid $blueColor;
       }
+
       height: $inputHeight + 20;
       &-flag {
         width: 9%;
       }
       &-content {
+        transition: all 0.2s;
         width: 91%;
-
+        outline: 2px solid $firstColor;
         h2 {
           font-size: 18px;
         }

@@ -1,30 +1,80 @@
 .game-card {
-    background-color: #333;
-    margin-top: 30px;
-    height: 70px;
-    cursor: pointer;
+  background-color: $firstColor;
+  height: 80px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  outline: 1px solid $firstColor;
+
+  &-name {
+    font-weight: 800;
+    font-style: italic;
+    color: white;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 0 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s;
+  }
+
+  &-highScore {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .game-card {
+    height: 300px;
     font-size: 24px;
-    outline: 1px solid #555;
-    border-radius: 4px;
-    transition: all .2s;
+    outline: 2px solid $firstColor;
+    transition: outline 0.2s;
+    overflow: hidden;
 
     &:hover {
-        outline: 1px solid #fff989;
+      outline: 2px solid $blueColor;
     }
 
-    &:hover p {
-        color: #fff989;
-        scale: 1.2;
+    &:hover &-name {
+      top: 70px;
+      color: $blueColor;
     }
 
-    p {
-        transition: all .2s;
-        font-weight: bold;
+    &:hover &-highScore {
+      bottom: 20px;
+    }
+
+    &-highScore {
+      position: absolute;
+      bottom: -100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: bottom 0.2s;
+      letter-spacing: 5px;
+      font-weight: 600;
+
+      span {
         font-style: italic;
-        letter-spacing: 1px;
+        font-size: 25px;
+        color: white;
+      }
+
+      p {
+        color: $secondColor;
+        font-size: 15px;
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .game-card:active {
+    background-color: $blueColor;
+  }
 }

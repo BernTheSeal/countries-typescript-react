@@ -1,16 +1,10 @@
-import { FunctionComponent, ReactNode } from "react"
+import { IoEarth } from "react-icons/io5";
+const Loading = () => {
+  return (
+    <div className="loading">
+      <IoEarth />
+    </div>
+  );
+};
 
-interface iLoadingProps {
-    loading: boolean,
-    children: ReactNode
-}
-
-const Loading: FunctionComponent<iLoadingProps> = (props) => {
-    const { loading } = props;
-    if (loading) {
-        return <> loading ... </>
-    }
-    return <>{props.children}</>
-}
-
-export default Loading
+export default Loading;

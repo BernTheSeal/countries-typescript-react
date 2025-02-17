@@ -252,6 +252,28 @@ input::-webkit-inner-spin-button {
     width: 10%;
   }
 }
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.8;
+}
+.loading svg {
+  color: white;
+  font-size: 100px;
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .leaflet-container {
   height: 500px;
 }
@@ -833,33 +855,89 @@ input::-webkit-inner-spin-button {
 }
 
 .game-card {
-  background-color: #333;
-  margin-top: 30px;
-  height: 70px;
+  background-color: #282828;
+  height: 80px;
   cursor: pointer;
+  font-size: 18px;
+  border-radius: 15px;
+  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0 20px;
-  font-size: 24px;
-  outline: 1px solid #555;
-  border-radius: 4px;
-  transition: all 0.2s;
+  outline: 1px solid #282828;
 }
-.game-card:hover {
-  outline: 1px solid #fff989;
-}
-.game-card:hover p {
-  color: #fff989;
-  scale: 1.2;
-}
-.game-card p {
-  transition: all 0.2s;
-  font-weight: bold;
+.game-card-name {
+  font-weight: 800;
   font-style: italic;
-  letter-spacing: 1px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s;
+}
+.game-card-highScore {
+  display: none;
 }
 
+@media only screen and (min-width: 480px) {
+  .game-card {
+    height: 300px;
+    font-size: 24px;
+    outline: 2px solid #282828;
+    transition: outline 0.2s;
+    overflow: hidden;
+  }
+  .game-card:hover {
+    outline: 2px solid #2e61ff;
+  }
+  .game-card:hover .game-card-name {
+    top: 70px;
+    color: #2e61ff;
+  }
+  .game-card:hover .game-card-highScore {
+    bottom: 20px;
+  }
+  .game-card-highScore {
+    position: absolute;
+    bottom: -100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: bottom 0.2s;
+    letter-spacing: 5px;
+    font-weight: 600;
+  }
+  .game-card-highScore span {
+    font-style: italic;
+    font-size: 25px;
+    color: white;
+  }
+  .game-card-highScore p {
+    color: #494646;
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .game-card:active {
+    background-color: #2e61ff;
+  }
+}
+.gameCardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@media only screen and (min-width: 480px) {
+  .gameCardWrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 70px;
+  }
+}
 .gameInformation-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1602,14 +1680,16 @@ input::-webkit-inner-spin-button {
   .countryCard-container {
     height: 58px;
   }
-  .countryCard-container:hover h2 {
-    color: #2e61ff;
+  .countryCard-container:hover .countryCard-container-content {
+    outline: 2px solid #2e61ff;
   }
   .countryCard-container-flag {
     width: 9%;
   }
   .countryCard-container-content {
+    transition: all 0.2s;
     width: 91%;
+    outline: 2px solid #282828;
   }
   .countryCard-container-content h2 {
     font-size: 18px;

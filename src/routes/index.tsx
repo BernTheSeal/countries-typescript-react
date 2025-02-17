@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const Home = lazy(() => import("../pages/home"));
 const Countries = lazy(() => import("../pages/countries-page"));
@@ -13,7 +14,7 @@ const FlagMatch = lazy(() => import("../game-modes/flag-match"));
 const HiddenFlag = lazy(() => import("../game-modes/hidden-flag"));
 
 const withSuspense = (Component: React.FunctionComponent) => (
-  <Suspense fallback={<div>loading...</div>}>
+  <Suspense fallback={<Loading />}>
     <Component />
   </Suspense>
 );
