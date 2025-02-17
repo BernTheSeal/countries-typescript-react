@@ -256,7 +256,7 @@ const PopulationShowdown = () => {
                       className={`ps-container-game-circle-time-answer`}
                       style={{
                         top: positionCircle,
-                        backgroundColor: "#248939",
+                        backgroundColor: "#22bb22",
                       }}
                     >
                       <i className="fa-solid fa-check"></i>
@@ -266,7 +266,7 @@ const PopulationShowdown = () => {
                       className={`ps-container-game-circle-time-answer`}
                       style={{
                         top: positionCircle,
-                        backgroundColor: "#b03535",
+                        backgroundColor: "#ff2222",
                       }}
                     >
                       <i className="fa-solid fa-xmark"></i>

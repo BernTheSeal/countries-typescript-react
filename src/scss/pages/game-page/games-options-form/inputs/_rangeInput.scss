@@ -9,8 +9,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 20px;
-    color: rgb(59, 59, 59);
+    font-size: 18px;
+    color: white;
   }
 
   &-value {
@@ -44,12 +44,20 @@
       label {
         user-select: none;
         padding: 4px 8px;
-        background-color: rgb(51, 51, 51);
         font-size: 18px;
         border-radius: 4px;
         font-weight: 600;
         font-style: italic;
         cursor: pointer;
+
+        &.active {
+          background-color: $blueColor;
+        }
+
+        &.inactive {
+          background-color: $firstColor;
+          color: $secondColor;
+        }
 
         i {
           margin-right: 5px;
@@ -69,6 +77,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      &.active {
+        color: white;
+      }
+      &.inactive {
+        color: $firstColor;
+      }
     }
   }
 }

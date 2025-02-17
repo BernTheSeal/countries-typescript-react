@@ -80,11 +80,9 @@ const CommonGameOptionsForm: FC<commonGameOptionsFormProps> = ({
             .sort((a, b) => a.localeCompare(b))
             .map((region: string, index) => (
               <label
-                style={{
-                  backgroundColor: regions.includes(region)
-                    ? "#242689"
-                    : "#333",
-                }}
+                className={`${
+                  regions.includes(region) ? "active" : "inactive"
+                }`}
                 key={index}
               >
                 <input

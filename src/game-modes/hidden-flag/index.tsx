@@ -281,7 +281,7 @@ const HiddenFlag = () => {
                           }
                           key={index}
                           style={{
-                            backgroundColor: activeBox ? "#333" : "",
+                            backgroundColor: activeBox ? "#282828" : "",
                             cursor:
                               revealLimit > 0 && activeBox ? "pointer" : "",
                           }}
@@ -293,7 +293,7 @@ const HiddenFlag = () => {
                                 visibility: hiddenArray.includes(String(index))
                                   ? "visible"
                                   : "hidden",
-                                color: revealLimit > 0 ? "#fff989" : "#525252",
+                                color: revealLimit > 0 ? "#2e61ff" : "#525252",
                               }}
                               className={`fa-solid fa-xmark ${
                                 revealLimit > 0 ? "hf-game-hoverI" : ""

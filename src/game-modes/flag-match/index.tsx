@@ -205,8 +205,7 @@ const FlagMatch = () => {
               <h3>{selectedCountry ? selectedCountry : null}</h3>
               {specificGameOptions.isUnlimitedTime ? (
                 <p>
-                  {" "}
-                  <i className="fa-solid fa-infinity"></i>{" "}
+                  <i className="fa-solid fa-infinity"></i>
                 </p>
               ) : (
                 <p>{displayTime}</p>

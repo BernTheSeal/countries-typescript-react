@@ -24,7 +24,8 @@ const gamesData: GamesInformation[] = [
     gameContent: [population],
     difficulty: "easy",
     difficultyBar: 4,
-    difficultyColor: "#248939",
+    // difficultyColor: "#248939",
+    difficultyColor: "#22bb22",
   },
   {
     id: 1,
@@ -38,7 +39,7 @@ const gamesData: GamesInformation[] = [
     gameContent: [flags],
     difficulty: "medium",
     difficultyBar: 6,
-    difficultyColor: "#acb035",
+    difficultyColor: "#ffd500",
   },
   {
     id: 2,
@@ -52,7 +53,7 @@ const gamesData: GamesInformation[] = [
     gameContent: [flags],
     difficulty: "hard",
     difficultyBar: 8,
-    difficultyColor: "#b03535",
+    difficultyColor: "#ff2222",
   },
 ];
 

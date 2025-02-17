@@ -74,10 +74,9 @@ const RangeInput = <T,>(props: RangeInputProps<T>) => {
       </div>
       <div className="rangeInput-value">
         <div
-          style={{
-            color: isUnlimitedValue ? "rgb(55, 55, 55) " : "",
-          }}
-          className="rangeInput-value-display"
+          className={`rangeInput-value-display ${
+            !isUnlimitedValue ? " active" : "inactive"
+          }`}
         >
           <div>{value}</div>
         </div>
@@ -94,8 +93,8 @@ const RangeInput = <T,>(props: RangeInputProps<T>) => {
             style={{
               background: `${
                 isUnlimitedValue
-                  ? "rgb(35, 35, 35)"
-                  : `linear-gradient(to right, #242689 0%, #242689 ${
+                  ? "#282828"
+                  : `linear-gradient(to right, #2e61ff 0%, #2e61ff ${
                       ((value - minValue) / (maxValue - minValue)) * 100
                     }%, #d0d0d0 ${
                       ((value - minValue) / (maxValue - minValue)) * 100
@@ -105,11 +104,7 @@ const RangeInput = <T,>(props: RangeInputProps<T>) => {
           />
         </div>
         <div className="rangeInput-value-unlimited">
-          <label
-            style={{
-              backgroundColor: isUnlimitedValue ? "#242689" : "#333",
-            }}
-          >
+          <label className={`${isUnlimitedValue ? " active" : "inactive"}`}>
             <input
               type="checkbox"
               checked={isUnlimitedValue}

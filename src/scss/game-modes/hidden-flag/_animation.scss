@@ -15,10 +15,9 @@
   background-color: transparent;
 }
 
-.hf-game-button-inactive:hover {
-  border: 2px solid rgb(110, 110, 110);
-  color: rgb(110, 110, 110);
-  background-color: transparent;
+.hf-game-button-active:hover {
+  background-color: white;
+  color: black;
 }
 
 .hf-game-search-active {
@@ -30,11 +29,11 @@
 }
 
 .hf-game-correct-answer {
-  background-color: #248939;
+  background-color: $greenColor;
 }
 
 .hf-game-wrong-answer {
-  background-color: #b03535;
+  background-color: $redColor;
 }
 
 .hf-game-hoverI {

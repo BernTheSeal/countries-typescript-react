@@ -735,8 +735,8 @@ input::-webkit-inner-spin-button {
   animation: containerAppear 0.3s;
   background-color: #1d1d1d;
   border-radius: 10px;
-  width: 1000px;
-  height: 600px;
+  width: 1280px;
+  height: 550px;
   overflow: auto;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -759,7 +759,7 @@ input::-webkit-inner-spin-button {
   letter-spacing: 3px;
   font-weight: 500;
   font-size: 26px;
-  color: gray;
+  color: #2e61ff;
 }
 .game-action-menu-container-header-title i {
   cursor: pointer;
@@ -810,7 +810,7 @@ input::-webkit-inner-spin-button {
 }
 .game-action-menu-container-footer-custom button {
   cursor: pointer;
-  background-color: #242689;
+  background-color: #2e61ff;
   width: 100%;
   height: 100%;
   color: white;
@@ -836,7 +836,7 @@ input::-webkit-inner-spin-button {
   }
 }
 .fm-custom-game button {
-  background-color: #242689;
+  background-color: #2e61ff;
 }
 .fm-custom-game button:hover {
   background-color: #3032b9;
@@ -847,7 +847,7 @@ input::-webkit-inner-spin-button {
   border-right: 5px solid transparent;
 }
 .fm-default-game button {
-  background-color: #248939;
+  background-color: #22bb22;
 }
 .fm-default-game button:hover {
   background-color: #2eb048;
@@ -941,7 +941,7 @@ input::-webkit-inner-spin-button {
 .gameInformation-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background-color: #151515;
+  background-color: #181818;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -955,15 +955,15 @@ input::-webkit-inner-spin-button {
 }
 .gameInformation-container-info p {
   font-style: italic;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 22px;
   z-index: 2;
   color: white;
 }
 .gameInformation-container-info h4 {
   z-index: 2;
-  color: gray;
-  font-weight: 300;
+  color: white;
+  font-weight: 400;
   font-size: 12px;
 }
 .gameInformation-container-info i {
@@ -979,11 +979,6 @@ input::-webkit-inner-spin-button {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media only screen and (min-width: 480px) {
-  .gameInformation-container-info:not(:last-child) {
-    border-right: 1px solid rgba(47, 47, 47, 0.5);
-  }
-}
 .gameContent-container {
   border-bottom: 1px solid rgb(32, 32, 32);
   padding: 20px;
@@ -991,8 +986,8 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 .gameContent-container-title {
-  color: rgb(59, 59, 59);
-  font-size: 20px;
+  color: white;
+  font-size: 18px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1007,8 +1002,8 @@ input::-webkit-inner-spin-button {
 .gameContent-container-content div {
   padding: 4px 8px;
   border-radius: 4px;
-  background-color: #333;
-  color: rgb(201, 201, 201);
+  background-color: #282828;
+  color: white;
   font-size: 18px;
   font-weight: 600;
   font-style: italic;
@@ -1039,8 +1034,8 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 .gameDifficulty-container-title {
-  color: rgb(59, 59, 59);
-  font-size: 20px;
+  color: white;
+  font-size: 18px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1107,8 +1102,8 @@ input::-webkit-inner-spin-button {
   background-color: #151515;
 }
 .gameForms-container-header-title {
-  color: rgb(59, 59, 59);
-  font-size: 20px;
+  color: white;
+  font-size: 18px;
   font-style: italic;
   align-self: center;
   display: flex;
@@ -1116,7 +1111,7 @@ input::-webkit-inner-spin-button {
   gap: 10px;
 }
 .gameForms-container-header button {
-  background-color: rgb(158, 35, 35);
+  background-color: #ff2222;
   cursor: pointer;
   padding: 6px 12px;
   font-size: 18px;
@@ -1158,8 +1153,8 @@ input::-webkit-inner-spin-button {
   gap: 6px;
 }
 .commonGameOptionsForm-container-title {
-  color: rgb(59, 59, 59);
-  font-size: 20px;
+  color: white;
+  font-size: 18px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1176,10 +1171,17 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   font-style: italic;
   user-select: none;
+}
+.commonGameOptionsForm-container-regions label.active {
+  background-color: #2e61ff;
+}
+.commonGameOptionsForm-container-regions label.inactive {
+  background-color: #282828;
+  color: #494646;
 }
 .commonGameOptionsForm-container-regions label input {
   display: none;
@@ -1208,8 +1210,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
-  color: rgb(59, 59, 59);
+  font-size: 18px;
+  color: white;
 }
 .rangeInput-value {
   display: flex;
@@ -1238,12 +1240,18 @@ input::-webkit-inner-spin-button {
 .rangeInput-value-unlimited label {
   user-select: none;
   padding: 4px 8px;
-  background-color: rgb(51, 51, 51);
   font-size: 18px;
   border-radius: 4px;
   font-weight: 600;
   font-style: italic;
   cursor: pointer;
+}
+.rangeInput-value-unlimited label.active {
+  background-color: #2e61ff;
+}
+.rangeInput-value-unlimited label.inactive {
+  background-color: #282828;
+  color: #494646;
 }
 .rangeInput-value-unlimited label i {
   margin-right: 5px;
@@ -1259,6 +1267,12 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.rangeInput-value-display.active {
+  color: white;
+}
+.rangeInput-value-display.inactive {
+  color: #282828;
 }
 
 .range-active::-webkit-slider-thumb {
@@ -1312,8 +1326,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
-  color: rgb(59, 59, 59);
+  font-size: 18px;
+  color: white;
 }
 .clickInput-value {
   display: flex;
@@ -1327,6 +1341,12 @@ input::-webkit-inner-spin-button {
   font-size: 20px;
   font-weight: 600;
   color: #d0d0d0;
+}
+.clickInput-value button.active {
+  background-color: #2e61ff;
+}
+.clickInput-value button.inactive {
+  background-color: #282828;
 }
 .clickInput-value button:hover {
   color: white;
@@ -2289,7 +2309,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: #333;
+    background-color: #282828;
     border-radius: 50%;
     overflow: hidden;
   }
@@ -2333,7 +2353,7 @@ input::-webkit-inner-spin-button {
     height: 50px;
     width: 120px;
     font-size: 16px;
-    color: #fff989;
+    color: #2e61ff;
     background-color: transparent;
     border: 1px solid white;
     border-radius: 25px;
@@ -2364,7 +2384,7 @@ input::-webkit-inner-spin-button {
     font-size: 16px;
     font-style: italic;
     font-weight: 500;
-    color: #fff989;
+    color: #2e61ff;
   }
   .ps-container-game-card-info img {
     height: 100px;
@@ -2497,7 +2517,7 @@ input::-webkit-inner-spin-button {
   .ps-container-game-info-container h4 {
     font-weight: 300;
     font-size: 14px;
-    color: #777;
+    color: #282828;
   }
   .ps-container-game-info-container p {
     color: white;
@@ -2528,7 +2548,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     width: 80px;
     height: 80px;
-    background-color: #333;
+    background-color: #282828;
     border-radius: 50%;
     overflow: hidden;
   }
@@ -2572,7 +2592,7 @@ input::-webkit-inner-spin-button {
     height: 50px;
     width: 150px;
     font-size: 16px;
-    color: #fff989;
+    color: #2e61ff;
     background-color: transparent;
     border: 1px solid white;
     border-radius: 25px;
@@ -2586,12 +2606,9 @@ input::-webkit-inner-spin-button {
     color: white;
   }
   .ps-container-game-card-info-buttons button:hover {
-    border: 1px solid white;
-    background-color: white;
-    color: black;
-  }
-  .ps-container-game-card-info-buttons button:hover i {
-    color: black;
+    border: 1px solid #2e61ff;
+    background-color: #2e61ff;
+    color: white;
   }
   .ps-container-game-card-info p {
     font-size: 14px;
@@ -2609,7 +2626,7 @@ input::-webkit-inner-spin-button {
     font-size: 50px;
     font-style: italic;
     font-weight: 500;
-    color: #fff989;
+    color: #2e61ff;
   }
   .ps-container-game-card-info img {
     width: 260px;
@@ -2740,7 +2757,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
   font-weight: 600;
   z-index: -1;
-  color: #333;
+  color: #282828;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -2756,7 +2773,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
   font-size: 30px;
   font-weight: 200;
-  color: #fff989;
+  color: #2e61ff;
 }
 
 .flags-2 {
@@ -2775,11 +2792,11 @@ input::-webkit-inner-spin-button {
 }
 
 .fm-true-answer {
-  background-color: #248939;
+  background-color: #22bb22;
 }
 
 .fm-wrong-answer {
-  background-color: #b03535;
+  background-color: #ff2222;
 }
 
 @keyframes checkAnimationContainer {
@@ -2910,7 +2927,6 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  height: 100%;
   height: 45px;
   width: 45px;
 }
@@ -2933,15 +2949,15 @@ input::-webkit-inner-spin-button {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #2f2f2f;
-  color: #999;
+  background-color: #282828;
+  color: white;
   justify-content: space-between;
   font-style: italic;
   cursor: pointer;
 }
 .hf-container-game-content-footer-search-countryBox:hover {
-  background-color: #444;
-  color: #fff989;
+  background-color: #2e61ff;
+  color: white;
 }
 .hf-container-game-content-footer-search-countryBox-name {
   font-size: 15px;
@@ -2950,7 +2966,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: #666;
+  color: white;
 }
 .hf-container-game-content-footer-search-countryBox-enter span {
   display: flex;
@@ -2965,8 +2981,8 @@ input::-webkit-inner-spin-button {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #2f2f2f;
-  color: #525252;
+  background-color: #282828;
+  color: #ff2222;
   font-size: 14px;
 }
 .hf-container-game-content-footer-input {
@@ -2977,19 +2993,19 @@ input::-webkit-inner-spin-button {
   align-items: center;
   width: 100%;
   height: 45px;
-  background-color: #2f2f2f;
+  background-color: #282828;
 }
 .hf-container-game-content-footer-input input {
   padding-left: 10px;
   width: 100%;
   height: 100%;
   background-color: transparent;
-  color: #fff989;
+  color: #2e61ff;
   font-style: italic;
   border-bottom: 2px solid white;
 }
 .hf-container-game-content-footer-input input::placeholder {
-  color: #666;
+  color: #494646;
 }
 .hf-container-game-content-footer-input i {
   display: flex;
@@ -2997,7 +3013,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   height: 100%;
   padding: 0 10px;
-  color: #666;
+  color: #494646;
   border-bottom: 2px solid white;
 }
 .hf-container-game-content-footer-input-answer {
@@ -3032,10 +3048,9 @@ input::-webkit-inner-spin-button {
   background-color: transparent;
 }
 
-.hf-game-button-inactive:hover {
-  border: 2px solid rgb(110, 110, 110);
-  color: rgb(110, 110, 110);
-  background-color: transparent;
+.hf-game-button-active:hover {
+  background-color: white;
+  color: black;
 }
 
 .hf-game-search-active {
@@ -3047,11 +3062,11 @@ input::-webkit-inner-spin-button {
 }
 
 .hf-game-correct-answer {
-  background-color: #248939;
+  background-color: #22bb22;
 }
 
 .hf-game-wrong-answer {
-  background-color: #b03535;
+  background-color: #ff2222;
 }
 
 .hf-game-hoverI {
@@ -3104,7 +3119,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #333;
+  background-color: #282828;
 }
 .hf-game-status-bar-icon i {
   font-size: 20px;
@@ -3131,7 +3146,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
   position: relative;
   z-index: -1;
-  background-color: #333;
+  background-color: #282828;
 }
 .hf-game-status-bar-value-count div {
   position: absolute;
@@ -3196,7 +3211,7 @@ input::-webkit-inner-spin-button {
   font-weight: 600;
   font-size: 100px;
   font-style: italic;
-  color: #fff989;
+  color: #2e61ff;
 }
 .game-over-container-score-highScore {
   width: 100%;
@@ -3205,7 +3220,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   font-size: 30px;
   font-weight: 600;
-  color: #f3e81e;
+  color: #2e61ff;
   gap: 10px;
   margin-bottom: 30px;
 }
@@ -3249,7 +3264,6 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    button-background-color: red;
   }
   .game-over-container-buttons button {
     width: 100%;
@@ -3285,7 +3299,7 @@ input::-webkit-inner-spin-button {
   font-size: 14px;
   margin-bottom: 10px;
   letter-spacing: 3px;
-  color: #777;
+  color: white;
 }
 .game-info-container-title i {
   font-size: 20px;

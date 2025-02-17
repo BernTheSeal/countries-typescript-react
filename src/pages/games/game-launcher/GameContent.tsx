@@ -1,11 +1,11 @@
-import { FunctionComponent } from "react"
-import { gameContent } from "../../../types/gamesCardType"
+import { FunctionComponent } from "react";
+import { gameContent } from "../../../types/gamesCardType";
 
 interface gameContentProps {
-  gameContent: gameContent[] 
+  gameContent: gameContent[];
 }
 
-const GameContent: FunctionComponent<gameContentProps> = ({gameContent}) => {
+const GameContent: FunctionComponent<gameContentProps> = ({ gameContent }) => {
   return (
     <div className="gameContent-container">
       <div className="gameContent-container-title">
@@ -14,17 +14,16 @@ const GameContent: FunctionComponent<gameContentProps> = ({gameContent}) => {
       </div>
 
       <div className="gameContent-container-content">
-        {gameContent&& gameContent.map((content)=>(
-          <div>
-            <i className={content.icon}></i>
-            <p>{content.content}</p>
-          </div>
-    
-        ))}
+        {gameContent &&
+          gameContent.map((content) => (
+            <div>
+              <i className={content.icon}></i>
+              <p>{content.content}</p>
+            </div>
+          ))}
       </div>
-   
     </div>
-  )
-}
+  );
+};
 
-export default GameContent
+export default GameContent;

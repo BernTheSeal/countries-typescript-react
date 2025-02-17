@@ -17,8 +17,8 @@
     background-color: #151515;
 
     &-title {
-      color: rgb(59, 59, 59);
-      font-size: 20px;
+      color: white;
+      font-size: 18px;
       font-style: italic;
       align-self: center;
       display: flex;
@@ -27,7 +27,7 @@
     }
 
     button {
-      background-color: rgb(158, 35, 35);
+      background-color: $redColor;
       cursor: pointer;
       padding: 6px 12px;
       font-size: 18px;

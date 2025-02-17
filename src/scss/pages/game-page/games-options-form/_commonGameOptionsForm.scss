@@ -7,8 +7,8 @@
     gap: 6px;
 
     &-title {
-      color: rgb(59, 59, 59);
-      font-size: 20px;
+      color: white;
+      font-size: 18px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -26,10 +26,18 @@
         display: flex;
         align-items: center;
         padding: 4px 8px;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         font-style: italic;
         user-select: none;
+
+        &.active {
+          background-color: $blueColor;
+        }
+        &.inactive {
+          background-color: $firstColor;
+          color: $secondColor;
+        }
 
         input {
           display: none;

@@ -9,8 +9,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 20px;
-    color: rgb(59, 59, 59);
+    font-size: 18px;
+    color: white;
   }
 
   &-value {
@@ -25,6 +25,13 @@
       font-size: 20px;
       font-weight: 600;
       color: #d0d0d0;
+
+      &.active {
+        background-color: $blueColor;
+      }
+      &.inactive {
+        background-color: $firstColor;
+      }
     }
 
     button:hover {

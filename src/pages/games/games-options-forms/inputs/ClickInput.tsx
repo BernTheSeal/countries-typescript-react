@@ -44,9 +44,7 @@ const ClickInput = <T,>(props: clickInputProps<T>) => {
       <div className="clickInput-value">
         {optionsArray.map((opt) => (
           <button
-            style={{
-              backgroundColor: opt === value ? "#242689" : "rgb(51, 51, 51)",
-            }}
+            className={`${opt === value ? " active" : "inactive"}`}
             type="button"
             onClick={(e) => {
               e.preventDefault();

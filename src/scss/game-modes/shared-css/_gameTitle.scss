@@ -1,122 +1,118 @@
 .game-info {
-    position: absolute;
-    top: 25px;
-    width: 100vw;
-    height: 100px;
+  position: absolute;
+  top: 25px;
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+
+  &-container {
+    width: 400px;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    &-title {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 10px;
+      letter-spacing: 3px;
+      color: white;
+
+      i {
+        font-size: 20px;
+      }
+
+      h2 {
+        margin: 0 10px;
+      }
+    }
+
+    &-details {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      &-score {
+        text-align: center;
+        width: 50%;
+        margin-left: 10px;
+        border-right: 2px solid gray;
+      }
+
+      &-highScore {
+        margin-right: 10px;
+        width: 50%;
+        text-align: center;
+      }
+    }
+
+    h4 {
+      font-weight: 300;
+      font-size: 14px;
+      color: #777;
+    }
+
+    p {
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      font-style: italic;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .game-info {
+    z-index: 100000;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    i {
+      visibility: hidden;
+      position: absolute;
+    }
 
     &-container {
-        width: 400px;
+      &-title {
+        display: none;
+      }
+
+      &-details {
         height: 100%;
+        width: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: space-between;
 
-        &-title {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-            color: #777;
-
-            i {
-                font-size: 20px;
-            }
-
-            h2 {
-                margin: 0 10px;
-            }
+        &-score {
+          text-align: left;
+          border-right: 0px;
         }
 
-        &-details {
-            display: flex;
-            align-items: center;
-            width: 100%;
-
-            &-score {
-                text-align: center;
-                width: 50%;
-                margin-left: 10px;
-                border-right: 2px solid gray;
-            }
-
-            &-highScore {
-                margin-right: 10px;
-                width: 50%;
-                text-align: center;
-            }
+        &-highScore {
+          text-align: right;
+          border-right: 0px;
         }
+      }
 
-        h4 {
-            font-weight: 300;
-            font-size: 14px;
-            color: #777;
-        }
+      h4 {
+        font-weight: 300;
+        font-size: 14px;
+        color: #777;
+      }
 
-        p {
-            color: white;
-            font-weight: 600;
-            font-size: 18px;
-            font-style: italic;
-        }
+      p {
+        color: white;
+        font-weight: 300;
+        font-size: 18px;
+        font-style: italic;
+      }
     }
-}
-
-
-@media only screen and (max-width: 480px) {
-    .game-info{
-        z-index: 100000;
-        top:0 ;
-        height: 80px;
-        width: 100%;
-        i{
-            visibility: hidden;
-            position: absolute;
-        }
-
-        &-container {
-            &-title {
-                display: none;
-            }
-
-            &-details {
-                height: 100%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                
-
-                &-score {
-                    text-align: left;
-                    border-right: 0px
-                }
-
-                &-highScore {
-                    text-align: right;
-                    border-right: 0px
-                }
-            }
-
-            h4 {
-                font-weight: 300;
-                font-size: 14px;
-                color: #777;
-            }
-    
-            p {
-                color: white;
-                font-weight: 300;
-                font-size: 18px;
-                font-style: italic;
-            }
-
-           }
-    }
- 
+  }
 }

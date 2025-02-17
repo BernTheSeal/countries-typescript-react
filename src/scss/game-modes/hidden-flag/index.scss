@@ -1,206 +1,201 @@
 .hf-container {
-    height: 100vh;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  &-game {
     width: 100%;
-    overflow: hidden;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &-game {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    &-content {
+      margin-top: 100px;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
 
-        &-content {
-            margin-top: 100px;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
+      &-header {
+        width: 330px;
+        height: 200px;
 
-            &-header {
-                width: 330px;
-                height: 200px;
+        &-flag {
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transition: all 0.2s;
 
-                &-flag {
-                    overflow: hidden;
-                    width: 100%;
-                    height: 100%;
-                    position: relative;
-                    transition: all .2s;
+          &-hidden {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
 
-                    &-hidden {
-                        display: grid;
-                        grid-template-columns: repeat(3, 1fr);
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 3;
+            &-box {
+              transition: all 0.3s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
 
-                        &-box {
-                            transition: all .3s;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            position: relative;
-
-                            i {
-                                font-size: 15px;
-                                position: absolute;
-                                top: 50%;
-                                right: 50%;
-                                transform: translate(50%, -50%);
-                            }
-                        }
-                    }
-
-                    img {
-                        z-index: 1;
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-
-                &-buttons {
-                    margin-top: 20px;
-                    display: flex;
-                    gap: 30px;
-                    justify-content: center;
-                    align-items: center;
-
-                    button {
-                        transition: all .2s;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 50%;
-                        height: 100%;
-                        height: 45px;
-                        width: 45px;
-
-                    }
-                }
+              i {
+                font-size: 15px;
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                transform: translate(50%, -50%);
+              }
             }
+          }
 
-            &-footer {
-                display: flex;
-                flex-direction: column;
-                position: relative;
-                height: 185px;
-                overflow: hidden;
-
-                &-search {
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    transition: all .3s;
-
-                    &-countryBox {
-                        height: 45px;
-                        display: flex;
-                        align-items: center;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        background-color: #2f2f2f;
-                        color: #999;
-                        justify-content: space-between;
-                        font-style: italic;
-                        cursor: pointer;
-
-                        &:hover {
-                            background-color: #444;
-                            color: #fff989;
-                        }
-
-                        &-name {
-                            font-size: 15px;
-                        }
-
-                        &-enter {
-                            display: flex;
-                            align-items: center;
-                            font-size: 12px;
-                            color: #666;
-
-                            span {
-                                display: flex;
-                                align-items: center;
-                            }
-
-                            span:nth-child(1) {
-                                margin-right: 3px;
-                            }
-                        }
-                    }
-
-                    &-notFoundedBox {
-                        height: 45px;
-                        display: flex;
-                        align-items: center;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        background-color: #2f2f2f;
-                        color: #525252;
-                        font-size: 14px;
-                    }
-                }
-
-                &-input {
-                    overflow: hidden;
-                    position: absolute;
-                    bottom: 0;
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    height: 45px;
-                    background-color: #2f2f2f;
-
-                    input {
-                        padding-left: 10px;
-                        width: 100%;
-                        height: 100%;
-                        background-color: transparent;
-                        color: #fff989;
-                        font-style: italic;
-                        border-bottom: 2px solid white;
-
-                    }
-
-                    input::placeholder {
-                        color: #666;
-                    }
-
-                    i {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100%;
-                        padding: 0 10px;
-                        color: #666;
-                        border-bottom: 2px solid white;
-
-                    }
-
-                    &-answer {
-                        width: 100%;
-                        height: 45px;
-                        background-color: transparent;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        position: absolute;
-                        z-index: 100;
-                        animation: answerResult 1.8s both;
-
-                        p {
-                            font-weight: bold;
-                        }
-                    }
-                }
-
-            }
+          img {
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+          }
         }
+
+        &-buttons {
+          margin-top: 20px;
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+          align-items: center;
+
+          button {
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            height: 45px;
+            width: 45px;
+          }
+        }
+      }
+
+      &-footer {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: 185px;
+        overflow: hidden;
+
+        &-search {
+          position: absolute;
+          left: 0;
+          right: 0;
+          transition: all 0.3s;
+
+          &-countryBox {
+            height: 45px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: $firstColor;
+            color: white;
+            justify-content: space-between;
+            font-style: italic;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $blueColor;
+              color: white;
+            }
+
+            &-name {
+              font-size: 15px;
+            }
+
+            &-enter {
+              display: flex;
+              align-items: center;
+              font-size: 12px;
+              color: white;
+
+              span {
+                display: flex;
+                align-items: center;
+              }
+
+              span:nth-child(1) {
+                margin-right: 3px;
+              }
+            }
+          }
+
+          &-notFoundedBox {
+            height: 45px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: $firstColor;
+            color: $redColor;
+            font-size: 14px;
+          }
+        }
+
+        &-input {
+          overflow: hidden;
+          position: absolute;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 45px;
+          background-color: $firstColor;
+
+          input {
+            padding-left: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            color: $blueColor;
+            font-style: italic;
+            border-bottom: 2px solid white;
+          }
+
+          input::placeholder {
+            color: $secondColor;
+          }
+
+          i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0 10px;
+            color: $secondColor;
+            border-bottom: 2px solid white;
+          }
+
+          &-answer {
+            width: 100%;
+            height: 45px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 100;
+            animation: answerResult 1.8s both;
+
+            p {
+              font-weight: bold;
+            }
+          }
+        }
+      }
     }
+  }
 }

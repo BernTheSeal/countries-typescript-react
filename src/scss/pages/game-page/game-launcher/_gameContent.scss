@@ -5,8 +5,8 @@
   align-items: center;
 
   &-title {
-    color: rgb(59, 59, 59);
-    font-size: 20px;
+    color: white;
+    font-size: 18px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -22,8 +22,8 @@
     div {
       padding: 4px 8px;
       border-radius: 4px;
-      background-color: #333;
-      color: rgb(201, 201, 201);
+      background-color: $firstColor;
+      color: white;
       font-size: 18px;
       font-weight: 600;
       font-style: italic;

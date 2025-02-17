@@ -44,8 +44,8 @@
     animation: containerAppear 0.3s;
     background-color: #1d1d1d;
     border-radius: 10px;
-    width: 1000px;
-    height: 600px;
+    width: 1280px;
+    height: 550px;
     overflow: auto;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -68,7 +68,7 @@
           letter-spacing: 3px;
           font-weight: 500;
           font-size: 26px;
-          color: gray;
+          color: $blueColor;
         }
 
         i {
@@ -128,7 +128,7 @@
 
         button {
           cursor: pointer;
-          background-color: #242689;
+          background-color: $blueColor;
           width: 100%;
           height: 100%;
           color: white;
@@ -169,7 +169,7 @@
 
 .fm-custom-game {
   button {
-    background-color: #242689;
+    background-color: $blueColor;
   }
   button:hover {
     background-color: #3032b9;
@@ -180,7 +180,7 @@
 .fm-default-game {
   border-right: 5px solid transparent;
   button {
-    background-color: #248939;
+    background-color: $greenColor;
   }
   button:hover {
     background-color: #2eb048;
