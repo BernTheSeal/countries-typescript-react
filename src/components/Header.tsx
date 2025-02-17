@@ -2,6 +2,7 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import { FunctionComponent, useEffect, useState, useRef } from "react";
 import { setBodyOverflow } from "../utils/setBodyOverflow";
 import useClickOutside from "../hooks/use-clickOutside";
+import { FaGithub } from "react-icons/fa";
 
 interface iHeaderProps {
   onPage: string;
@@ -44,7 +45,6 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
     { page: "Home", onClick: () => navigate("/") },
     { page: "Countries", onClick: () => navigate("/countries") },
     { page: "Games", onClick: () => navigate("/games") },
-    { page: "About me", onClick: () => navigate("/") },
   ];
 
   return (
@@ -78,6 +78,14 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                 {pages.page}
               </li>
             ))}
+
+            <a
+              href="https://github.com/BernTheSeal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub />
+            </a>
           </ul>
         </nav>
 
@@ -116,6 +124,13 @@ const Header: FunctionComponent<iHeaderProps> = (props) => {
                     {pages.page}
                   </li>
                 ))}
+                <a
+                  href="https://github.com/BernTheSeal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub />
+                </a>
               </ul>
             </nav>
           </div>
