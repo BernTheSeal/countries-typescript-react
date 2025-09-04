@@ -31,7 +31,7 @@ const SelectLanguages = ({
       .filter(Boolean);
 
     const uniqueLanguages = Array.from(new Set(allLanguages)).sort((a, b) =>
-      a.localeCompare(b)
+      a.name.localeCompare(b)
     );
 
     setLanguages(uniqueLanguages);

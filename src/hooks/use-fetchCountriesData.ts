@@ -4,17 +4,22 @@ import { CountryType } from "../types/countryType";
 import { countryFetchOptionsType } from "../types/countryFetchOptionsType";
 
 const useFetchCountriesData = (options?: countryFetchOptionsType) => {
-  const URL = "https://restcountries.com/v3.1/all";
+  const URL = "/api";
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [allCountries, setAllCountries] = useState<CountryType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [trigger, setTrigger] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(allCountries);
+  }, [allCountries]);
 
   const getCountries = async () => {
     setLoading(true);
     try {
       const { data } = await axios.get<CountryType[]>(URL);
       let filteredData = data;
+      console.log(filteredData);
       setAllCountries(filteredData);
 
       if (options?.populationValue) {
@@ -119,8 +124,8 @@ const useFetchCountriesData = (options?: countryFetchOptionsType) => {
   ): void => {
     const alphabeticalSortingArray = [...countries].sort((a, b) =>
       sortingOrder === "desc"
-        ? b.name.common.localeCompare(a.name.common)
-        : a.name.common.localeCompare(b.name.common)
+        ? b.name.localeCompare(a.name)
+        : a.name.localeCompare(b.name)
     );
     setCountries(alphabeticalSortingArray);
   };

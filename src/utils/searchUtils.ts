@@ -23,13 +23,13 @@ export const searchCountryUtils = (
   if (updatedValue.length > 0) {
     if (isAlphabetical) {
       const startWith = [...countries].filter((country) =>
-        normalizeString(country.name.common).startsWith(updatedValue)
+        normalizeString(country.name).startsWith(updatedValue)
       );
 
       const including = [...countries].filter(
         (country) =>
-          normalizeString(country.name.common).includes(updatedValue) &&
-          !normalizeString(country.name.common).startsWith(updatedValue)
+          normalizeString(country.name).includes(updatedValue) &&
+          !normalizeString(country.name).startsWith(updatedValue)
       );
 
       if (startWith.length > 0 || including.length > 0) {
@@ -37,7 +37,7 @@ export const searchCountryUtils = (
       }
     } else {
       const including = [...countries].filter((country) =>
-        normalizeString(country.name.common).includes(updatedValue)
+        normalizeString(country.name).includes(updatedValue)
       );
       if (including.length > 0) {
         return [...including];

@@ -1,5 +1,5 @@
 export interface CountryType {
-  name: Name;
+  name: string;
   tld: string[];
   cca2: string;
   ccn3: string;
@@ -34,12 +34,6 @@ export interface CountryType {
   startOfWeek: string;
   capitalInfo: CapitalInfo;
   postalCode: PostalCode;
-}
-
-export interface Name {
-  common: string;
-  official: string;
-  nativeName: NativeName;
 }
 
 export interface NativeName {

@@ -23,7 +23,7 @@ const SortingTypeContent = ({
   area: (
     <div>
       <p>
-        {country.area.toLocaleString()}
+        {country.area?.toLocaleString()}
         <span>
           km<sup>2</sup>
         </span>

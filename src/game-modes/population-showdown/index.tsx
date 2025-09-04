@@ -282,7 +282,7 @@ const PopulationShowdown = () => {
                 <div className="ps-container-game-card-info">
                   <div className="ps-container-game-card-info-firts-div">
                     <img src={countries[currentIndex].flags.png} alt="" />
-                    <h3>{countries[currentIndex].name.common}</h3>
+                    <h3>{countries[currentIndex].name}</h3>
                   </div>
                   <div>
                     <p> has</p>
@@ -301,7 +301,7 @@ const PopulationShowdown = () => {
                 <div className="ps-container-game-card-info">
                   <div className="ps-container-game-card-info-firts-div">
                     <img src={countries[currentIndex + 1].flags.png} alt="" />
-                    <h3>{countries[currentIndex + 1].name.common}</h3>
+                    <h3>{countries[currentIndex + 1].name}</h3>
                   </div>
                   <div>
                     <p> has</p>
@@ -321,9 +321,7 @@ const PopulationShowdown = () => {
                     )}
                     <p>
                       population{" "}
-                      {!isClick
-                        ? `than ${countries[currentIndex].name.common}`
-                        : ""}
+                      {!isClick ? `than ${countries[currentIndex].name}` : ""}
                     </p>
                   </div>
                 </div>
@@ -336,7 +334,7 @@ const PopulationShowdown = () => {
                 <div className="ps-container-game-card-info">
                   <img src={countries[currentIndex + 2].flags.png} alt="" />
                   <div>
-                    <h3>{countries[currentIndex + 2].name.common}</h3>
+                    <h3>{countries[currentIndex + 2].name}</h3>
                     <p>
                       {countries[currentIndex + 2].population.toLocaleString()}
                     </p>

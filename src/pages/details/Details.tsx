@@ -37,11 +37,9 @@ const Details = () => {
   useEffect(() => {
     const getCountry = async () => {
       try {
-        const { data } = await axios.get<CountryType[]>(
-          `https://restcountries.com/v3.1/all`
-        );
+        const { data } = await axios.get<CountryType[]>(`/api`);
         const currentCountry = data.find((country) => {
-          return country.name.common === name;
+          return country.name === name;
         });
         setCurrentCountry([currentCountry]);
       } catch {
@@ -55,9 +53,7 @@ const Details = () => {
     if (currentCountry && currentCountry.length > 0) {
       const fetchData = async () => {
         try {
-          const { data } = await axios.get<CountryType[]>(
-            "https://restcountries.com/v3.1/all"
-          );
+          const { data } = await axios.get<CountryType[]>("/api");
 
           //* Set languages
           const languages = currentCountry[0].languages;
@@ -68,7 +64,7 @@ const Details = () => {
           data
             .sort((a, b) => b.population - a.population)
             .find((country, index) => {
-              if (country.name.common === currentCountry[0].name.common) {
+              if (country.name === currentCountry[0].name) {
                 setRank(index + 1);
               }
             });
@@ -124,7 +120,7 @@ const Details = () => {
       {currentCountry && currentCountry.length > 0 && (
         <div className="details-page">
           <div className="details-page-name">
-            <h2>{currentCountry[0].name.common}</h2>
+            <h2>{currentCountry[0].name}</h2>
             <h3>{currentCountry[0].capital}</h3>
           </div>
           <div className="details-page-flag">
@@ -136,9 +132,9 @@ const Details = () => {
               <h4>Languages</h4>
             </div>
             <ol>
-              {languages.map((language: string) => (
+              {languages?.map((language: any) => (
                 <li>
-                  <span>{language}</span>
+                  <span>{language.name}</span>
                 </li>
               ))}
             </ol>
@@ -305,17 +301,12 @@ const Details = () => {
               </div>
             </div>
           </div>
-          {currentCountry[0].coatOfArms.png && (
-            <div className="details-page-coa">
-              <img src={currentCountry[0].coatOfArms.png} alt="coatofarms" />
-              <h4>Coat of Arms</h4>
-            </div>
-          )}
+
           <div className="details-page-area">
             <i className="fa-solid fa-mountain-sun"></i>
             <p>
               {" "}
-              <span>{currentCountry[0].name.common}</span>, with an area of{" "}
+              <span>{currentCountry[0].name}</span>, with an area of{" "}
               <span>{currentCountry[0].area.toLocaleString()}</span> square
               kilometers, ranks as the <span>{areaRank}th</span> largest country
               in the world.
@@ -336,7 +327,7 @@ const Details = () => {
                       >
                         <div>
                           <img src={border.flags.png} alt="" />
-                          <p> {border.name.common} </p>
+                          <p> {border.name} </p>
                         </div>
                         <div className="hidden">
                           <i className="fa-solid fa-mountain-sun"></i>

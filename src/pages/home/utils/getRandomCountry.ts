@@ -5,7 +5,7 @@ const getRandomCountry = (countries: CountryType[]) => {
   return (
     countries && {
       flag: randomCountry.flags.png,
-      name: randomCountry.name.common,
+      name: randomCountry.name,
     }
   );
 };

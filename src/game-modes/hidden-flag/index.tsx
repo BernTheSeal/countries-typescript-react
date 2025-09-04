@@ -92,7 +92,7 @@ const HiddenFlag = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchCountries.length > 0) {
-      handleAnswer(searchCountries[0].name.common);
+      handleAnswer(searchCountries[0].name);
     }
   };
 
@@ -164,7 +164,7 @@ const HiddenFlag = () => {
       setInputValue("");
       setIsAnswered(true);
       setHiddenArray([]);
-      if (countries && countries[currentIndex].name.common == answer) {
+      if (countries && countries[currentIndex].name == answer) {
         setIsAnswerCorrect(true);
         setScore((prev) => {
           if (currentScore === 10) {
@@ -383,13 +383,13 @@ const HiddenFlag = () => {
                     searchCountries.map(
                       (country: CountryType, index: number) => (
                         <div
-                          onClick={() => handleAnswer(country.name.common)}
+                          onClick={() => handleAnswer(country.name)}
                           className="hf-container-game-content-footer-search-countryBox"
                           key={index}
                         >
                           <div className="hf-container-game-content-footer-search-countryBox-name">
                             {" "}
-                            {country.name.common}
+                            {country.name}
                           </div>
                           {index === 0 && (
                             <div className="hf-container-game-content-footer-search-countryBox-enter">

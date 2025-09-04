@@ -58,7 +58,7 @@ const CountriesContainer: FunctionComponent<CountriesContainerProps> = ({
 
       {filteredCountries.map((country: CountryType, index) => {
         const originalIndex =
-          countries.findIndex((c) => c.name.common === country.name.common) + 1;
+          countries.findIndex((c) => c.name === country.name) + 1;
         const isDesc = sortingOptions.sortingOrder === "desc";
 
         return (

@@ -55,26 +55,24 @@ const CountryCard: FunctionComponent<CountryCardProps> = ({
   };
 
   const handleSortingDetailContentList = (clickedCountry: CountryType) => {
-    if (
-      selectedCountry.toLowerCase() === clickedCountry.name.common.toLowerCase()
-    ) {
+    if (selectedCountry.toLowerCase() === clickedCountry.name.toLowerCase()) {
       setSelectedCountry("");
       setSortingDetailContentList([]);
     } else {
       switch (sortingType) {
         case "neighbors":
           if (!clickedCountry.borders) return;
-          setSelectedCountry(clickedCountry.name.common.toLowerCase());
+          setSelectedCountry(clickedCountry.name.toLowerCase());
           const countriesNames = countries.filter((country: CountryType) =>
             clickedCountry.borders.includes(country.cca3)
           );
           setSortingDetailContentList(
-            countriesNames.map((country: CountryType) => country.name.common)
+            countriesNames.map((country: CountryType) => country.name)
           );
           break;
         case "languages":
           if (!clickedCountry.languages) return;
-          setSelectedCountry(clickedCountry.name.common.toLowerCase());
+          setSelectedCountry(clickedCountry.name.toLowerCase());
           const languages = Object.values(clickedCountry.languages);
           setSortingDetailContentList(languages);
           break;
@@ -88,7 +86,7 @@ const CountryCard: FunctionComponent<CountryCardProps> = ({
   return (
     <div className="countryCard">
       <div
-        onClick={() => navigate(country.name.common)}
+        onClick={() => navigate(country.name)}
         className="countryCard-container"
       >
         {sortingType !== "alphabetical" && (
@@ -99,7 +97,7 @@ const CountryCard: FunctionComponent<CountryCardProps> = ({
         </div>
         <div
           className={`countryCard-container-content ${
-            selectedCountry === country.name.common.toLowerCase()
+            selectedCountry === country.name.toLowerCase()
               ? "selectedContent"
               : ""
           }`}
@@ -111,7 +109,7 @@ const CountryCard: FunctionComponent<CountryCardProps> = ({
                 : "sortingTypeInactive"
             }`}
           >
-            <h2>{highlightMatch(country.name.common, searchValue)}</h2>
+            <h2>{highlightMatch(country.name, searchValue)}</h2>
             <h3 style={{ marginTop: country.capital ? "-8px" : "0px" }}>
               {country.capital}
             </h3>
@@ -122,7 +120,7 @@ const CountryCard: FunctionComponent<CountryCardProps> = ({
             ]}
         </div>
       </div>
-      {selectedCountry === country.name.common.toLowerCase() && (
+      {selectedCountry === country.name.toLowerCase() && (
         <SortingDetailContent
           sortingDetailContentList={sortingDetailContentList}
         />

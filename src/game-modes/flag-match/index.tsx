@@ -97,7 +97,7 @@ const FlagMatch = () => {
         currentIndex,
         currentIndex + numberOfFLag
       )[Math.floor(Math.random() * numberOfFLag)];
-      setSelectedCountry(selectedCountry.name.common);
+      setSelectedCountry(selectedCountry.name);
       setTimeout(() => {
         setIsFlagAnimation(false);
       }, 300);
@@ -181,7 +181,7 @@ const FlagMatch = () => {
                           : "fm-flag-animation-appear"
                       }`}
                       disabled={isClick}
-                      onClick={() => handleAnswer(country.name.common, index)}
+                      onClick={() => handleAnswer(country.name, index)}
                     >
                       <img src={country.flags.png} alt="flag" />
                       {isClick && index === clickedIndex && (
